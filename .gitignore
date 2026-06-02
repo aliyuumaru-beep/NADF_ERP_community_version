@@ -1,0 +1,26 @@
+# Odoo runtime
+*.pyc
+__pycache__/
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Database dumps and backups (never in Git)
+*.dump
+*.dump.gz
+*.dump.zip
+*.tar.gz
+backups/
+
+# Credentials
+*.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+
+# Odoo filestore (always external)
+filestore/
