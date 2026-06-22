@@ -222,5 +222,103 @@ nadf.conf sets `http_port = 8071`. All NADF access uses `http://localhost:8071`.
 
 ---
 
+## DEC-RECOVERY-001 — Recover `nadf_vendor_onboarding` into the NADF Deployment Layer
+
+**Date:** 2026-06-22
+**Type:** GOVERNANCE / LAYERING
+**Status:** ACTIVE
+**Made By:** A1 Software Factory Orchestrator (M-C)
+
+### Decision
+Recover the `nadf_vendor_onboarding` custom module from the FamOil working tree (where it existed only as **untracked** files, in no repository and with no backup) into `nadf_erp/custom_addons/nadf_vendor_onboarding/`, and commit it to the NADF deployment repository.
+
+### Context
+The module was built during legacy Phase 9 but was never committed to any repository — it lived as untracked files under `/Users/mac/odoo17/custom_addons/` (the FamOil repo's working tree). This was the single CRITICAL data-loss exposure recorded as risk MR-01.
+
+### Rationale
+- Closes MR-01 (orphaned production code, no backup).
+- Restores the Project Layering Model: NADF (Layer 4) assets belong in the NADF deployment repository, not in another client's working tree.
+- Recovery verified byte-identical by SHA-256 manifest comparison (12/12 files) — see `docs/MC_RECOVERY_INTEGRITY.md`.
+
+### Consequences
+Module is now version-controlled in NADF and will be pushed offsite (Step 9). The untracked FamOil copy is removed in M-C Section C **after** integrity PASS was recorded. No functional re-validation (install) was performed in M-C — that is deferred to M1 ratification.
+
+---
+
+## DEC-RECOVERY-002 — Relocate `nadf_facilities_management` out of the FamOil Repository
+
+**Date:** 2026-06-22
+**Type:** GOVERNANCE / LAYERING
+**Status:** ACTIVE
+**Made By:** A1 Software Factory Orchestrator (M-C)
+
+### Decision
+Relocate the `nadf_facilities_management` custom module from the **famoil-erp** repository (committed at `odoo17@55c1787`, unpushed) into `nadf_erp/custom_addons/nadf_facilities_management/`, and remove it from the FamOil repository via a forward `git rm` removal commit (Decision D-1: forward removal, not history rewrite).
+
+### Context
+A NADF (Layer 4) module had been committed inside the FamOil (Layer 4) deployment repository — a cross-layer contamination breach of the Project Layering Model, recorded as risk MR-02. The contaminating commit `55c1787` had not been pushed to any remote, so removal is local-only and low-risk.
+
+### Rationale
+- Closes MR-02 (cross-contamination breach).
+- Forward removal preserves FamOil history and avoids rewriting another pod's repository.
+- Recovery verified byte-identical by SHA-256 manifest comparison (33/33 files, matching the 33-file footprint of `55c1787`) — see `docs/MC_RECOVERY_INTEGRITY.md`.
+- A `.gitignore` guard (`custom_addons/nadf_*`) is added to the FamOil repo to prevent recurrence.
+
+### Consequences
+Provenance recorded as `odoo17@55c1787`. FamOil HEAD no longer contains the module; `55c1787` remains in FamOil history/reflog as the audit trail. No functional re-validation performed in M-C (deferred to M1).
+
+---
+
+## DEC-PLATFORM-001 — Odoo 17 Community Edition Confirmed and Version-Locked
+
+**Date:** 2026-06-22
+**Type:** PLATFORM / TECHNOLOGY
+**Status:** ACTIVE
+**Made By:** A1 Software Factory Orchestrator (M-C) — supersedes the assumption-level confirmation in DEC-002 with audited evidence
+
+### Decision
+Confirm and version-lock the platform as **Odoo 17 Community Edition**. The platform profile `23_PLATFORM_PROFILE_ODOO17_COMMUNITY.md` is the bound profile for POD-NADF. Zero prohibited Enterprise modules are installed.
+
+### Context
+Governance Activation Gate E requires an audited confirmation that the platform is Community and free of Enterprise modules, recorded in the Decision Log.
+
+### Evidence (read-only audit of the `NADF` database, 2026-06-22)
+- 94 modules installed; query against the prohibited Enterprise list returned only `spreadsheet` and `spreadsheet_dashboard`.
+- Both are **author = Odoo S.A., license = LGPL-3, category = Hidden**, shipped in the **Community core addons path** (`odoo/odoo/addons/`) — i.e. CE technical modules, **not** Enterprise. The Enterprise-only `documents_spreadsheet` is **not** installed.
+- `account_accountant` (an Enterprise marker module) is **absent**, confirming Community Edition.
+
+### Decision outcome
+**No prohibited Enterprise modules present. Gate E: PASS.** No removal action required. Any future need for Enterprise-only capability must follow the platform profile approach order (Native → Config → OCA → SF modules → Custom) and be escalated, never assumed.
+
+### Consequences
+Platform locked to Odoo 17 CE. The blueprint's name-based caution on `spreadsheet_dashboard` is resolved: the installed variant is the LGPL-3 CE base, not the Enterprise edition.
+
+---
+
+## DEC-BACKUP-001 — Backup Cadence and Recovery Objectives (RPO/RTO)
+
+**Date:** 2026-06-22
+**Type:** OPERATIONS / GOVERNANCE
+**Status:** ACTIVE
+**Made By:** A1 Software Factory Orchestrator (M-C)
+
+### Decision
+Adopt the backup cadence and recovery objectives defined in `docs/BACKUP_STRATEGY.md`:
+- **Cadence:** daily automated backup of the `NADF` database **coordinated with** the filestore (`~/Library/Application Support/Odoo/filestore/NADF`); 30-day retention.
+- **RPO (Recovery Point Objective):** ≤ 24 hours (maximum acceptable data loss).
+- **RTO (Recovery Time Objective):** ≤ 4 hours (maximum acceptable downtime to restore service).
+
+### Context
+Risk MR-05: the `NADF` database (10 phases of configuration) had never been backed up and no restore had ever been drilled. Governance Activation Gate D requires a documented backup strategy, a documented restore procedure, and a recent verified backup.
+
+### Rationale
+- Closes MR-05; satisfies Gate D.
+- Database-and-filestore coordination is mandatory per the Backup & Recovery Governance Standard (`20`) — a DB backup without the matching filestore is an incomplete backup.
+
+### Consequences
+First full backup taken and a restore drill performed during M-C (recorded in the `BACKUP_STRATEGY.md` Drill Log; migrates to `IMPLEMENTATION_HISTORY.md` in M-D). Backups are stored under `backups/` (gitignored — never committed).
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
