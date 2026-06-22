@@ -95,10 +95,10 @@
 | Monitoring & Evaluation | ⏳ Pending | ⏳ Not started | Awaiting TO-BE + custom module |
 | Executive Management | ⏳ Pending | ⏳ Not started | Awaiting TO-BE delivery |
 
-**Custom modules (verified M-B):**
-- `nadf_facilities_management` — built and **committed in the `famoil-erp` repo** (commit `55c1787`); mis-located (Layer-4 cross-contamination — recovery is M-C).
-- `nadf_vendor_onboarding` — built but **untracked** in `/Users/mac/odoo17/custom_addons/` (genuine recovery target — M-C).
-- `nadf_erp/custom_addons/` is currently **empty**.
+**Custom modules (M-C recovery complete, 2026-06-22):**
+- `nadf_facilities_management` — **recovered** into `nadf_erp/custom_addons/` (commit `4ccb306`); integrity PASS 33/33; **removed from `famoil-erp`** (commit `9a16f74`) + `nadf_*` guard. Cross-contamination closed (MR-02, `DEC-RECOVERY-002`).
+- `nadf_vendor_onboarding` — **recovered** into `nadf_erp/custom_addons/` (commit `a9738b4`); integrity PASS 12/12. Orphan/data-loss exposure closed (MR-01, `DEC-RECOVERY-001`).
+- `nadf_erp/custom_addons/` now holds both modules, version-controlled and pushed to GitHub (`phase/0-governance`). Functional re-validation (install) deferred to M1 ratification — **still unratified**.
 
 **Overall programme completion (v2.1 12-department / 6-module scope):** ~20% — legacy MVP covers ~4 departments' foundation + 2 custom modules against the full reframed scope.  
 **Legacy MVP configuration delivered (out of governance sequence):** Phases 0–8 + 2 custom modules — built, **not ratified**.
@@ -151,9 +151,9 @@
 
 | ID | Blocker | Owner | Impact |
 |----|---------|-------|--------|
-| B-01 | Platform audit not run — Enterprise module presence unknown | Claude Code | Gate E / `WP-GOV-01`; blocks milestone exit (`DEC-PLATFORM-001`) |
-| B-05 | No backup strategy documented or confirmed | Claude Code | Blocks Governance Gate D (Backup) — milestone exit criterion |
-| B-06 | GitHub branch protection and CI status — remote empty, never pushed | Claude Code | Blocks Governance Gate B (GitHub) — milestone exit criterion |
+| B-01 | ✅ **RESOLVED (M-C)** — platform audit run; 0 prohibited Enterprise modules; `DEC-PLATFORM-001` logged | Claude Code | Gate E PASS |
+| B-05 | ✅ **RESOLVED (M-C)** — `docs/BACKUP_STRATEGY.md` + first backup + restore drill PASS | Claude Code | Gate D PASS |
+| B-06 | 🟡 **PARTIAL (M-C)** — `main` + `phase/0-governance` pushed; `main` branch protection applied; **CI workflow deferred to M-D** | Claude Code | Gate A PASS; Gate B (CI) remains M-D |
 
 ### 8.2 Future Phase-1 Dependencies — do NOT block current milestone
 
@@ -203,8 +203,8 @@ verified against the actual repository tree.
 | `PROJECT_STATE.md` (root) | ✅ Present — this file (reconciled M-B) |
 | `MILESTONE_TRACKER.md` (root) | ✅ Present — created M-B |
 | `BACKLOG.md` | ✅ Present at `planning/BACKLOG.md` (linkage verified M-B) |
-| `DECISION_LOG.md` | ⚠️ Present at `docs/DECISION_LOG.md` — 8 architecture entries (DEC-001…008); platform/module entries pending (M-C/M-D) |
-| `RISK_REGISTER.md` | ❌ Not created — closure-tier (M-C) |
+| `DECISION_LOG.md` | ✅ Present at `docs/DECISION_LOG.md` — 8 architecture entries + 4 M-C entries (`DEC-PLATFORM-001`, `DEC-RECOVERY-001/002`, `DEC-BACKUP-001`) |
+| `RISK_REGISTER.md` | ✅ **Created (M-C)** — root; MR-01…12 + R-01…07 with closures |
 | `CHANGELOG.md` | ❌ Not created — closure-tier (M-D) |
 | `IMPLEMENTATION_HISTORY.md` | ❌ Not created — closure-tier (M-D) |
 | `MODULE_REGISTRY.md` | ❌ Not created — closure-tier (M-D) |
@@ -219,11 +219,12 @@ verified against the actual repository tree.
 | `docs/GOVERNANCE_COMPLIANCE_AUDIT.md` | ✅ Present (2026-06-13; Maturity Level 0) |
 | `docs/NEXT_ACTION.md` | ✅ Present |
 | `docs/CHANGE_SUMMARY.md` | ✅ Present (coverage closure 2026-06-21) |
-| `docs/BACKUP_STRATEGY.md` | ❌ Not created — required (M-C) |
-| `docs/GOVERNANCE_GATE_REPORT.md` | ❌ Not created — required (M-C) |
+| `docs/BACKUP_STRATEGY.md` | ✅ **Created (M-C)** — with first restore-drill record |
+| `docs/GOVERNANCE_GATE_REPORT.md` | ✅ **Created (M-C)** — baseline 21-check report |
+| `docs/MC_RECOVERY_INTEGRITY.md` | ✅ **Created (M-C)** — SHA-256 recovery integrity evidence |
 | Department status files (12) | ❌ Not in repo — exist only in the quarantined scaffold zip (non-authoritative) |
 
-**Governance Gate overall status:** ⚠️ NOT YET RUN — Gate B (GitHub: empty remote, no branch protection) and Gate D (Backup: none) expected to FAIL. Scheduled for M-C.
+**Governance Gate overall status (M-C baseline, 2026-06-22):** Gate **A PASS** (repo + remote + protection + feature-branch workflow), **D PASS** (backup + drill), **E PASS** (platform confirmed, 0 Enterprise modules, capability map + coverage on file). Gate **B (CI/CD): FAIL — deferred to M-D**. Gate **C (governance docs): PARTIAL** — closure-tier docs (`CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `README`/`CLAUDE.md`) deferred to M-D. **Full 21/21 PASS targeted at end of M-D, before PEG-6.** See `docs/GOVERNANCE_GATE_REPORT.md`.
 
 ---
 

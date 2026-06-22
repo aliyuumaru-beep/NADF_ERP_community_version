@@ -46,8 +46,8 @@ milestone can be formally closed.
 | Active milestone | **M0 — Initiation** / ROADMAP Phase 0 — Governance Remediation |
 | Milestone ID | `M-PLATFORM-CORRECTION` |
 | Active Work Package | `WP-GOV-01` (→ `BL-GOV-01`, `BL-GOV-02`) |
-| Status | 🔄 In progress (M-B bootstrap-enable complete; M-C/M-D pending) |
-| Exit criteria | Zero Enterprise modules confirmed; all five Governance Gates PASS; `DEC-PLATFORM-001` logged; remote pushed + protected; backups + one restore drill |
+| Status | 🔄 In progress (M-B complete; **M-C complete** — recovery + Gates A/D/E + backup; M-D pending — CI + closure-tier docs) |
+| Exit criteria | Zero Enterprise modules confirmed ✅; Governance Gates A/D/E PASS ✅ (B/C → M-D); `DEC-PLATFORM-001` logged ✅; remote pushed + `main` protected ✅; backup + one restore drill ✅ |
 
 ---
 
@@ -90,3 +90,4 @@ Until then, downstream work is tracked as **"built / unratified,"** never as **"
 | Date | Change | By |
 |------|--------|-----|
 | 2026-06-21 | File created during Migration Sequence M-B; triple milestone mapping established; legacy build recorded as built-but-unratified | A1 Orchestrator |
+| 2026-06-22 | **M-C executed**: both custom modules recovered to NADF layer (integrity PASS 12/12 + 33/33); FamOil contamination removed; backup + restore drill PASS; `main` pushed + protected; Gates A/D/E PASS; `RISK_REGISTER` + 4 DEC entries added. M-C complete; M-D pending (CI + closure-tier docs). | A1 Orchestrator |
