@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Module category -->
+        <record id="module_category_nadf_vendor" model="ir.module.category">
+            <field name="name">NADF Vendor Onboarding</field>
+            <field name="sequence">75</field>
+        </record>
+
+        <!-- Vendor Officer: can create and manage applications; cannot approve/reject -->
+        <record id="group_vendor_officer" model="res.groups">
+            <field name="name">Vendor Officer</field>
+            <field name="category_id" ref="module_category_nadf_vendor"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Vendor Manager: full access including approve/reject; implies officer rights -->
+        <record id="group_vendor_manager" model="res.groups">
+            <field name="name">Vendor Manager</field>
+            <field name="category_id" ref="module_category_nadf_vendor"/>
+            <field name="implied_ids" eval="[(4, ref('group_vendor_officer'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>

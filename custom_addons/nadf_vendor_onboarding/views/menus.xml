@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level menu (placed after Purchase at sequence 75) -->
+    <menuitem id="menu_vendor_onboarding_root"
+              name="Vendor Onboarding"
+              sequence="75"
+              groups="nadf_vendor_onboarding.group_vendor_officer"/>
+
+    <!-- All applications -->
+    <menuitem id="menu_vendor_application_all"
+              name="All Applications"
+              parent="menu_vendor_onboarding_root"
+              action="action_vendor_application"
+              sequence="10"/>
+
+    <!-- Pending review shortcut -->
+    <menuitem id="menu_vendor_application_pending"
+              name="Pending Review"
+              parent="menu_vendor_onboarding_root"
+              action="action_vendor_application_pending"
+              sequence="20"/>
+</odoo>
