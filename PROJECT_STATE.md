@@ -2,12 +2,13 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-21  
+**Last updated:** 2026-06-22  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  
 **Maintained by:** A1 Software Factory Orchestrator / Claude Code (update after every milestone)  
-**Reconciliation note (M-B, 2026-06-21):** Section 10 corrected to repository ground truth; Section 4 build status refreshed against verified Git/Odoo evidence; platform profile bound; Section 11 repository status refreshed post-discovery; milestone state aligned to `MILESTONE_TRACKER.md`.
+**Reconciliation note (M-B, 2026-06-21):** Section 10 corrected to repository ground truth; Section 4 build status refreshed against verified Git/Odoo evidence; platform profile bound; Section 11 repository status refreshed post-discovery; milestone state aligned to `MILESTONE_TRACKER.md`.  
+**Blocker reclassification (2026-06-22, pre-M-C):** Section 8 restructured — single blocker `B-04` split into `B-04A…B-04G` and reclassified as **Future Department Requirements Dependencies**; Procurement client items (`B-02`/`B-03`) moved to **Future Phase-1 Dependencies**; the Active Blocker list now contains only current-milestone (M0) blockers (`B-01`, `B-05`, `B-06`).
 
 ---
 
@@ -144,14 +145,36 @@
 
 ## 8. OPEN BLOCKERS
 
+**Scoping rule (applied 2026-06-22):** This section lists **only blockers that prevent execution of the current milestone** (M0 — Governance Remediation / `M-PLATFORM-CORRECTION`). Items that gate future phases are tracked in §8.2 and §8.3 so they do not distort current-milestone readiness.
+
+### 8.1 Active Blockers — current milestone (M0 Governance Remediation)
+
 | ID | Blocker | Owner | Impact |
 |----|---------|-------|--------|
-| B-01 | Platform audit not run — Enterprise module presence unknown | Claude Code | Blocks all ERP configuration work |
-| B-02 | Procurement: RACI on step 1.19 (DEC-PROC-01) awaiting client confirmation | Client | Blocks full procurement approval chain build |
-| B-03 | Procurement: approval threshold values not confirmed by client | Client | Blocks purchase_request approval limit configuration |
-| B-04 | TO-BE specifications for 7 departments not yet delivered | Claude Desktop | Blocks Odoo build for those departments |
-| B-05 | No backup strategy documented or confirmed | Claude Code | Blocks Governance Gate D (Backup) |
-| B-06 | GitHub branch protection and CI status unknown | Claude Code | Blocks Governance Gate B (GitHub) |
+| B-01 | Platform audit not run — Enterprise module presence unknown | Claude Code | Gate E / `WP-GOV-01`; blocks milestone exit (`DEC-PLATFORM-001`) |
+| B-05 | No backup strategy documented or confirmed | Claude Code | Blocks Governance Gate D (Backup) — milestone exit criterion |
+| B-06 | GitHub branch protection and CI status — remote empty, never pushed | Claude Code | Blocks Governance Gate B (GitHub) — milestone exit criterion |
+
+### 8.2 Future Phase-1 Dependencies — do NOT block current milestone
+
+| ID | Dependency | Owner | Gates |
+|----|-----------|-------|-------|
+| B-02 | Procurement: RACI on step 1.19 (DEC-PROC-01) awaiting client confirmation | Client | Phase 1 — `BL-PROC-03` (approval chain) |
+| B-03 | Procurement: approval threshold values not confirmed by client | Client | Phase 1 — `BL-PROC-05` (PO approval limits) |
+
+### 8.3 Future Department Requirements Dependencies — do NOT block current milestone
+
+*Formerly the single blocker **B-04** ("TO-BE specifications for 7 departments not yet delivered"). Split per department on 2026-06-22 and reclassified — each closes independently when its Detailed TO-BE is delivered. None blocks Phase 0/1 or the two TO-BE-independent Phase-2 specs (`BL-SPEC-02`, `BL-SPEC-03`). See §7 R-02 (sequencing risk) and §9 E-03 (Investment BRQ).*
+
+| ID | Department (Capability) | Missing requirement | Owner | Gates |
+|----|------------------------|---------------------|-------|-------|
+| B-04A | Legal Services Unit (CA-06) | Legal Detailed TO-BE P4–P6 — contract sign-off sequence + RACI | Claude Desktop | `BL-SPEC-04`, `BL-LSU-01` |
+| B-04B | Strategy & Planning (CA-07) | Strategy Detailed TO-BE + AC-07 criteria + impl confirmation (`project` repurposed?) | Claude Desktop | `BL-STR-01` |
+| B-04C | Communications (CA-08) | Comms Detailed TO-BE + AC-08 criteria + module choice (`helpdesk_mgmt` vs `project`) | Claude Desktop | `BL-COM-01` |
+| B-04D | Sustainable Agriculture (CA-09) | SA Detailed TO-BE + AC-09 criteria + Investment-overlap resolution | Claude Desktop | `BL-SA-01` |
+| B-04E | Investment (CA-10) | Investment Detailed TO-BE + client Business Requirements session (see §9 E-03) | Claude Desktop + Client | `BL-SPEC-05`, `BL-INV-01` |
+| B-04F | Monitoring & Evaluation (CA-11) | M&E Detailed TO-BE — indicator framework / targets | Claude Desktop | `BL-SPEC-06`, `BL-ME-01` |
+| B-04G | Executive Management (CA-12) | Exec Detailed TO-BE — KPI set + cross-dept roll-up + approval visibility | Claude Desktop | `BL-EXEC-01` |
 
 ---
 
