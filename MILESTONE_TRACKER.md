@@ -46,8 +46,8 @@ milestone can be formally closed.
 | Active milestone | **M0 — Initiation** / ROADMAP Phase 0 — Governance Remediation |
 | Milestone ID | `M-PLATFORM-CORRECTION` |
 | Active Work Package | `WP-GOV-01` (→ `BL-GOV-01`, `BL-GOV-02`) |
-| Status | 🔄 In progress (M-B complete; **M-C complete** — recovery + Gates A/D/E + backup; M-D pending — CI + closure-tier docs) |
-| Exit criteria | Zero Enterprise modules confirmed ✅; Governance Gates A/D/E PASS ✅ (B/C → M-D); `DEC-PLATFORM-001` logged ✅; remote pushed + `main` protected ✅; backup + one restore drill ✅ |
+| Status | 🔄 In progress (M-B ✅; M-C ✅; **M-D ✅** — CI + closure-tier docs; Governance Gate **21/21 PASS**). Awaiting: `main`-fold PR merge + PEG-6 Product Approval to formally close M0. |
+| Exit criteria | Zero Enterprise modules ✅; **Governance Gate 21/21 PASS** ✅; `DEC-PLATFORM-001` ✅; remote pushed + `main` protected ✅; backup + restore drill ✅; closure-tier docs + CI ✅. **Open:** PR merge to `main`; PEG-6 signed Product Approval. |
 
 ---
 
@@ -91,3 +91,4 @@ Until then, downstream work is tracked as **"built / unratified,"** never as **"
 |------|--------|-----|
 | 2026-06-21 | File created during Migration Sequence M-B; triple milestone mapping established; legacy build recorded as built-but-unratified | A1 Orchestrator |
 | 2026-06-22 | **M-C executed**: both custom modules recovered to NADF layer (integrity PASS 12/12 + 33/33); FamOil contamination removed; backup + restore drill PASS; `main` pushed + protected; Gates A/D/E PASS; `RISK_REGISTER` + 4 DEC entries added. M-C complete; M-D pending (CI + closure-tier docs). | A1 Orchestrator |
+| 2026-06-23 | **M-D executed**: closure-tier docs authored (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`, `docs/PRODUCT_STATE_INDEX.md`); CI added (`ci.yml` + `ci_validate.py`, validated exit 0); Governance Gate re-run to **21/21 PASS**. M-D complete. Open: `main`-fold PR merge + PEG-6. | A1 Orchestrator |

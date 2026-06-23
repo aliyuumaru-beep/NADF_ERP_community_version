@@ -153,7 +153,7 @@
 |----|---------|-------|--------|
 | B-01 | ✅ **RESOLVED (M-C)** — platform audit run; 0 prohibited Enterprise modules; `DEC-PLATFORM-001` logged | Claude Code | Gate E PASS |
 | B-05 | ✅ **RESOLVED (M-C)** — `docs/BACKUP_STRATEGY.md` + first backup + restore drill PASS | Claude Code | Gate D PASS |
-| B-06 | 🟡 **PARTIAL (M-C)** — `main` + `phase/0-governance` pushed; `main` branch protection applied; **CI workflow deferred to M-D** | Claude Code | Gate A PASS; Gate B (CI) remains M-D |
+| B-06 | ✅ **RESOLVED (M-D)** — pushed + `main` protected; CI workflow added (`ci.yml`) and validated | Claude Code | Gate A + Gate B PASS |
 
 ### 8.2 Future Phase-1 Dependencies — do NOT block current milestone
 
@@ -205,9 +205,9 @@ verified against the actual repository tree.
 | `BACKLOG.md` | ✅ Present at `planning/BACKLOG.md` (linkage verified M-B) |
 | `DECISION_LOG.md` | ✅ Present at `docs/DECISION_LOG.md` — 8 architecture entries + 4 M-C entries (`DEC-PLATFORM-001`, `DEC-RECOVERY-001/002`, `DEC-BACKUP-001`) |
 | `RISK_REGISTER.md` | ✅ **Created (M-C)** — root; MR-01…12 + R-01…07 with closures |
-| `CHANGELOG.md` | ❌ Not created — closure-tier (M-D) |
-| `IMPLEMENTATION_HISTORY.md` | ❌ Not created — closure-tier (M-D) |
-| `MODULE_REGISTRY.md` | ❌ Not created — closure-tier (M-D) |
+| `CHANGELOG.md` | ✅ **Created (M-D)** — root |
+| `IMPLEMENTATION_HISTORY.md` | ✅ **Created (M-D)** — root; includes RESTORE_EVENT log |
+| `MODULE_REGISTRY.md` | ✅ **Created (M-D)** — root |
 
 ### Supporting governance / planning files (verified present)
 | Document | Status |
@@ -224,7 +224,7 @@ verified against the actual repository tree.
 | `docs/MC_RECOVERY_INTEGRITY.md` | ✅ **Created (M-C)** — SHA-256 recovery integrity evidence |
 | Department status files (12) | ❌ Not in repo — exist only in the quarantined scaffold zip (non-authoritative) |
 
-**Governance Gate overall status (M-C baseline, 2026-06-22):** Gate **A PASS** (repo + remote + protection + feature-branch workflow), **D PASS** (backup + drill), **E PASS** (platform confirmed, 0 Enterprise modules, capability map + coverage on file). Gate **B (CI/CD): FAIL — deferred to M-D**. Gate **C (governance docs): PARTIAL** — closure-tier docs (`CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `README`/`CLAUDE.md`) deferred to M-D. **Full 21/21 PASS targeted at end of M-D, before PEG-6.** See `docs/GOVERNANCE_GATE_REPORT.md`.
+**Governance Gate overall status (M-D final, 2026-06-23): ✅ PASS 21/21.** All five gates green — A (repo+protection), B (CI: `.github/workflows/ci.yml` + `scripts/ci_validate.py`, validated locally exit 0), C (all governance + Repository-Standard docs present incl. `README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, `docs/PRODUCT_STATE_INDEX.md`), D (backup+drill), E (platform/coverage). See `docs/GOVERNANCE_GATE_REPORT.md`. **Remaining for M0 closure (not gate checks):** merge `phase/0-governance → main` PR (needs 1 non-author approval) + PEG-6 signed Product Approval.
 
 ---
 
