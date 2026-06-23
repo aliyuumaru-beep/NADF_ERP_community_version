@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ── Registration Form ─────────────────────────────────────────────────── -->
+    <template id="vendor_registration_form" name="NADF Vendor Registration Form">
+        <html lang="en">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>NADF — Vendor Registration</title>
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.min.css"/>
+                <style>
+                    body { background-color: #f0f4f8; }
+                    .nadf-header { background: #1a5276; color: #fff; padding: 18px 24px; border-radius: 6px 6px 0 0; }
+                    .nadf-header small { color: #aed6f1; font-size: 0.85em; }
+                    .nadf-card { max-width: 760px; margin: 40px auto; border-radius: 6px; box-shadow: 0 2px 12px rgba(0,0,0,.12); background: #fff; }
+                    .nadf-card .card-body { padding: 28px 32px; }
+                    .btn-nadf { background: #1a5276; color: #fff; }
+                    .btn-nadf:hover { background: #154360; color: #fff; }
+                    .section-label { font-size: .78em; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: #7f8c8d; margin-bottom: 12px; }
+                    hr.section-sep { border-color: #e8eaed; margin: 20px 0; }
+                </style>
+            </head>
+            <body>
+                <div style="max-width:760px;margin:40px auto;padding:0 16px">
+                    <div class="nadf-card">
+                        <div class="nadf-header">
+                            <h5 class="mb-0 fw-bold">NADF Vendor Registration Portal</h5>
+                            <small>National Agricultural Development Fund — Procurement Office</small>
+                        </div>
+                        <div class="card-body">
+                            <!-- General error -->
+                            <t t-if="error.get('general')">
+                                <div class="alert alert-danger py-2" t-esc="error['general']"/>
+                            </t>
+
+                            <form action="/vendor/register" method="post" enctype="multipart/form-data" novalidate="">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <p class="section-label">Company Information</p>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">
+                                        Company Name <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" name="company_name"
+                                           t-att-value="values.get('company_name', '')"
+                                           t-att-class="'form-control is-invalid' if error.get('company_name') else 'form-control'"
+                                           placeholder="e.g. ABC Trading &amp; Supplies Ltd"/>
+                                    <t t-if="error.get('company_name')">
+                                        <div class="invalid-feedback" t-esc="error['company_name']"/>
+                                    </t>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold">Contact Person</label>
+                                        <input type="text" name="contact_person" class="form-control"
+                                               t-att-value="values.get('contact_person', '')"
+                                               placeholder="Full name"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold">Phone Number</label>
+                                        <input type="tel" name="phone" class="form-control"
+                                               t-att-value="values.get('phone', '')"
+                                               placeholder="e.g. 08012345678"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">
+                                        Email Address <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="email" name="email"
+                                           t-att-value="values.get('email', '')"
+                                           t-att-class="'form-control is-invalid' if error.get('email') else 'form-control'"
+                                           placeholder="e.g. contact@yourcompany.com"/>
+                                    <t t-if="error.get('email')">
+                                        <div class="invalid-feedback" t-esc="error['email']"/>
+                                    </t>
+                                </div>
+
+                                <hr class="section-sep"/>
+                                <p class="section-label">Company Profile Document</p>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">
+                                        Upload Company Profile PDF <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file" name="profile_pdf" accept=".pdf"
+                                           t-att-class="'form-control is-invalid' if error.get('profile_pdf') else 'form-control'"/>
+                                    <div class="form-text text-muted mt-1">
+                                        Combine your CAC certificate, TIN certificate, company profile,
+                                        and other compliance documents into a single PDF before uploading.
+                                        Maximum file size: 20 MB.
+                                    </div>
+                                    <t t-if="error.get('profile_pdf')">
+                                        <div class="invalid-feedback d-block" t-esc="error['profile_pdf']"/>
+                                    </t>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-nadf btn-lg fw-semibold">
+                                        Submit Registration
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <p class="text-center text-muted mt-3" style="font-size:.85em">
+                        For assistance contact the NADF Procurement Office ·
+                        <a href="mailto:procurement@nadf.gov.ng" class="text-muted">procurement@nadf.gov.ng</a>
+                    </p>
+                </div>
+            </body>
+        </html>
+    </template>
+
+    <!-- ── Success Page ───────────────────────────────────────────────────────── -->
+    <template id="vendor_registration_success" name="NADF Vendor Registration Success">
+        <html lang="en">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>NADF — Registration Submitted</title>
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.min.css"/>
+            </head>
+            <body style="background:#f0f4f8">
+                <div style="max-width:580px;margin:80px auto;padding:0 16px;text-align:center">
+                    <div style="background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.12);padding:48px 36px">
+                        <div style="font-size:3.5rem;color:#1a7431;margin-bottom:12px">&#10003;</div>
+                        <h4 class="fw-bold mb-2">Registration Submitted</h4>
+                        <p class="text-muted mb-1">
+                            Thank you, <strong t-esc="company_name"/>.
+                        </p>
+                        <p class="text-muted">
+                            Your vendor registration has been received and is under review.
+                            The NADF Procurement team will contact you within <strong>5 working days</strong>.
+                        </p>
+                        <hr style="margin:24px 0"/>
+                        <p class="text-muted" style="font-size:.85em">
+                            For enquiries: <a href="mailto:procurement@nadf.gov.ng">procurement@nadf.gov.ng</a>
+                        </p>
+                    </div>
+                </div>
+            </body>
+        </html>
+    </template>
+</odoo>

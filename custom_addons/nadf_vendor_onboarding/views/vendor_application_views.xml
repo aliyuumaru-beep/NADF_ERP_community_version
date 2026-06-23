@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ── List View ──────────────────────────────────────────────────────────── -->
+    <record id="view_vendor_application_list" model="ir.ui.view">
+        <field name="name">nadf.vendor.application.list</field>
+        <field name="model">nadf.vendor.application</field>
+        <field name="arch" type="xml">
+            <tree string="Vendor Applications"
+                  decoration-success="state == 'approved'"
+                  decoration-warning="state == 'under_review'"
+                  decoration-muted="state == 'rejected'">
+                <field name="name"/>
+                <field name="contact_person"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="submission_date"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'approved'"
+                       decoration-warning="state == 'under_review'"
+                       decoration-danger="state == 'rejected'"
+                       decoration-info="state == 'draft'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ── Form View ──────────────────────────────────────────────────────────── -->
+    <record id="view_vendor_application_form" model="ir.ui.view">
+        <field name="name">nadf.vendor.application.form</field>
+        <field name="model">nadf.vendor.application</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Application">
+                <header>
+                    <button name="action_submit" string="Submit for Review" type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_analyse_with_ai" string="Analyse with AI" type="object"
+                            invisible="state not in ('draft', 'under_review')"/>
+                    <button name="action_approve" string="Approve Vendor" type="object"
+                            class="btn-success"
+                            invisible="state != 'under_review'"
+                            groups="nadf_vendor_onboarding.group_vendor_manager"
+                            confirm="Create a vendor partner record and approve this application?"/>
+                    <button name="action_reject" string="Reject" type="object"
+                            invisible="state not in ('draft', 'under_review')"
+                            groups="nadf_vendor_onboarding.group_vendor_manager"
+                            confirm="Reject this vendor application?"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object"
+                            invisible="state != 'rejected'"
+                            groups="nadf_vendor_onboarding.group_vendor_manager"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,under_review,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="o_form_label"/>
+                        <h1>
+                            <field name="name" placeholder="Company Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Contact Information">
+                            <field name="contact_person"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                        </group>
+                        <group string="Application Details">
+                            <field name="submission_date" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Company Profile Document">
+                        <field name="profile_pdf" widget="binary" filename="profile_filename"
+                               string="Profile PDF (upload/download)"/>
+                        <field name="profile_filename" invisible="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="AI Compliance Analysis" name="ai_analysis">
+                            <div class="alert alert-info" role="status"
+                                 invisible="analysis_summary">
+                                Attach a company profile PDF and click
+                                <strong>Analyse with AI</strong> to run a compliance check.
+                                Claude will extract documents, assess compliance status, and flag concerns.
+                            </div>
+                            <field name="analysis_summary" widget="html" readonly="1" nolabel="1"/>
+                            <separator string="Identified Compliance Documents"/>
+                            <field name="document_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="document_name"/>
+                                    <field name="issuing_authority"/>
+                                    <field name="issue_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="status" widget="badge"
+                                           decoration-success="status == 'valid'"
+                                           decoration-warning="status == 'expiring_soon'"
+                                           decoration-danger="status == 'expired'"
+                                           decoration-info="status == 'no_expiry'"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Internal Notes" name="notes">
+                            <field name="notes" placeholder="Add procurement officer notes here…"
+                                   nolabel="1"/>
+                        </page>
+                        <page string="Raw AI Response" name="raw_ai"
+                              groups="base.group_system">
+                            <field name="analysis_result" readonly="1" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Search View ────────────────────────────────────────────────────────── -->
+    <record id="view_vendor_application_search" model="ir.ui.view">
+        <field name="name">nadf.vendor.application.search</field>
+        <field name="model">nadf.vendor.application</field>
+        <field name="arch" type="xml">
+            <search string="Vendor Applications">
+                <field name="name" string="Company"/>
+                <field name="email"/>
+                <field name="contact_person"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Under Review" name="under_review" domain="[('state','=','under_review')]"/>
+                <filter string="Approved" name="approved" domain="[('state','=','approved')]"/>
+                <filter string="Rejected" name="rejected" domain="[('state','=','rejected')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Submission Month" name="group_month"
+                            context="{'group_by': 'submission_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ── Window Action ──────────────────────────────────────────────────────── -->
+    <record id="action_vendor_application" model="ir.actions.act_window">
+        <field name="name">Vendor Applications</field>
+        <field name="res_model">nadf.vendor.application</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_vendor_application_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No vendor applications yet.
+            </p>
+            <p>
+                Vendors register at <strong>/vendor/register</strong> or you can create
+                applications manually from here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Filtered action: pending review -->
+    <record id="action_vendor_application_pending" model="ir.actions.act_window">
+        <field name="name">Pending Review</field>
+        <field name="res_model">nadf.vendor.application</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state','=','under_review')]</field>
+        <field name="search_view_id" ref="view_vendor_application_search"/>
+    </record>
+</odoo>

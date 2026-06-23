@@ -1,0 +1,32 @@
+name: NADF ERP CI
+
+# Gate B — runs on every PR into main (and on pushes to governance/feature branches).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, "phase/**", "feat/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Manifest + Python + XML validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Lint (ruff, non-blocking advisory)
+        run: |
+          python -m pip install --quiet ruff || true
+          ruff check custom_addons || echo "::warning::ruff reported style findings (advisory, non-blocking)"
+
+      - name: Build verification (manifests, py_compile, XML)
+        run: python scripts/ci_validate.py

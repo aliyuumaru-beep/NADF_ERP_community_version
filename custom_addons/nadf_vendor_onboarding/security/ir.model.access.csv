@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_application_manager,nadf.vendor.application.manager,model_nadf_vendor_application,nadf_vendor_onboarding.group_vendor_manager,1,1,1,1
+access_vendor_application_officer,nadf.vendor.application.officer,model_nadf_vendor_application,nadf_vendor_onboarding.group_vendor_officer,1,1,1,0
+access_vendor_application_user,nadf.vendor.application.user,model_nadf_vendor_application,base.group_user,1,0,0,0
+access_vendor_document_manager,nadf.vendor.document.line.manager,model_nadf_vendor_document_line,nadf_vendor_onboarding.group_vendor_manager,1,1,1,1
+access_vendor_document_officer,nadf.vendor.document.line.officer,model_nadf_vendor_document_line,nadf_vendor_onboarding.group_vendor_officer,1,1,1,0
+access_vendor_document_user,nadf.vendor.document.line.user,model_nadf_vendor_document_line,base.group_user,1,0,0,0
