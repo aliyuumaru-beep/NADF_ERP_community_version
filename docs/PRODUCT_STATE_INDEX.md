@@ -1,0 +1,47 @@
+# PRODUCT_STATE_INDEX.md — POD-NADF
+
+**Document type:** Product Memory index + session protocol (PEF v1.1 Product Memory System; Gate C7)
+**Closes:** `BL-GOV-09` (document session start and end rules in-repo)
+**Created:** 2026-06-23 (Migration Sequence M-D) · **Maintained by:** A1 Software Factory Orchestrator
+
+This file is the entry index to POD-NADF state and the **binding session protocol**. It exists so any future session can cold-start from the repository alone, without the transfer package loaded.
+
+---
+
+## 1. State index — where the truth lives
+
+| Concern | Authoritative file |
+|---------|--------------------|
+| Bound product authority | `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md` |
+| Current status / cockpit | `PROJECT_STATE.md` |
+| Next action | `docs/NEXT_ACTION.md` |
+| Milestones | `MILESTONE_TRACKER.md` |
+| Scope / roadmap / backlog / work packages | `planning/PRODUCT_SCOPE.md`, `planning/ROADMAP.md`, `planning/BACKLOG.md`, `planning/WORK_PACKAGES.md` |
+| Decisions | `docs/DECISION_LOG.md` |
+| Risks | `RISK_REGISTER.md` |
+| Modules | `MODULE_REGISTRY.md` |
+| History / changes | `IMPLEMENTATION_HISTORY.md`, `CHANGELOG.md` |
+| Backup / recovery | `docs/BACKUP_STRATEGY.md` |
+| Gate status | `docs/GOVERNANCE_GATE_REPORT.md` |
+| Agent operating rules | `CLAUDE.md` |
+
+## 2. Session START protocol (read in this order)
+1. `docs/NEXT_ACTION.md` — what to do next.
+2. `PROJECT_STATE.md` — current milestone, blockers, risks, open escalations.
+3. `MILESTONE_TRACKER.md` — milestone/gate state.
+4. `planning/BACKLOG.md` — current work item and its acceptance criteria.
+5. `git status` + current branch — confirm a clean, expected working tree.
+6. Confirm platform constraints in `CLAUDE.md` (Odoo 17 CE; no Enterprise; layer boundaries).
+
+## 3. Session END protocol
+1. Update every governance doc the work touched (`PROJECT_STATE`, `DECISION_LOG`, `RISK_REGISTER`, `MODULE_REGISTRY`, `IMPLEMENTATION_HISTORY`, `CHANGELOG` as applicable).
+2. Refresh `docs/NEXT_ACTION.md` to point at the next action.
+3. Commit on a feature branch with a `type(scope): desc` message; open/update a PR into protected `main`. **Never push directly to `main`.**
+4. If the live `NADF` DB or schema was changed, confirm a backup exists first and record any `RESTORE_EVENT`/`BACKUP` in `IMPLEMENTATION_HISTORY.md`.
+5. Leave the working tree clean.
+
+## 4. Guardrails (always)
+- No ERP build of an unspecified department; no custom module without an approved spec.
+- No Enterprise modules; no core modification without escalation.
+- No cross-pod contamination (NADF assets stay in `nadf_erp`).
+- BPOGS/swimlanes are requirements history only.
