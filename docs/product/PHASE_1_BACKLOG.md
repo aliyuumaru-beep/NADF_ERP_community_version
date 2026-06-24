@@ -44,7 +44,7 @@
 | WP01-16 | Create Administration user groups (Driver, Fleet Manager, Asset Manager, IT Officer, IT Manager) | MH | Not Started | WP01-08…12 | AC-14 |
 | WP01-17 | Create Project Coord user groups (Team Member, Project Manager, Director, PCU Head) | MH | Not Started | WP01-08…12 | AC-14 |
 | WP01-18 | Enable TOTP 2FA in Odoo settings | MH | Not Started | WP01-08…12 | AC-14 |
-| WP01-19 | Enforce 2FA for Finance + Senior Management groups | MH | Not Started | WP01-18 | AC-14 |
+| WP01-19 | Enforce 2FA for Finance Officer, Finance Manager, CFO, Auditor, and CEO groups | MH | Not Started | WP01-18 | AC-14 |
 | WP01-20 | Run `--stop-after-init` exit-0 check after OCA installs | MH | Not Started | WP01-08…12 | — |
 
 ---
@@ -94,6 +94,28 @@
 | WP04-07 | Obtain client review record: leave types + org hierarchy | MH | Not Started | WP04-03 | AC-03 |
 | WP04-08 | Set NADF company VAT/RC number (currently empty) | SH | Not Started | WP04-01 | — |
 | WP04-09 | Set Claude API key in System Parameters for `nadf_vendor_onboarding` AI analysis | CH | Not Started | WP04-01 | — |
+
+---
+
+## WP-ADM-01 — Administration Core Configuration
+
+| ID | Item | Priority | Status | Dependency | AC |
+|----|------|---------|--------|-----------|-----|
+| BL-ADM-01 | Configure vehicle register: vehicle records, fuel log, servicing records, driver assignment | MH | Not Started | WP-01 done | AC-04 |
+| BL-ADM-02 | Configure asset register: asset categories, depreciation method, asset schedules | MH | Not Started | WP-01 done | AC-04 |
+| BL-ADM-03 | Install and configure `helpdesk_mgmt` ICT helpdesk: ticket categories, SLA rules, assignment rules | MH | Not Started | WP01-12 (`helpdesk_mgmt` installed) | AC-04 |
+| BL-ADM-04 | Create Administration user groups (Driver, Fleet Manager, Asset Manager, IT Officer, IT Manager) | MH | Not Started | WP-01 done | AC-14 |
+
+---
+
+## WP-PC-01 — Project Coordination Configuration
+
+| ID | Item | Priority | Status | Dependency | AC |
+|----|------|---------|--------|-----------|-----|
+| BL-PC-01 | Configure project record with 5 phases (Initiation, Planning, Execution, M&C, Closure) and task types | MH | Not Started | WP-01 done | AC-05 |
+| BL-PC-02 | Configure milestone tracking with phase gate approval; restrict milestone sign-off to Director group | MH | Not Started | BL-PC-01 | AC-05 |
+| BL-PC-03 | Configure project status dashboard view (kanban + list; filter by status, department, phase) | SH | Not Started | BL-PC-01 | AC-05 |
+| BL-PC-04 | Create Project Coordination user groups (Team Member, Project Manager, Director, PCU Head) | MH | Not Started | WP-01 done | AC-14 |
 
 ---
 

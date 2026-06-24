@@ -20,8 +20,8 @@
 | **CA-01** Financial Management | Finance | ✅ In scope — full foundation | WP-02 | AC-01 |
 | **CA-02** Procurement Management | Procurement | ✅ In scope — pipeline (approval chain deferred) | WP-03 | AC-02 (partial) |
 | **CA-03** Human Resource Management | HR | ✅ In scope — core (payroll deferred) | WP-04 | AC-03 (partial) |
-| **CA-04** Administration & Facilities | Administration | ✅ In scope — fleet, assets, helpdesk | WP-01 / foundation | AC-04 (facility module deferred) |
-| **CA-05** Project & Programme Management | Project Coord. | ✅ In scope — project structure + milestone gate | WP-01 / foundation | AC-05 |
+| **CA-04** Administration & Facilities | Administration | ✅ In scope — fleet, assets, helpdesk | WP-ADM-01 | AC-04 (facility module deferred) |
+| **CA-05** Project & Programme Management | Project Coord. | ✅ In scope — project structure + milestone gate | WP-PC-01 | AC-05 |
 | **CA-06** Legal & Contract Management | Legal Services | ❌ Deferred — Legal TO-BE P4–P6 pending (B-04A) | — | AC-06 |
 | **CA-07** Strategy & Planning | Strategy | ❌ Deferred — TO-BE pending (B-04B) | — | AC-07 |
 | **CA-08** Communications | Communications | ❌ Deferred — TO-BE pending (B-04C) | — | AC-08 |
