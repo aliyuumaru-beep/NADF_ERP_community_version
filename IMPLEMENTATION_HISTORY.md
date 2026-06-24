@@ -46,6 +46,13 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### PEG-6 — Product Authorization package prepared (2026-06-24) — governance-only
+- Confirmed `main` @ `989b65f` carries the merged governance baseline; working tree clean; all 11 required governance docs present; CI script present. All stop-checks passed.
+- Authored `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` (14 sections; WP-01..05; G1/G2/G3-then-D1..D4 activation plan; **CONDITIONAL GO** recommendation with conditions a–e).
+- Updated `docs/NEXT_ACTION.md` (next action = PEG-6 review/approval) and `CHANGELOG.md`.
+- **No module code and no Odoo functional configuration changed.** Prepared on branch `docs/peg-6-product-authorization` → PR (branch protection: no direct `main` push).
+- Carried warnings into the package: concurrent session detected during M-C stabilization (R-11); live Odoo not yet restarted after `addons_path` correction (R-12, §4 pending operational note). Development remains **blocked** pending PEG-6 approval.
+
 ## 3. RESTORE_EVENT log
 *(Migrated from `docs/BACKUP_STRATEGY.md` §9 per Backup & Recovery Standard `20`.)*
 
