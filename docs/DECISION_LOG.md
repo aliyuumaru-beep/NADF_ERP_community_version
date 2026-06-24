@@ -349,5 +349,31 @@ M0 closed. M1 (Foundation) is the active milestone. Development of WP-01 may pro
 
 ---
 
+## DEC-2FA-001 — TOTP 2FA Enforcement Scope: Explicit Group List
+
+**Date:** 2026-06-24
+**Type:** SECURITY / CONFIGURATION
+**Status:** ACTIVE
+**Made By:** G3 Security & Change Governance + A1 Master Orchestrator
+
+### Decision
+TOTP 2FA shall be enforced for the following explicitly named user groups:
+**Finance Officer, Finance Manager, CFO, Auditor, and CEO.**
+
+The phrase "Senior Management" is **retired** from WP-01 and all Phase 1 planning documents as it was undefined and not mapped to any Odoo user group.
+
+### Context
+G3 review correction C-02 identified that WP-01 §2 and AC-WP01-05 used "Senior Management" as a group name, but no such group exists in the NADF user group model. The ambiguity could result in 2FA enforcement being applied to the wrong accounts or skipped entirely for accounts that should be protected.
+
+### Rationale
+- Finance Officer, Finance Manager, CFO, and Auditor have direct access to financial transactions and reports — mandatory for audit compliance.
+- CEO is the highest-authority account in the system and must not be exempted from 2FA.
+- "Senior Management" as a catch-all is untestable — it cannot be verified by a DB query against `res.groups`.
+
+### Consequences
+WP-01 §2 Scope table, D-WP01-09, and AC-WP01-05 updated to use the explicit group list. `PHASE_1_BACKLOG.md` WP01-19 updated accordingly. WP-01 implementation (WP01-19) must test each named group individually. Any extension of 2FA scope to additional groups requires a new DEC entry referencing this one.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*

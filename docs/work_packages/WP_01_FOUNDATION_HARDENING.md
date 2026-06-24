@@ -39,7 +39,7 @@ WP-01 is the prerequisite for all other Phase 1 work packages (WP-02, WP-03, WP-
 | Decision Log entries | Log each OCA install as a separate DEC entry (name, version, source URL, rationale) |
 | User group creation | Finance (4 groups), Procurement (4), HR (5), Administration (5), Project Coord (4) |
 | TOTP 2FA activation | Enable in Odoo General Settings |
-| 2FA enforcement | Enforce for Finance and Senior Management groups |
+| 2FA enforcement | Enforce for Finance Officer, Finance Manager, CFO, Auditor, and CEO groups |
 | Registry verification | `odoo-bin --stop-after-init` exit 0 after all installs |
 
 ### Out of scope
@@ -67,8 +67,9 @@ WP-01 is the prerequisite for all other Phase 1 work packages (WP-02, WP-03, WP-
 | D-WP01-06 | `helpdesk_mgmt` installed, version-pinned | As above |
 | D-WP01-07 | Decision Log entries for all 5 OCA installs | `docs/DECISION_LOG.md` — 5 new DEC entries |
 | D-WP01-08 | 22 user groups created (Finance ×4, Proc ×4, HR ×5, Admin ×5, PC ×4) | `SELECT name FROM res_groups WHERE category_id IN (...)` |
-| D-WP01-09 | TOTP 2FA active and enforced for Finance + Senior Management | Odoo Settings → Two-factor auth = Required for specific groups |
+| D-WP01-09 | TOTP 2FA active and enforced for Finance Officer, Finance Manager, CFO, Auditor, and CEO | Odoo Settings → Two-factor auth = Required for specific groups |
 | D-WP01-10 | Registry load verified exit 0 post-install | `odoo-bin --stop-after-init` terminal output |
+| D-WP01-11 | `MODULE_REGISTRY.md` updated with 5 OCA module entries (name, version, source, install date) | Manual review of `MODULE_REGISTRY.md` |
 
 ---
 
@@ -80,8 +81,8 @@ WP-01 is the prerequisite for all other Phase 1 work packages (WP-02, WP-03, WP-
 | AC-WP01-02 | Each of the 5 OCA modules has a Decision Log entry with version and source URL | Manual review of `docs/DECISION_LOG.md` |
 | AC-WP01-03 | All 22 Phase 1 user groups exist and are assigned to the correct categories | DB query / Odoo Settings > Users & Groups |
 | AC-WP01-04 | TOTP 2FA is set to "Required for specific groups" in Odoo Settings | UI verification |
-| AC-WP01-05 | Finance Officer, Finance Manager, CFO, and Senior Management accounts are blocked from login without TOTP | Login test with a Finance user — must prompt for TOTP |
-| AC-WP01-06 | `odoo-bin --stop-after-init` exits 0 with no ERROR or CRITICAL log lines related to Phase 1 modules | Command + log scan |
+| AC-WP01-05 | Finance Officer, Finance Manager, CFO, Auditor, and CEO accounts are blocked from login without TOTP | Login test with a Finance user — must prompt for TOTP |
+| AC-WP01-06 | `odoo-bin --stop-after-init` exits 0 AND produces no ERROR or CRITICAL log lines attributable to any of the five installed OCA modules or to `nadf_vendor_onboarding` / `nadf_facilities_management` | Command + full log scan |
 | AC-WP01-07 | Pre-work backup set recorded and filesize > 0 | `ls -lh ~/odoo_backups/` |
 | AC-WP01-08 | Single Claude Code session confirmed active at time of implementation | Manual confirmation in status report |
 
