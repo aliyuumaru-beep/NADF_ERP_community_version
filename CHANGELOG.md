@@ -5,6 +5,13 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### Phase 1 activation — PEG-6 approved (2026-06-24)
+- **governance:** PEG-6 approved by Business Sponsor (Aliyu / Lanasoft Technologies); `DEC-PEG6-001` logged. M0 formally closed.
+- **ops:** Live Odoo service restarted (PID 51025) on corrected `addons_path`; `nadf_vendor_onboarding` and `nadf_facilities_management` confirmed discoverable (exit 0).
+- **docs:** Phase 1 planning documents prepared — `docs/product/PHASE_1_PRODUCT_CAPABILITY_MAP.md`, `docs/product/PHASE_1_ROADMAP.md`, `docs/product/PHASE_1_BACKLOG.md`, `docs/work_packages/WP_01_FOUNDATION_HARDENING.md`.
+- **docs:** `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` §15 approval record added; business authorization updated to APPROVED.
+- **scope:** Phase 1 scope frozen at Transfer Package v2.1. No coding, no module install, no functional config change in this activation step. Governance layer (G1/G2/G3) activates before delivery layer (D1–D4).
+
 ### PEG-6 — Product Authorization package prepared (2026-06-24)
 - **docs:** Added `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` — 14-section Product Authorization Package (baseline, legacy ratification, Phase-1 scope, risks, governance/repository/backup/platform status, WP-01..05, governance reviews, agent activation, Go/No-Go, approval statement). Recommendation: **CONDITIONAL GO** pending PEG-6 approval + sponsor sign-off + single-session + Odoo restart + scope freeze.
 - **docs:** Updated `docs/NEXT_ACTION.md` to point to PEG-6 review/approval as the next action; `IMPLEMENTATION_HISTORY.md` governance-only entry added.

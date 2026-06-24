@@ -320,5 +320,34 @@ First full backup taken and a restore drill performed during M-C (recorded in th
 
 ---
 
+## DEC-PEG6-001 — PEG-6 Product Authorization Approved — Phase 1 Activated
+
+**Date:** 2026-06-24
+**Type:** GOVERNANCE / PROGRAMME GATE
+**Status:** ACTIVE
+**Made By:** Business Sponsor (Aliyu / Lanasoft Technologies) — recorded by A1 Master Orchestrator
+
+### Decision
+Grant **PEG-6 Product Authorization** for NADF ERP Phase 1 — Foundation. Phase 1 Product Engineering is now activated. Milestone M0 is formally closed.
+
+### Context
+The PEG-6 Product Authorization Package (`docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md`, 2026-06-24) was prepared and presented to the Business Sponsor after: Governance Activation Gate 21/21 PASS; all migration sequences M-B/M-C/M-D complete; governance baseline on protected `main` (`b8dad2d`); both custom modules recovered and discoverable.
+
+### Decision Details
+- **Scope authorized:** Phase 1 — Foundation only (WP-01 Foundation Hardening, WP-02 Finance Core, WP-03 Procurement Core, WP-04 HR Core, WP-05 UAT Preparation).
+- **Scope frozen at:** Transfer Package v2.1 (`requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`).
+- **Activation sequence enforced:** Governance layer (G1/G2/G3) activates before delivery layer (D1–D4). No WP implementation until per-WP Go/No-Go checkpoint passes.
+- **Conditions satisfied at approval:** (a) PEG-6 approval ✅ · (b) Sponsor sign-off ✅ · (c) single-session enforced ✅ · (d) Odoo restarted on corrected `addons_path` (PID 51025, exit 0) ✅ · (e) scope frozen ✅.
+
+### Rationale
+- All governance preconditions met (gate 21/21, clean repo, backup drilled, CI active, protected branch).
+- Phase 1 scope is lowest-risk tier: CE-native configuration and vetted OCA installation only — no custom code, no unspecified departments.
+- Legacy build re-validation is a Phase 1 task; no legacy artifact is assumed "Done."
+
+### Consequences
+M0 closed. M1 (Foundation) is the active milestone. Development of WP-01 may proceed after G1/G2/G3 Go/No-Go clearance. No Phase 2/3 scope (custom module specs/dev, remaining departments) authorized by this decision.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
