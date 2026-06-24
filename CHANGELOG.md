@@ -5,6 +5,11 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### PEG-6 — Product Authorization package prepared (2026-06-24)
+- **docs:** Added `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` — 14-section Product Authorization Package (baseline, legacy ratification, Phase-1 scope, risks, governance/repository/backup/platform status, WP-01..05, governance reviews, agent activation, Go/No-Go, approval statement). Recommendation: **CONDITIONAL GO** pending PEG-6 approval + sponsor sign-off + single-session + Odoo restart + scope freeze.
+- **docs:** Updated `docs/NEXT_ACTION.md` to point to PEG-6 review/approval as the next action; `IMPLEMENTATION_HISTORY.md` governance-only entry added.
+- **scope:** No ERP development authorized; no functional Odoo module or configuration changed. Development remains blocked pending PEG-6 approval.
+
 ### M-D — Closure-tier documentation & CI (2026-06-23)
 - **docs:** Added mandatory repository files — `README.md`, `CLAUDE.md`, `CHANGELOG.md`, `IMPLEMENTATION_HISTORY.md`, `MODULE_REGISTRY.md`, root `ROADMAP.md` summary.
 - **docs:** Added `docs/PRODUCT_STATE_INDEX.md` with session start/end rules (BL-GOV-09) — closes Gate C7.
