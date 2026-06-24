@@ -9,10 +9,26 @@
 **Bound platform profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS platform-profiles/23)
 **Decision sought:** Authorization to commence **Phase 1 — Foundation** ERP delivery under governance
 
-> **NO ERP DEVELOPMENT IS AUTHORIZED YET.**
-> **PEG-6 approval is required before Phase 1 development begins.**
-> This package was prepared in authorization-preparation mode only: no functional Odoo module
-> was modified, no business feature created, no functional configuration changed.
+> ✅ **PEG-6 APPROVED — 2026-06-24**
+> Phase 1 Product Engineering is authorized subject to conditions a–e (see §13).
+> See §15 (Approval Record) for the authoritative approval entry.
+
+---
+
+## §15 — PEG-6 Approval Record
+
+| Field | Value |
+|-------|-------|
+| Approval event | PEG-6 Product Authorization — NADF ERP Phase 1 |
+| Decision | **CONDITIONAL GO — Phase 1 authorized** |
+| Approved by | Business Sponsor (Aliyu / Lanasoft Technologies) |
+| Date approved | 2026-06-24 |
+| Recorded by | A1 Master Orchestrator (Software Factory Autonomous Agent Team) |
+| Decision log entry | `DEC-PEG6-001` (see `docs/DECISION_LOG.md`) |
+| Conditions at approval | (a) PEG-6 approval ✅ · (b) Sponsor sign-off ✅ · (c) single session — enforce · (d) Odoo restart — done (PID 51025, exit 0) · (e) scope frozen at Transfer Package v2.1 ✅ |
+| Phase 1 scope frozen | Transfer Package v2.1 (`requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`) |
+| M0 closure | **M0 is now closed.** Both closure items satisfied: PR #1 merged (`989b65f`) + PEG-6 signed. |
+| Development status | Phase 1 Product Engineering **ACTIVATED** — no coding begins until G1/G2/G3 layer is active and per-WP Go/No-Go checkpoints pass. |
 
 ---
 
@@ -30,7 +46,7 @@
 | Technical readiness | ✅ PASS |
 | Governance readiness | ✅ PASS |
 | Repository readiness | ✅ PASS |
-| **Business authorization** | ⏳ **PENDING — this gate** |
+| **Business authorization** | ✅ **APPROVED 2026-06-24 — DEC-PEG6-001** |
 
 ---
 

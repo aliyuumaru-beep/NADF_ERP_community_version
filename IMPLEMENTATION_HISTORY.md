@@ -46,6 +46,16 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### Phase 1 activation — PEG-6 approved (2026-06-24) — governance-only
+
+- **PEG-6 APPROVED** by Business Sponsor (Aliyu / Lanasoft Technologies); recorded as `DEC-PEG6-001`. M0 formally closed.
+- **Odoo restart:** live service was already stopped at restart attempt; started fresh as PID 51025 on corrected `nadf.conf`. Both custom modules confirmed discoverable (`get_modules()` check) and `--stop-after-init` exit 0.
+- **Phase 1 planning documents authored** (planning only — no coding): `docs/product/PHASE_1_PRODUCT_CAPABILITY_MAP.md`, `docs/product/PHASE_1_ROADMAP.md`, `docs/product/PHASE_1_BACKLOG.md`, `docs/work_packages/WP_01_FOUNDATION_HARDENING.md`.
+- **PEG-6 package updated:** §15 approval record added; §Readiness Summary business authorization updated to APPROVED.
+- **Governance docs updated:** `NEXT_ACTION.md` (M1 active, G-layer next), `CHANGELOG.md`, `IMPLEMENTATION_HISTORY.md`, `docs/DECISION_LOG.md` (`DEC-PEG6-001`).
+- **No module code changed. No Odoo functional configuration changed.** Committed on branch `docs/phase-1-activation` → PR to `main`.
+- Single-session discipline enforced in state docs. Phase 1 scope frozen at Transfer Package v2.1. Governance layer (G1/G2/G3) must activate before delivery layer (D1–D4) and before any WP implementation.
+
 ### PEG-6 — Product Authorization package prepared (2026-06-24) — governance-only
 - Confirmed `main` @ `989b65f` carries the merged governance baseline; working tree clean; all 11 required governance docs present; CI script present. All stop-checks passed.
 - Authored `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` (14 sections; WP-01..05; G1/G2/G3-then-D1..D4 activation plan; **CONDITIONAL GO** recommendation with conditions a–e).
