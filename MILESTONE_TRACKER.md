@@ -5,7 +5,7 @@
 **Project Pod:** POD-NADF
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md`
-**Last updated:** 2026-06-21 (created during Migration Sequence M-B)
+**Last updated:** 2026-06-25 (M0 closed; M1 active; WP-03 Go/No-Go PASS)
 **Maintained by:** A1 Software Factory Orchestrator (update on every milestone state change)
 
 **Linked artifacts:** `PROJECT_STATE.md` · `planning/ROADMAP.md` · `planning/BACKLOG.md` · `planning/WORK_PACKAGES.md`
@@ -43,11 +43,13 @@ milestone can be formally closed.
 
 | Field | Value |
 |-------|-------|
-| Active milestone | **M0 — Initiation** / ROADMAP Phase 0 — Governance Remediation |
-| Milestone ID | `M-PLATFORM-CORRECTION` |
-| Active Work Package | `WP-GOV-01` (→ `BL-GOV-01`, `BL-GOV-02`) |
-| Status | 🔄 In progress (M-B ✅; M-C ✅; **M-D ✅** — CI + closure-tier docs; Governance Gate **21/21 PASS**). Awaiting: `main`-fold PR merge + PEG-6 Product Approval to formally close M0. |
-| Exit criteria | Zero Enterprise modules ✅; **Governance Gate 21/21 PASS** ✅; `DEC-PLATFORM-001` ✅; remote pushed + `main` protected ✅; backup + restore drill ✅; closure-tier docs + CI ✅. **Open:** PR merge to `main`; PEG-6 signed Product Approval. |
+| Active milestone | **M1 — Foundation** / ROADMAP Phase 1 |
+| Milestone ID | M1 |
+| Active Work Package | WP-03 — Procurement Core (Go/No-Go PASS 2026-06-25; branch `feat/wp-03-procurement-core`) |
+| Wave | Wave A, Session 1 (Hybrid Wave model per `docs/product/PHASE_1_EXECUTION_STRATEGY_REPORT.md`) |
+| Status | 🔄 **In progress** — WP-01 CONDITIONAL PASS (PR #5 merged); WP-02 CONDITIONAL PASS (PR #6 merged `e58e15c`); WP-03 authorised |
+| M0 predecessor | ✅ **CLOSED 2026-06-24** — PEG-6 approved (`DEC-PEG6-001`); Governance Gate 21/21 PASS; PR #1–#3 merged |
+| Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 all PASS; WP-05 UAT preparation complete; DEC-OCA-02 resolved; client CoA sign-off received |
 
 ---
 
@@ -55,10 +57,10 @@ milestone can be formally closed.
 
 | Milestone | Phase | Scope summary | Status | Governance ratified | Evidence |
 |-----------|-------|---------------|--------|---------------------|----------|
-| M0 Initiation | Phase 0 | Governance remediation, platform correction, repository activation | 🔄 Active | No | This tracker; `PROJECT_STATE.md`; `WP-GOV-01` |
-| M1 Foundation | Phase 1 | CE core config: Finance, Procurement, HR, Administration foundation | ⚠️ Built, unratified | No | Git `48f1738`→`05568b4` |
-| M2 Configuration | Phase 1 | OCA modules, access-rights matrix, approval workflows | ⏳ Partial | No | base.automation approvals (`ec2fc32`) |
-| M3 Development | Phase 2–3 | Custom-module specs + development; remaining-department builds | ⚠️ 2 modules ahead of spec | No | `nadf_vendor_onboarding` (untracked); `nadf_facilities_management` (in `famoil-erp` `55c1787`) |
+| M0 Initiation | Phase 0 | Governance remediation, platform correction, repository activation | ✅ **CLOSED 2026-06-24** | Yes — Gate 21/21 PASS; PEG-6 approved | PRs #1–#4 merged; `docs/GOVERNANCE_GATE_REPORT.md`; `DEC-PEG6-001` |
+| M1 Foundation | Phase 1 | CE core config ratified: Finance (WP-02), Procurement (WP-03 in progress), HR (WP-04), Admin (WP-ADM-01), PCU (WP-PC-01) | 🔄 **ACTIVE** | Partial — WP-01/02 CONDITIONAL PASS | PRs #5–#6; `docs/governance/WP_02_EXIT_GATE_REPORT.md` |
+| M2 Configuration | Phase 1 | OCA modules extended config; access-rights matrix finalised; approval workflows hardened | ⏳ Not started | — | — |
+| M3 Development | Phase 2–3 | Custom-module specs + development; remaining-department builds | ⚠️ 2 modules built ahead of spec (recovered M-C) | No | `nadf_vendor_onboarding` (12/12); `nadf_facilities_management` (33/33) — both unratified |
 | M4 Testing | Phase 4–5 | Integration tests + full UAT | ⏳ Not started | — | — |
 | M5 Deployment | Phase 6 | Production cutover + go-live | ⏳ Not started | — | — |
 | M6 Closure | Phase 7 | Template extraction + closure | ⏳ Not started | — | — |
@@ -67,8 +69,9 @@ milestone can be formally closed.
 
 ## 4. Completed Milestones (formally closed under governance)
 
-**None.** No milestone has yet passed the milestone gate. Legacy build work (M1/M2 config,
-M3 custom modules) is delivered but **awaiting governance ratification** under M0.
+| Milestone | Closed date | Closing evidence |
+|-----------|------------|-----------------|
+| **M0 — Initiation** | 2026-06-24 | PEG-6 approved (`DEC-PEG6-001`); Governance Gate 21/21 PASS; all M0 PRs (#1–#4) merged to protected `main`; backup + restore drill PASS; CI active |
 
 ---
 
@@ -90,5 +93,7 @@ Until then, downstream work is tracked as **"built / unratified,"** never as **"
 | Date | Change | By |
 |------|--------|-----|
 | 2026-06-21 | File created during Migration Sequence M-B; triple milestone mapping established; legacy build recorded as built-but-unratified | A1 Orchestrator |
-| 2026-06-22 | **M-C executed**: both custom modules recovered to NADF layer (integrity PASS 12/12 + 33/33); FamOil contamination removed; backup + restore drill PASS; `main` pushed + protected; Gates A/D/E PASS; `RISK_REGISTER` + 4 DEC entries added. M-C complete; M-D pending (CI + closure-tier docs). | A1 Orchestrator |
-| 2026-06-23 | **M-D executed**: closure-tier docs authored (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`, `docs/PRODUCT_STATE_INDEX.md`); CI added (`ci.yml` + `ci_validate.py`, validated exit 0); Governance Gate re-run to **21/21 PASS**. M-D complete. Open: `main`-fold PR merge + PEG-6. | A1 Orchestrator |
+| 2026-06-22 | **M-C executed**: both custom modules recovered; backup + restore drill PASS; `main` pushed + protected; Gates A/D/E PASS; RISK_REGISTER + 4 DEC entries added. | A1 Orchestrator |
+| 2026-06-23 | **M-D executed**: closure-tier docs authored; CI added; Governance Gate 21/21 PASS. Open: fold PR merge + PEG-6. | A1 Orchestrator |
+| 2026-06-24 | **M0 CLOSED**: PEG-6 approved (DEC-PEG6-001); PR #4 merged; Phase 1 activated. M1 Foundation active. | A1 Orchestrator |
+| 2026-06-25 | **WP-01 CONDITIONAL PASS** (PR #5 merged `93551ba`): 4/5 OCA installed; 22 user groups; TOTP global required. **WP-02 CONDITIONAL PASS** (PR #6 merged `e58e15c`): CoA validated; bill workflow; analytic accounts; 8 staff assigned. DEC-OCA-02 open (account_budget_oca). WP-03 Go/No-Go PASS — execution authorised on branch `feat/wp-03-procurement-core`. PR #7 open (governance docs). | A1 Orchestrator |

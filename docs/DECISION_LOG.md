@@ -543,5 +543,94 @@ Budget CSV amounts will be allocated to department analytic accounts when the bu
 
 ---
 
+## DEC-WP03-001 — Vendor Compliance Mechanism: x_ Field + Vendor Onboarding Proxy
+
+**Date:** 2026-06-25
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-03 execution)
+
+### Decision
+Implement vendor compliance status as a selection field `x_compliance_status` on `res.partner` via Odoo shell (`ir.model.fields.create()`), with three values: `compliant`, `non_compliant`, `pending`. The `nadf_vendor_onboarding` application state (`approved`/`rejected`) serves as a secondary compliance proxy for vendors onboarded through the portal.
+
+### Context
+WP03-01 found no custom compliance field on `res.partner` in the current NADF DB. The legacy Phase 3 build did not implement one. Transfer Package v2.1 CA-02 requires vendor compliance tracking. Two mechanism options were evaluated:
+- Option A: `x_compliance_status` shell-created field (immediate, DB-only, not version-controlled).
+- Option B: `nadf_vendor_compliance` custom module (version-controlled, spec-required).
+
+### Rationale
+- Phase 1 MVP requires a compliance indicator to gate vendor selection; Option B is Phase 2/3 scope.
+- Shell-created `x_` fields are DB-resident and will not survive a DB rebuild without re-running the creation command. The command is documented in `IMPLEMENTATION_HISTORY.md` and `docs/work_packages/WP_03_PROCUREMENT_CORE.md` §9.
+- `nadf_vendor_onboarding` state provides a governance-audited compliance track for portal-onboarded vendors.
+
+### Consequences
+- Phase 1: `x_compliance_status` field created (id=11353); 3 vendors tagged `compliant`, 1 `pending`.
+- Phase 2/3: `nadf_vendor_compliance` custom module spec required to replace the shell-created field with a version-controlled, workflow-governed equivalent.
+- Risk: R-WP03-01 (field lost on DB rebuild) — mitigated by documented creation command.
+
+---
+
+## DEC-CONTRACT-001 — OCA `contract` Module: Deferred to Phase 2/3
+
+**Date:** 2026-06-25
+**Type:** ARCHITECTURE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-03 execution)
+
+### Decision
+Do NOT install OCA `contract` module in Phase 1. Contract lifecycle management is deferred to the `nadf_legal_contract` custom module (Phase 2/3 spec-gated). CE `purchase_requisition` is sufficient for Phase 1 procurement contract flow (call for tender + awarded PO).
+
+### Context
+WP03-05 required evaluation of OCA/contract@17.0 against NADF procurement contract requirements. The OCA `contract` module is not in `/Users/mac/oca_addons` and was not pre-cloned. The evaluation was read-only (no install attempted).
+
+### Fit-Gap Analysis
+| Requirement | OCA `contract` | CE `purchase_requisition` | `nadf_legal_contract` |
+|-------------|---------------|--------------------------|----------------------|
+| Recurring services (ICT support, vehicle maint.) | ✅ Fit | ❌ No | ✅ Fit (with spec) |
+| One-time goods supply | ❌ No fit | ✅ Fit | ✅ Fit |
+| NADF RACI sign-off chain | ❌ No | ❌ No | ✅ Fit (designed for it) |
+| Budget-vs-contract tracking | ❌ Depends on account_budget (blocked) | ❌ No | ✅ Fit |
+| Renewal / expiry alerts | ✅ Fit | ❌ No | ✅ Fit |
+
+### Rationale
+- OCA `contract` does not cover the NADF RACI approval chain (the critical differentiator).
+- `nadf_legal_contract` custom module (per Transfer Package v2.1 B-04A) is the correct long-term solution.
+- Phase 1 `purchase_requisition` covers call for tender + award sufficiently for MVP.
+- Install of a new OCA module in Phase 1 (beyond the authorized list) requires a new gate decision.
+
+### Consequences
+- Phase 1: No OCA `contract` module installed. `purchase_requisition` used for tender workflow.
+- Phase 2/3: `nadf_legal_contract` spec to be authored. At that time, OCA `contract` may be re-evaluated for recurring service contracts alongside the custom module.
+- `MODULE_REGISTRY.md` is not updated (no install).
+
+---
+
+## DEC-WP03-002 — purchase_request User Group Mapping
+
+**Date:** 2026-06-25
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-03 execution)
+
+### Decision
+Map NADF WP-01 Procurement groups to OCA `purchase_request` module groups as follows:
+- `procurement.officer` → `Purchase Request / Purchase Request User` (create/submit PRs)
+- `head.procurement` → `Purchase Request / Purchase Request Manager` (approve PRs) + `Purchase Request User` (create)
+- Finance Approver group (NADF WP-01): not wired to purchase_request in Phase 1 (B-02/B-03 pending)
+
+### Context
+The OCA `purchase_request` module ships with its own groups ("Purchase Request User", "Purchase Request Manager"). The NADF WP-01 groups created separate NADF-categorised groups. The OCA ir.model.access rules are bound to the OCA groups, not the NADF groups. Direct assignment is the simplest Phase 1 mapping.
+
+### Rationale
+- Adding `ir.model.access` rules for NADF groups is the alternative but adds registry complexity.
+- Direct user assignment to both NADF and OCA groups is the minimal, maintainable Phase 1 configuration.
+- The mapping is documented so Phase 2 can implement a proper group inheritance structure via the `nadf_vendor_compliance` or equivalent module.
+
+### Consequences
+- `procurement.officer` (id=8) and `head.procurement` (id=9) now have full PR create/edit/approve access.
+- The NADF Requisitioner group (id=98) has no users assigned yet — any future Requisitioner must be added to both groups.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
