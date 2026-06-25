@@ -5,6 +5,16 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### WP-02 — Finance Core re-validated (2026-06-25)
+- **governance:** CoA re-validated: 319 NADF 8-digit accounts active, 71 CE legacy deprecated. Exported to `csv_templates/nadf_coa_revalidated_20260625.csv`.
+- **feat(security):** Finance users assigned — `finance.officer` → Finance Officer; `head.finance` → Finance Manager + CFO.
+- **governance:** Vendor bill workflow validated (draft → posted → reversed) — BILL/2026/06/0002 test.
+- **governance:** Payment dual-auth: advisory control via 4 legacy base.automation rules confirmed active — DEC-WP02-001.
+- **governance:** 5 analytic accounts (CC-ADM..CC-PRO) confirmed aligned to department cost-centre structure — DEC-WP02-002.
+- **governance:** Financial reports (CE native, 5 account.report records), tax accounts WHT/VAT confirmed.
+- **governance(blocked):** WP02-07 budget control — pending DEC-OCA-02 resolution.
+- **governance(deferred):** WP02-08 mis_builder dashboard — pending client KPI sign-off.
+
 ### WP-01 — Foundation Hardening executed (2026-06-25)
 - **ops:** OCA addons directory established at `/Users/mac/oca_addons`; `nadf.conf` `addons_path` updated.
 - **feat(oca):** `mis_builder` 17.0.1.5.0 installed (OCA/mis-builder@17.0); deps `report_xlsx` 17.0.1.0.2 + `date_range` 17.0.1.2.1 + CE `board` — DEC-OCA-01.

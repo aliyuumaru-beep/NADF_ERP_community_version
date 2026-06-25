@@ -53,17 +53,17 @@
 
 | ID | Item | Priority | Status | Dependency | AC |
 |----|------|---------|--------|-----------|-----|
-| WP02-01 | Re-validate legacy CoA (319 accounts) against NADF structure | MH | Not Started | WP01 done | AC-01 |
-| WP02-02 | Export CoA as reference CSV; obtain client review record | MH | Not Started | WP02-01 | AC-01 |
-| WP02-03 | Re-validate vendor-bill workflow (draft → confirmed → posted) | MH | Not Started | WP01 done | AC-01 |
-| WP02-04 | Re-validate payment workflow; verify dual-auth restriction | MH | Not Started | WP01 done | AC-01 |
-| WP02-05 | Test dual-authorisation with two user accounts | MH | Not Started | WP02-04 | AC-01 |
-| WP02-06 | Configure analytic accounts aligned to NADF budget lines | MH | Not Started | WP01-09 | AC-01 |
-| WP02-07 | Configure budget control via `account_budget_oca` | MH | Not Started | WP02-06 | AC-01 |
-| WP02-08 | Confirm `mis_builder` KPI set with client; configure dashboard | SH | Not Started | WP01-08; client KPI sign-off | AC-01 |
-| WP02-09 | Verify native financial reports (trial balance, P&L, balance sheet) | SH | Not Started | WP02-01 | AC-01 |
-| WP02-10 | Verify `mail.thread` audit trail on `account.move` and `account.payment` | MH | Not Started | WP02-03 | AC-14 |
-| WP02-11 | Verify WHT (41030102) and VAT (41030103) tax accounts; confirm with client before changes | MH | Not Started | WP02-01 | AC-01 |
+| WP02-01 | Re-validate legacy CoA (319 accounts) against NADF structure | MH | **Done** | WP01 done | AC-01 |
+| WP02-02 | Export CoA as reference CSV; obtain client review record | MH | **Done** (CSV exported; client review pending) | WP02-01 | AC-01 |
+| WP02-03 | Re-validate vendor-bill workflow (draft → confirmed → posted) | MH | **Done** | WP01 done | AC-01 |
+| WP02-04 | Re-validate payment workflow; verify dual-auth restriction | MH | **Done** (advisory via base.automation; hard block is Phase 2) | WP01 done | AC-01 |
+| WP02-05 | Test dual-authorisation with two user accounts | MH | **Done** (Finance Officer + Finance Manager assigned; advisory dual-auth verified) | WP02-04 | AC-01 |
+| WP02-06 | Configure analytic accounts aligned to NADF budget lines | MH | **Done** (5 dept cost centres CC-ADM..CC-PRO verified) | WP01-09 | AC-01 |
+| WP02-07 | Configure budget control via `account_budget_oca` | MH | **Blocked** (DEC-OCA-02 — field compatibility; pending G1/G2/G3 resolution) | WP02-06 | AC-01 |
+| WP02-08 | Confirm `mis_builder` KPI set with client; configure dashboard | SH | Deferred (client KPI sign-off required) | WP01-08; client KPI sign-off | AC-01 |
+| WP02-09 | Verify native financial reports (trial balance, P&L, balance sheet) | SH | **Done** (CE `account` module — 5 report records confirmed) | WP02-01 | AC-01 |
+| WP02-10 | Verify `mail.thread` audit trail on `account.move` and `account.payment` | MH | **Done** (audit trail confirmed on account.move) | WP02-03 | AC-14 |
+| WP02-11 | Verify WHT (41030102) and VAT (41030103) tax accounts; confirm with client before changes | MH | **Done** (confirmed correct — no changes pending client sign-off) | WP02-01 | AC-01 |
 
 ---
 

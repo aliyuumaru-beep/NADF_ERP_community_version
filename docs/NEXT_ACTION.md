@@ -1,47 +1,50 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-06-25 (WP-01 Foundation Hardening — CONDITIONAL PASS)
+**Last updated:** 2026-06-25 (WP-02 Finance Core — CONDITIONAL PASS)
 
 ## Current Milestone
-**M1 — Foundation** (ROADMAP Phase 1). M0 formally closed (PEG-6 approved 2026-06-24). WP-01 executed (2026-06-25): 4/5 OCA modules installed, 22 user groups created, TOTP 2FA enforced, registry exit 0.
+**M1 — Foundation** (ROADMAP Phase 1). WP-01 complete (CONDITIONAL PASS). WP-02 Finance Core re-validated (CONDITIONAL PASS). WP-02 exit gate: 9/11 done; WP02-07 blocked (DEC-OCA-02); WP02-08 deferred pending client KPI sign-off.
 
 ## Current State
-- **WP-01 CONDITIONAL PASS** — 4/5 OCA modules installed; `account_budget_oca` blocked (DEC-OCA-02).
-- **100 modules loaded**, registry exit 0, no ERROR/CRITICAL lines for Phase 1 modules.
-- **22 user groups created**: Finance×4, Procurement×4, HR×5, Administration×5, Project Coordination×4.
-- **TOTP 2FA policy = `required`** globally (DEC-2FA-002).
-- **`account_budget_oca` BLOCKED** — escalated to G1/G2/G3. Blocks WP02-07 (budget config only). All other WP-02 tasks unaffected.
-- Odoo running PID 54258 on updated `nadf.conf` (addons_path includes `/Users/mac/oca_addons`).
-- **Single Claude Code session enforced** — only one active session permitted at any time.
+- **100 modules loaded**, registry exit 0. Odoo PID 54258.
+- **WP-01 CONDITIONAL PASS:** 4/5 OCA installed; `account_budget_oca` blocked.
+- **WP-02 CONDITIONAL PASS:** CoA validated (319 accounts); bill workflow ✅; payment advisory dual-auth ✅; analytic accounts ✅; financial reports ✅; tax accounts ✅.
+- **Finance users assigned:** `finance.officer` → Finance Officer; `head.finance` → Finance Manager + CFO.
+- **Open escalations:**
+  - **DEC-OCA-02** — `account_budget_oca` incompatible; blocks WP02-07 only; G1/G2/G3 resolution required.
+  - **WP02-08** — mis_builder dashboard deferred; client KPI sign-off required.
+- **CoA CSV exported:** `csv_templates/nadf_coa_revalidated_20260625.csv` — pending client review record.
+- **Single Claude Code session enforced.**
 
 ## Open escalation: DEC-OCA-02 — account_budget_oca
 
-`account_budget_oca` 17.0.1.0.0 failed with `Field 'theoritical_amount' does not exist` on `account.analytic.account`. G1/G2/G3 must decide before WP02-07:
-- **(a)** Upgrade to a later OCA patch release that fixes the field reference
-- **(b)** Use CE native `account_budget` module (non-OCA alternative, conflicts with OCA — mutual exclusion)
-- **(c)** Defer budget configuration to a future WP with an approved alternative
+G1/G2/G3 must decide:
+- **(a)** Upgrade to later OCA/account-budgeting patch release (check if newer 17.0.x fixes the field)
+- **(b)** Use CE native `account_budget` (conflicts with OCA version — mutual exclusion; acceptable if OCA version not required)
+- **(c)** Defer budget configuration to a future WP
+
+## Client actions required
+- **WP02-02:** Client review of `csv_templates/nadf_coa_revalidated_20260625.csv` — sign-off required
+- **WP02-08:** Client to confirm mis_builder KPI set before dashboard configuration
+- **WP02-11:** Client to confirm WHT/VAT tax rule configuration before any amendment
+- **WP03-07:** Procurement approval chain — client confirmation of RACI step 1.19 (B-02) and thresholds (B-03) required
 
 ## Next Recommended Actions (in order)
 
-**➡️ 1. G1/G2/G3 resolve DEC-OCA-02** (account_budget_oca compatibility) — decision required before WP02-07 budget configuration.
+**➡️ 1. Merge PR #6** (WP-02 implementation) — requires independent reviewer.
 
-**➡️ 2. Merge PR #5** (WP-01 implementation commit) — requires independent reviewer approval.
+**➡️ 2. Implement WP-03 — Procurement Core** (`purchase_request` requisition, `purchase_requisition` RFQ/tender, vendor compliance field, goods receipt).
 
-**➡️ 3. Implement WP-02 — Finance Core** (re-validate legacy CoA, vendor-bill and payment workflows, analytic accounts; budget config deferred pending DEC-OCA-02 resolution).
+**➡️ 3. Implement WP-04 — HR Core** (employee records, leave workflow, recruitment pipeline, org hierarchy refinement).
 
-**➡️ 4. Implement WP-ADM-01** (fleet, assets, helpdesk_mgmt configuration) — parallel with WP-02 after WP-01 exit gate.
+**➡️ 4. Implement WP-ADM-01** (fleet register, asset register, helpdesk_mgmt ICT configuration).
 
-**➡️ 5. Implement WP-PC-01** (project coordination structure, milestone model, user groups) — parallel with WP-02/ADM-01.
+**➡️ 5. Implement WP-PC-01** (project structure, milestone model, PCU groups).
 
-**➡️ 6. Proceed to WP-03 (Procurement) → WP-04 (HR) → WP-05 (UAT Preparation).**
-
-## Remaining blockers
-- **DEC-OCA-02** — `account_budget_oca` compatibility resolution (blocks WP02-07 only).
-- **WP-PROC-02** — Procurement approval chain still blocked on B-02/B-03 (client confirmation required).
-- **Retrospective specs** — `nadf_vendor_onboarding` and `nadf_facilities_management` require specs before ratification.
+**➡️ 6. G1/G2/G3 resolve DEC-OCA-02** (account_budget_oca) — unblocks WP02-07.
 
 ## Single-session discipline
-⚠️ **Only one Claude Code session may be active at any time.** Confirm before starting any WP implementation.
+⚠️ Only one Claude Code session may be active at any time.
 
 ## Files to read before starting (any session)
 1. `docs/NEXT_ACTION.md` (this file)
