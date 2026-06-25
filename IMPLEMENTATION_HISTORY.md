@@ -46,6 +46,24 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### WP-02 — Finance Core re-validated (2026-06-25) — M1 Foundation active
+
+| Item | Result |
+|------|--------|
+| WP02-01: CoA re-validated | 319 NADF 8-digit accounts active; 71 CE legacy deprecated — PASS |
+| WP02-02: CoA exported | `csv_templates/nadf_coa_revalidated_20260625.csv` (319 rows); client review pending |
+| WP02-03: Vendor bill workflow | draft → posted cycle validated; BILL/2026/06/0002 created + reversed — PASS |
+| WP02-04: Payment workflow | Bank (BNK1) + Cash (CSH1) journals verified; dual-auth advisory via base.automation (4 rules active) — DEC-WP02-001 |
+| WP02-05: Finance user assignments | finance.officer → Finance Officer; head.finance → Finance Manager + CFO — PASS |
+| WP02-06: Analytic accounts | 5 dept cost centres confirmed: CC-ADM, CC-EXE, CC-FIN, CC-HR, CC-PRO — DEC-WP02-002 |
+| WP02-07: Budget control | BLOCKED — DEC-OCA-02 (account_budget_oca incompatible) |
+| WP02-08: mis_builder dashboard | Deferred — client KPI sign-off required (SH priority) |
+| WP02-09: Financial reports | 5 account.report records confirmed (CE native) — PASS |
+| WP02-10: mail.thread audit | Confirmed on account.move — PASS |
+| WP02-11: Tax accounts | WHT 41030102 (14 tax lines), VAT 41030103 (8 tax lines) — no changes needed |
+
+**WP-02 exit gate status:** CONDITIONAL PASS — 9/11 items done; WP02-07 blocked (DEC-OCA-02); WP02-08 deferred (client action required).
+
 ### WP-01 — Foundation Hardening executed (2026-06-25) — M1 Foundation active
 
 | Item | Evidence / Decision |

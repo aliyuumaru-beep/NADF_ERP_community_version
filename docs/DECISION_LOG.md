@@ -502,5 +502,46 @@ All active Odoo users (including `admin` / `nadf_admin`) must configure a TOTP a
 
 ---
 
+## DEC-WP02-001 — Payment Dual-Authorisation: Advisory Restriction (Phase 1)
+
+**Date:** 2026-06-25
+**Type:** ARCHITECTURE / GOVERNANCE EXCEPTION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-02 execution (ratifies DEC-005 for Phase 1)
+
+### Decision
+For Phase 1, payment dual-authorisation is implemented as **advisory control** via the existing `base.automation` escalation rules (Invoice Tier 2/3, PO Tier 2/3). Finance Officer creates/enters payments; Finance Manager reviews. The system does not hard-block payment posting by a lower-tier user.
+
+### Context
+Odoo 17 CE `account.payment` has no native payment approval group field. The legacy Phase 5 rules (DEC-005) remain active and escalate high-value invoice/PO events to Director CS / Executive Secretary via Odoo activities. WP-02 re-validation confirmed all 4 rules are active and triggering correctly.
+
+### Rationale
+- Consistent with DEC-005 (accepted limitation for MVP).
+- Finance Officer and Finance Manager groups are now populated with real users; the group-level separation provides maker-checker control at the role level.
+- Hard payment blocking requires a custom `nadf_approvals` module (Phase 2 spec / Phase 3 dev) — not in Phase 1 scope.
+
+### Consequences
+WP02-04 and WP02-05 marked Done. If a Finance Officer posts a payment without Finance Manager review, the system will not block it — this is a known MVP limitation. Audit trail on `account.move` provides post-facto tracking. Full hard control is Phase 2 scope.
+
+---
+
+## DEC-WP02-002 — Analytic Accounts: Department Cost-Centre Structure (Phase 1)
+
+**Date:** 2026-06-25
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-02 execution
+
+### Decision
+Accept the existing 5 analytic accounts (CC-ADM, CC-EXE, CC-FIN, CC-HR, CC-PRO) under the "Projects" analytic plan as the Phase 1 analytic dimension. No new analytic accounts required for Phase 1.
+
+### Context
+WP02-06 required analytic accounts aligned to NADF budget lines. The budget CSV (`csv_templates/nadf_budget_fy2026.csv`) has 40 expense lines at account-code level. Department cost centres are the correct granularity for Phase 1 budget tracking. Programme/project-level analytic dimensions (CA-10, CA-11) are deferred to Phase 3+.
+
+### Consequences
+Budget CSV amounts will be allocated to department analytic accounts when the budget module configuration is resolved (pending DEC-OCA-02). The analytic plan name "Projects" should be renamed to "NADF Departments" during WP-02 client review session to avoid confusion.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
