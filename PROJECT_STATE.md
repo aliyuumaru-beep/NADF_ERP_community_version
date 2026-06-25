@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-22  
+**Last updated:** 2026-06-25 (M1 active; WP-01/02 CONDITIONAL PASS; WP-03 Go/No-Go PASS)  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  
@@ -109,11 +109,11 @@
 
 | Field | Value |
 |-------|-------|
-| Milestone ID | M-PLATFORM-CORRECTION |
-| Title | Platform audit and governance activation |
-| Status | ⏳ Not started — URGENT |
-| Description | Audit Odoo instance for any installed Enterprise-only modules. Document findings. Rewrite any affected backlog items against CE/OCA equivalents. Log platform confirmation in Decision Log. Run all five Governance Activation Gate checks. Produce GOVERNANCE_GATE_REPORT.md. Fix all FAILs before any ERP configuration or module work proceeds. |
-| Exit criteria | Zero Enterprise modules in Odoo instance; Governance Gate fully PASSED; DECISION_LOG.md contains DEC-PLATFORM-001 |
+| Milestone ID | M1 — Foundation |
+| Title | Phase 1 Foundation — Finance, Procurement, HR, Administration, Project Coordination |
+| Status | 🔄 **ACTIVE** — WP-01 CONDITIONAL PASS; WP-02 CONDITIONAL PASS; WP-03 Go/No-Go PASS (execution in progress) |
+| M0 predecessor | M0 CLOSED 2026-06-24 — PEG-6 approved; Governance Gate 21/21 PASS; all 6 PRs merged |
+| Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 complete; WP-05 UAT preparation done; DEC-OCA-02 resolved; client CoA sign-off received |
 
 ---
 
@@ -121,11 +121,12 @@
 
 | Field | Value |
 |-------|-------|
-| Work Package | WP-GOV-01: Governance Activation |
-| Phase | Phase 0 — Governance Remediation |
-| Assigned to | Claude Code |
-| Status | ⏳ Not started |
-| Inputs required | Repository access; Odoo instance access; Transfer Package v2.1 |
+| Work Package | WP-03 — Procurement Core |
+| Phase | Phase 1 — Foundation (Wave A, Session 1) |
+| Assigned to | D2 Solution Builder / A1 Orchestrator |
+| Status | 🔄 Go/No-Go PASS 2026-06-25 — execution authorised; pre-work backup required before first mutating operation |
+| Inputs required | `docs/work_packages/WP_03_PROCUREMENT_CORE.md` (Go/No-Go PASS) |
+| Branch | `feat/wp-03-procurement-core` from main@`e58e15c` |
 
 ---
 
@@ -147,15 +148,16 @@
 
 **Scoping rule (applied 2026-06-22):** This section lists **only blockers that prevent execution of the current milestone** (M0 — Governance Remediation / `M-PLATFORM-CORRECTION`). Items that gate future phases are tracked in §8.2 and §8.3 so they do not distort current-milestone readiness.
 
-### 8.1 Active Blockers — current milestone (M0 Governance Remediation)
+### 8.1 Active Blockers — current milestone (M1 Foundation)
 
 | ID | Blocker | Owner | Impact |
 |----|---------|-------|--------|
-| B-01 | ✅ **RESOLVED (M-C)** — platform audit run; 0 prohibited Enterprise modules; `DEC-PLATFORM-001` logged | Claude Code | Gate E PASS |
-| B-05 | ✅ **RESOLVED (M-C)** — `docs/BACKUP_STRATEGY.md` + first backup + restore drill PASS | Claude Code | Gate D PASS |
-| B-06 | ✅ **RESOLVED (M-D)** — pushed + `main` protected; CI workflow added (`ci.yml`) and validated | Claude Code | Gate A + Gate B PASS |
+| DEC-OCA-02 | `account_budget_oca` incompatible — Option A OCA patch investigation pending; Option C defer fallback | D2 / G1 | Blocks WP02-07 (budget) only; WP-03/04/ADM-01/PC-01 unaffected |
+| WP03-07 | Procurement multi-level approval — client B-02 (RACI 1.19) and B-03 (thresholds) not confirmed | Client | Approval chain cannot be configured until client confirms |
+| WP02-08 | mis_builder dashboard — client KPI sign-off not received | Client (Aliyu) | Dashboard dormant; module installed |
+| WP02-02 | CoA client countersignature — CSV delivered; formal sign-off pending | Client | UAT Finance scenario pre-requisite |
 
-### 8.2 Future Phase-1 Dependencies — do NOT block current milestone
+### 8.2 Future Phase-1 Dependencies — do NOT block WP-03/04/ADM-01/PC-01
 
 | ID | Dependency | Owner | Gates |
 |----|-----------|-------|-------|
@@ -183,8 +185,9 @@
 | ID | Escalation | To | Status |
 |----|-----------|-----|--------|
 | E-01 | Nigerian payroll statutory requirements need legal/HR advisory input before `nadf_payroll_ng` spec is finalised | Aliyu / Lanasoft | Open |
-| E-02 | Client confirmation required on Procurement blockers B-02 and B-03 | NADF Client | Open |
+| E-02 | Client confirmation required on Procurement blockers B-02 (RACI 1.19) and B-03 (approval thresholds) | NADF Client | Open — WP03-07 blocked |
 | E-03 | Investment module scope requires client business requirements session before spec can be drafted | Aliyu / NADF | Open |
+| DEC-OCA-02 | `account_budget_oca` compatibility failure — G1/G2/G3 resolution: Option A investigation or Option C defer | G1 / D2 | Open — see `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` |
 
 ---
 
@@ -236,13 +239,14 @@ verified against the actual repository tree.
 |-------|-------|
 | Repo path | `/Users/mac/nadf_erp` ✅ confirmed |
 | Git status | Initialised; M-B deliverables committed on branch `phase/0-governance` |
-| Default branch | `main` @ `05568b4` (legacy Phase 8); no upstream tracking |
-| GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — **empty (0 heads), never pushed** |
-| Branch protection | None — no remote branch exists to protect (M-C) |
-| CI workflows | `.github/workflows/` present but **empty** (M-D) |
-| Claude hooks | `.claude/hooks/` present but **empty** (M-D) |
+| Default branch | `main` @ `e58e15c` (PR #6 merged 2026-06-25) |
+| GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 6 PRs merged |
+| Branch protection | ✅ Active — 1 PR approval required, enforce_admins, require_last_push_approval |
+| CI workflows | ✅ `.github/workflows/ci.yml` — manifest parse + py_compile + XML well-formedness |
+| Active branches | `feat/wp-03-procurement-core` (Go/No-Go PASS), `docs/wp-02-governance-outputs` (PR #7 open) |
+| Claude hooks | `.claude/hooks/` present but empty |
 | Tags | None |
-| Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/` (see Section 12). Must NOT be used as an authority source. |
+| Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/`. Must NOT be used as an authority source. |
 
 ---
 
