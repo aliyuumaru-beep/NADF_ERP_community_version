@@ -1,43 +1,47 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-06-24 (Phase 1 activated — PEG-6 approved)
+**Last updated:** 2026-06-25 (WP-01 Foundation Hardening — CONDITIONAL PASS)
 
 ## Current Milestone
-**M1 — Foundation** (ROADMAP Phase 1). M0 formally closed (PEG-6 approved 2026-06-24, `DEC-PEG6-001`; PR #1 + PR #2 merged to `main`). Phase 1 Product Engineering now active.
+**M1 — Foundation** (ROADMAP Phase 1). M0 formally closed (PEG-6 approved 2026-06-24). WP-01 executed (2026-06-25): 4/5 OCA modules installed, 22 user groups created, TOTP 2FA enforced, registry exit 0.
 
 ## Current State
-- **PEG-6 APPROVED** — Phase 1 authorized (CONDITIONAL GO, conditions a–e satisfied/enforced).
-- **M0 CLOSED**: Governance Gate 21/21 PASS · governance baseline on `main` (`b8dad2d`) · PEG-6 signed.
-- Odoo restarted on corrected `addons_path`; `nadf_vendor_onboarding` and `nadf_facilities_management` confirmed discoverable (exit 0).
+- **WP-01 CONDITIONAL PASS** — 4/5 OCA modules installed; `account_budget_oca` blocked (DEC-OCA-02).
+- **100 modules loaded**, registry exit 0, no ERROR/CRITICAL lines for Phase 1 modules.
+- **22 user groups created**: Finance×4, Procurement×4, HR×5, Administration×5, Project Coordination×4.
+- **TOTP 2FA policy = `required`** globally (DEC-2FA-002).
+- **`account_budget_oca` BLOCKED** — escalated to G1/G2/G3. Blocks WP02-07 (budget config only). All other WP-02 tasks unaffected.
+- Odoo running PID 54258 on updated `nadf.conf` (addons_path includes `/Users/mac/oca_addons`).
 - **Single Claude Code session enforced** — only one active session permitted at any time.
-- Phase 1 scope **frozen** at Transfer Package v2.1.
-- Phase 1 planning documents prepared (`docs/product/`, `docs/work_packages/WP_01_FOUNDATION_HARDENING.md`).
-- Legacy build (Phases 0–10) remains **built / unratified** — ratification is Phase 1 work.
+
+## Open escalation: DEC-OCA-02 — account_budget_oca
+
+`account_budget_oca` 17.0.1.0.0 failed with `Field 'theoritical_amount' does not exist` on `account.analytic.account`. G1/G2/G3 must decide before WP02-07:
+- **(a)** Upgrade to a later OCA patch release that fixes the field reference
+- **(b)** Use CE native `account_budget` module (non-OCA alternative, conflicts with OCA — mutual exclusion)
+- **(c)** Defer budget configuration to a future WP with an approved alternative
 
 ## Next Recommended Actions (in order)
 
-**➡️ 1. Activate Governance Layer (G1/G2/G3) before any Delivery Layer work.**
-G1 Architecture/Odoo Governance → G2 Quality & Documentation Governance → G3 Security & Change Governance must review and clear WP-01 before D1–D4 agents are activated.
+**➡️ 1. G1/G2/G3 resolve DEC-OCA-02** (account_budget_oca compatibility) — decision required before WP02-07 budget configuration.
 
-**➡️ 2. WP-01 Go/No-Go checkpoint.** Review `docs/work_packages/WP_01_FOUNDATION_HARDENING.md`. G1/G2/G3 must pass the checkpoint before WP-01 implementation begins.
+**➡️ 2. Merge PR #5** (WP-01 implementation commit) — requires independent reviewer approval.
 
-**➡️ 3. Implement WP-01 — Foundation Hardening** (once G-layer clears): install and version-pin five OCA modules; configure baseline security groups; enforce 2FA; take pre-work backup.
+**➡️ 3. Implement WP-02 — Finance Core** (re-validate legacy CoA, vendor-bill and payment workflows, analytic accounts; budget config deferred pending DEC-OCA-02 resolution).
 
-**➡️ 4. Proceed to WP-02 (Finance Core) → WP-03 (Procurement Core) → WP-04 (HR Core) → WP-05 (UAT Preparation)** per `docs/product/PHASE_1_ROADMAP.md`.
+**➡️ 4. Implement WP-ADM-01** (fleet, assets, helpdesk_mgmt configuration) — parallel with WP-02 after WP-01 exit gate.
 
-## Remaining blockers before WP-01 implementation
-- G1/G2/G3 governance layer activation and WP-01 Go/No-Go clearance.
-- OCA module Odoo-17-CE compatibility verification (before install).
-- Procurement approval chain (WP-PROC-02) remains blocked on B-02/B-03 (client confirmation).
-- Pre-work backup must be taken before first schema/data-mutating operation.
+**➡️ 5. Implement WP-PC-01** (project coordination structure, milestone model, user groups) — parallel with WP-02/ADM-01.
+
+**➡️ 6. Proceed to WP-03 (Procurement) → WP-04 (HR) → WP-05 (UAT Preparation).**
+
+## Remaining blockers
+- **DEC-OCA-02** — `account_budget_oca` compatibility resolution (blocks WP02-07 only).
+- **WP-PROC-02** — Procurement approval chain still blocked on B-02/B-03 (client confirmation required).
+- **Retrospective specs** — `nadf_vendor_onboarding` and `nadf_facilities_management` require specs before ratification.
 
 ## Single-session discipline
-⚠️ **Only one Claude Code session may be active at any time.** A concurrent session was detected during M-C stabilization. Before starting any WP implementation, confirm no other session is open against this repository.
-
-## Not yet started (gated)
-- Phase 1 foundation ratification + OCA installs (no install without compatibility check + Decision Log entry).
-- Custom-module specs (Phase 2) — no spec, no code.
-- Department builds — gated on TO-BE delivery.
+⚠️ **Only one Claude Code session may be active at any time.** Confirm before starting any WP implementation.
 
 ## Files to read before starting (any session)
 1. `docs/NEXT_ACTION.md` (this file)
