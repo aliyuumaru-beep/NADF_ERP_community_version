@@ -46,6 +46,26 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### WP-01 — Foundation Hardening executed (2026-06-25) — M1 Foundation active
+
+| Item | Evidence / Decision |
+|------|---------------------|
+| Single-session confirmed (WP01-01) | One Claude Code process (PID 44319) at execution start |
+| Pre-work backup taken (WP01-02) | `nadf_20260624_160329`: dump 5.9 MB + filestore 36 MB — verified |
+| OCA compatibility verified (WP01-03..07) | 4 of 5 OCA modules compatible; `account_budget_oca` blocked (DEC-OCA-02) |
+| `mis_builder` 17.0.1.5.0 installed (WP01-08) | `state='installed'`; deps: `report_xlsx` (OCA/reporting-engine), `date_range` (OCA/server-ux), `board` (CE) — DEC-OCA-01 |
+| `account_budget_oca` NOT installed (WP01-09) | Compatibility failure — field `theoritical_amount` missing; escalated — DEC-OCA-02 |
+| `purchase_request` 17.0.2.3.4 installed (WP01-10) | `state='installed'` — DEC-OCA-03 |
+| `purchase_requisition` 17.0.0.1 CE native (WP01-11) | Already installed; confirmed CE native; DEC-OCA-05 |
+| `helpdesk_mgmt` 17.0.1.10.4 installed (WP01-12) | `state='installed'` — DEC-OCA-04 |
+| 22 Phase 1 user groups created (WP01-13..17) | Finance×4, Procurement×4, HR×5, Administration×5, Project Coordination×4 — committed to DB |
+| TOTP 2FA policy set to `required` (WP01-18..19) | `auth_totp.policy = required` in `ir.config_parameter`; global enforcement; DEC-2FA-002 |
+| Registry exit 0 post-install (WP01-20) | 100 modules, 1.78s, no ERROR/CRITICAL lines for any Phase 1 module — AC-WP01-06 PASS |
+| OCA addons path added (D-WP01-11) | `nadf.conf` updated: `/Users/mac/oca_addons` added to `addons_path`; `MODULE_REGISTRY.md` updated |
+| Odoo restarted PID 54258 | Running on updated `nadf.conf` with full OCA addons path |
+
+**WP-01 exit gate status:** CONDITIONAL PASS — 4/5 OCA modules installed; `account_budget_oca` blocked (DEC-OCA-02). WP-02 Finance re-validation can proceed; WP02-07 (budget) blocked pending DEC-OCA-02 resolution.
+
 ### Phase 1 activation — PEG-6 approved (2026-06-24) — governance-only
 
 - **PEG-6 APPROVED** by Business Sponsor (Aliyu / Lanasoft Technologies); recorded as `DEC-PEG6-001`. M0 formally closed.

@@ -5,6 +5,18 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### WP-01 — Foundation Hardening executed (2026-06-25)
+- **ops:** OCA addons directory established at `/Users/mac/oca_addons`; `nadf.conf` `addons_path` updated.
+- **feat(oca):** `mis_builder` 17.0.1.5.0 installed (OCA/mis-builder@17.0); deps `report_xlsx` 17.0.1.0.2 + `date_range` 17.0.1.2.1 + CE `board` — DEC-OCA-01.
+- **feat(oca):** `purchase_request` 17.0.2.3.4 installed (OCA/purchase-workflow@17.0) — DEC-OCA-03.
+- **feat(oca):** `helpdesk_mgmt` 17.0.1.10.4 installed (OCA/helpdesk@17.0) — DEC-OCA-04.
+- **governance(oca):** `purchase_requisition` confirmed CE native 17.0.0.1 (pre-installed) — DEC-OCA-05.
+- **governance(blocked):** `account_budget_oca` NOT installed — field `theoritical_amount` compatibility error; escalated to G1/G2/G3 — DEC-OCA-02. WP02-07 budget task blocked.
+- **feat(security):** 22 Phase 1 user groups created (Finance×4, Procurement×4, HR×5, Administration×5, Project Coordination×4).
+- **feat(security):** TOTP 2FA policy set to `required` globally; `auth_totp.policy` in `ir.config_parameter` — DEC-2FA-002.
+- **governance:** `MODULE_REGISTRY.md` updated with all OCA installs (D-WP01-11). `DECISION_LOG.md` updated (DEC-OCA-01..05, DEC-2FA-002).
+- **ops:** Registry exit 0, 100 modules loaded, no ERROR/CRITICAL lines for Phase 1 modules — AC-WP01-06 PASS. Odoo restarted PID 54258.
+
 ### Phase 1 activation — PEG-6 approved (2026-06-24)
 - **governance:** PEG-6 approved by Business Sponsor (Aliyu / Lanasoft Technologies); `DEC-PEG6-001` logged. M0 formally closed.
 - **ops:** Live Odoo service restarted (PID 51025) on corrected `addons_path`; `nadf_vendor_onboarding` and `nadf_facilities_management` confirmed discoverable (exit 0).

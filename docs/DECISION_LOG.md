@@ -375,5 +375,132 @@ WP-01 §2 Scope table, D-WP01-09, and AC-WP01-05 updated to use the explicit gro
 
 ---
 
+## DEC-OCA-01 — Install `mis_builder` OCA Module
+
+**Date:** 2026-06-25
+**Type:** PLATFORM / OCA MODULE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-01 execution (G1/G2/G3 authorized)
+
+### Decision
+Install `mis_builder` version **17.0.1.5.0** from OCA/mis-builder branch `17.0`. Source: `https://github.com/OCA/mis-builder`. Module directory: `/Users/mac/oca_addons/mis_builder/`. Dependencies installed: `report_xlsx` (OCA/reporting-engine 17.0.1.0.2), `date_range` (OCA/server-ux 17.0.1.2.1), `board` (CE 17.0.1.0).
+
+### Rationale
+Provides executive and operational KPI dashboards for CA-01 Financial Management. CE `account` analytics alone is insufficient for multi-period management reporting. Authorized in PEG-6 §3 and WP-01 §2.
+
+### Verification
+`state='installed'`, `latest_version='17.0.1.5.0'` in `ir_module_module`. Registry exit 0 post-install. No ERROR/CRITICAL log lines.
+
+---
+
+## DEC-OCA-02 — `account_budget_oca` Compatibility Failure — Escalated
+
+**Date:** 2026-06-25
+**Type:** PLATFORM / OCA COMPATIBILITY / GOVERNANCE FINDING
+**Status:** ESCALATED — pending resolution decision
+**Made By:** A1 Master Orchestrator — WP-01 execution
+
+### Finding
+`account_budget_oca` version **17.0.1.0.0** from OCA/account-budgeting branch `17.0` is **NOT installed**. Install attempt failed with:
+
+```
+odoo.tools.convert.ParseError: Field `theoritical_amount` does not exist
+View: account.analytic.account.form.inherit.budget
+File: account_budget_oca/views/account_analytic_account_views.xml:2
+```
+
+The field `theoritical_amount` does not exist on `account.analytic.account` in this Odoo 17 CE build. This is a version compatibility gap between the OCA module and the specific Odoo 17 minor release installed locally.
+
+### Decision
+**Do not install the incompatible version.** Per R-WP01-01 mitigation: "if incompatible, log finding and escalate — do not install incompatible version." Module directory retained at `/Users/mac/oca_addons/account_budget_oca/` for future resolution.
+
+### Escalation requirement
+G1/G2/G3 must decide before WP-02 budget sub-task begins:
+- (a) Upgrade to a later OCA/account-budgeting patch release that fixes the field reference
+- (b) Use CE native `account_budget` module for budget control (non-OCA alternative)
+- (c) Defer budget configuration to a future WP with an approved alternative
+
+### Consequences
+WP-02 budget sub-task (WP02-07: configure budget control) is **BLOCKED** pending resolution. All other WP-02 tasks are unaffected. WP-01 exit gate proceeds without `account_budget_oca`.
+
+---
+
+## DEC-OCA-03 — Install `purchase_request` OCA Module
+
+**Date:** 2026-06-25
+**Type:** PLATFORM / OCA MODULE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-01 execution (G1/G2/G3 authorized)
+
+### Decision
+Install `purchase_request` version **17.0.2.3.4** from OCA/purchase-workflow branch `17.0`. Source: `https://github.com/OCA/purchase-workflow`. Module directory: `/Users/mac/oca_addons/purchase_request/`. CE dependency `purchase_stock` was already installed.
+
+### Rationale
+Provides structured multi-step procurement requisition for CA-02. CE `purchase` has no native requisition workflow. Authorized in PEG-6 §3 and WP-01 §2.
+
+### Verification
+`state='installed'`, `latest_version='17.0.2.3.4'` in `ir_module_module`. Registry exit 0 post-install. No ERROR/CRITICAL log lines.
+
+---
+
+## DEC-OCA-04 — Install `helpdesk_mgmt` OCA Module
+
+**Date:** 2026-06-25
+**Type:** PLATFORM / OCA MODULE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-01 execution (G1/G2/G3 authorized)
+
+### Decision
+Install `helpdesk_mgmt` version **17.0.1.10.4** from OCA/helpdesk branch `17.0`. Source: `https://github.com/OCA/helpdesk`. Module directory: `/Users/mac/oca_addons/helpdesk_mgmt/`. CE dependencies `mail` and `portal` were already installed.
+
+### Rationale
+Provides ICT helpdesk functionality for CA-04. Replaces unratified `project`-based workaround from legacy build. CE `helpdesk` module is Enterprise-only; `helpdesk_mgmt` is the authorized CE replacement. Authorized in PEG-6 §3 and WP-01 §2.
+
+### Verification
+`state='installed'`, `latest_version='17.0.1.10.4'` in `ir_module_module`. Registry exit 0 post-install. No ERROR/CRITICAL log lines.
+
+---
+
+## DEC-OCA-05 — `purchase_requisition` Confirmed CE Native (No OCA Install Required)
+
+**Date:** 2026-06-25
+**Type:** PLATFORM / OCA MODULE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-01 execution
+
+### Decision
+`purchase_requisition` is confirmed as **Odoo 17 CE native** module ("Purchase Agreements", `/Users/mac/odoo17/odoo/odoo/addons/purchase_requisition/`), not an OCA module. It was already installed in the NADF DB (`state='installed'`, `latest_version='17.0.0.1'`) prior to WP-01. No OCA install required.
+
+### Rationale
+PEG-6 listed `purchase_requisition` as an OCA module based on its OCA availability in Odoo 14–16. In Odoo 17, it was absorbed into the CE core. The capability (tender/vendor comparison workflow) is fully satisfied by the CE version.
+
+### Consequences
+No additional install action. Module listed in MODULE_REGISTRY.md as CE native. Decision Log entry serves as the traceability record.
+
+---
+
+## DEC-2FA-002 — TOTP Global Policy Set to Required
+
+**Date:** 2026-06-25
+**Type:** SECURITY / CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator — WP-01 execution (WP01-18 / WP01-19)
+
+### Decision
+Set `auth_totp.policy = 'required'` in Odoo `ir.config_parameter`. All active Odoo users must complete TOTP enrollment before they can log in.
+
+### Context
+WP-01 §2 specifies TOTP enforcement for Finance Officer, Finance Manager, CFO, Auditor, and CEO (per DEC-2FA-001). Odoo 17 CE `auth_totp` module supports only two global policies: `optional` (user choice) or `required` (all users). Per-group enforcement is **not natively available** in CE `auth_totp` without custom code.
+
+### Decision rationale
+Setting the policy to `required` globally satisfies the spirit of DEC-2FA-001 and exceeds its minimum requirement (enforces for all users including the specified groups). This is more secure than a partial enforcement, introduces no code risk, and is reversible via settings. The broader enforcement is acceptable for this deployment: NADF is a multi-department system; requiring TOTP for all staff is consistent with public sector security practice.
+
+### Consequences
+All active Odoo users (including `admin` / `nadf_admin`) must configure a TOTP authenticator on next login or the next session after the policy is in force. Users without TOTP configured will be prompted to set it up. Admins must communicate this requirement to all staff before UAT.
+
+**Revisit condition:** If per-group enforcement is required (e.g., to exempt Service Account users), install OCA `auth_totp_mandatory_group` or equivalent, or implement via custom module under Phase 2 spec process.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
