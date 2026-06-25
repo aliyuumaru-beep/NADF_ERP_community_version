@@ -5,6 +5,15 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### WP-03 — Procurement Core executed (2026-06-25)
+- **feat(procurement):** `x_compliance_status` selection field created on `res.partner` (compliant/non_compliant/pending); 4 vendors tagged — DEC-WP03-001.
+- **feat(procurement):** `purchase_request` workflow configured: `procurement.officer` → PR User; `head.procurement` → PR Manager. Full draft→to_approve→approved cycle validated.
+- **feat(procurement):** `purchase_requisition` "Call for Tender" type created (exclusive=exclusive, qty_copy=copy); full tender → 2 RFQs → award → PO confirmed → loser cancelled → requisition closed — validated.
+- **feat(procurement):** Goods receipt validated: PO P00011 → NADF/IN/00004 (5× HP Toner, stock.move state=done).
+- **governance:** OCA `contract` fit-gap analysis: RACI requirement unmet; deferred to Phase 2/3 (`nadf_legal_contract` spec required) — DEC-CONTRACT-001.
+- **governance:** mail.thread audit confirmed on `purchase.request` (2 msgs) and `purchase.order` (5 msgs) — AC-14 PASS.
+- **governance(blocked):** WP03-07 multi-level approval chain — ₦500K threshold UNCHANGED; B-02/B-03 client confirmation outstanding.
+
 ### WP-02 — Finance Core re-validated (2026-06-25)
 - **governance:** CoA re-validated: 319 NADF 8-digit accounts active, 71 CE legacy deprecated. Exported to `csv_templates/nadf_coa_revalidated_20260625.csv`.
 - **feat(security):** Finance users assigned — `finance.officer` → Finance Officer; `head.finance` → Finance Manager + CFO.

@@ -1,6 +1,6 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-06-25 (WP-03 Go/No-Go PASS — execution authorised)
+**Last updated:** 2026-06-25 (WP-03 Procurement Core — CONDITIONAL PASS)
 
 ## Current Milestone
 **M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED (PEG-6 2026-06-24). WP-01 CONDITIONAL PASS (PR #5 merged). WP-02 CONDITIONAL PASS (PR #6 merged `e58e15c`).
@@ -11,29 +11,34 @@
 - **100 modules loaded**, registry exit 0. Odoo PID 54258.
 - **WP-01 CONDITIONAL PASS:** 4/5 OCA installed; `account_budget_oca` blocked (DEC-OCA-02).
 - **WP-02 CONDITIONAL PASS:** CoA validated; bill workflow ✅; payment dual-auth advisory ✅; analytic accounts ✅; reports ✅; tax accounts ✅.
-- **WP-03 Go/No-Go: PASS** — `purchase_request` and `purchase_requisition` installed; `mail.thread` confirmed; branch clean; G1/G2/G3 cleared. **Pre-work backup required before first mutating operation.**
+- **WP-03 CONDITIONAL PASS:** compliance field ✅; purchase_request workflow ✅; Call for Tender + award ✅; goods receipt ✅; OCA contract deferred ✅; mail.thread ✅; WP03-07 BLOCKED (B-02/B-03).
 - **Single Claude Code session enforced.**
 
-## Governance documents issued
-| Document | Path | Status |
-|---------|------|--------|
-| WP-02 Exit Gate Report | `docs/governance/WP_02_EXIT_GATE_REPORT.md` | ISSUED — in PR #7 |
-| DEC-OCA-02 Governance Review | `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` | ISSUED — Option A investigate; Option C fallback |
-| Phase 1 Execution Strategy | `docs/product/PHASE_1_EXECUTION_STRATEGY_REPORT.md` | ISSUED — Hybrid Wave model |
-| WP-03 Work Package Definition | `docs/work_packages/WP_03_PROCUREMENT_CORE.md` | ISSUED — Go/No-Go PASS |
+## WP-03 exit gate summary
+| Item | Result |
+|------|--------|
+| WP03-01 Compliance field | ✅ `x_compliance_status` on res.partner (3 compliant, 1 pending) |
+| WP03-02 purchase_request | ✅ draft→to_approve→approved cycle — PASS |
+| WP03-03 Call for Tender | ✅ T/REQ/001 → 2 RFQs → award → done |
+| WP03-04 Goods receipt | ✅ NADF/IN/00004 state=done; stock.move confirmed |
+| WP03-05 OCA contract | ✅ Evaluated — DEFERRED Phase 2/3 (DEC-CONTRACT-001) |
+| WP03-06 mail.thread | ✅ 2 + 5 messages (AC-14 PASS) |
+| WP03-07 Approval chain | ❌ BLOCKED — B-02/B-03 client pending; ₦500K untouched |
 
 ## ➡️ IMMEDIATE NEXT ACTION
 
-**Begin WP-03 Procurement Core implementation. Pre-work backup first.**
+**Merge PR #8 (WP-03), then begin WP-04 HR Core (Wave A, Session 2).**
 
-WP-03 scope (6 active items; 1 blocked):
-- WP03-01: Create `x_compliance_status` on `res.partner` (no field exists — must create)
-- WP03-02: Configure `purchase_request` multi-step requisition (picking type, approval groups)
-- WP03-03: Configure `purchase_requisition` "Call for Tender" type + RFQ award flow
-- WP03-04: Validate goods receipt — PO → receipt → stock.move in NADF Main Warehouse
-- WP03-05: Evaluate OCA `contract` fit; log DEC-CONTRACT-001
-- WP03-06: Functional mail.thread test on purchase.request and purchase.order
-- WP03-07: **BLOCKED** — client must confirm B-02 (RACI 1.19) and B-03 (thresholds). Existing ₦500K threshold must NOT be changed without B-03 sign-off.
+WP-04 scope (Wave A Session 2 — while PR #8 in review):
+- WP04-01: Re-validate employee records with 4-level org hierarchy
+- WP04-02: Refine department assignments (11 staff at Administration — client input needed)
+- WP04-03: Re-validate leave workflow (line manager → HR two-level)
+- WP04-04: Re-validate recruitment pipeline stages
+- WP04-05: Configure appointment/separation approval + CEO activity notification
+- WP04-06: Verify mail.thread on `hr.employee`, `hr.leave`, `hr.applicant`
+- WP04-07: Obtain client review record for leave types + org hierarchy
+- WP04-08: Set NADF company VAT/RC number (currently empty)
+- WP04-09: Set Claude API key in System Parameters for nadf_vendor_onboarding AI analysis (CH)
 
 ## Open escalations
 | ID | Description | Status |
@@ -53,11 +58,11 @@ WP-03 scope (6 active items; 1 blocked):
 
 ## Execution wave plan
 ```
-Wave A [active]:  Session 1 → WP-03 execute → PR #8
-                  Session 2 → WP-04 execute → PR #9  (while PR #8 reviewed)
-Wave B [pending]: Session 3 → WP-ADM-01 execute → PR #10
-                  Session 4 → WP-PC-01 execute → PR #11 (after/while PR #10 reviewed)
-Wave C [pending]: DEC-OCA-02 Option A investigation + WP-05 UAT preparation
+Wave A:  Session 1 → WP-03 execute → PR #8 [COMPLETE — awaiting merge]
+         Session 2 → WP-04 execute → PR #9  (while PR #8 reviewed)
+Wave B:  Session 3 → WP-ADM-01 execute → PR #10
+         Session 4 → WP-PC-01 execute → PR #11 (after/while PR #10 reviewed)
+Wave C:  DEC-OCA-02 Option A investigation + WP-05 UAT preparation
 ```
 
 ## Single-session discipline

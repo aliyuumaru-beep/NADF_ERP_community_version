@@ -46,6 +46,27 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### WP-03 — Procurement Core executed (2026-06-25) — M1 Foundation active
+
+| Item | Result |
+|------|--------|
+| WP03-00: Pre-work backup | `nadf_20260625_133009` — dump 6.3 MB + filestore 37 MB — PASS |
+| WP03-01: Vendor compliance field | `x_compliance_status` created (ir.model.fields id=11353) on `res.partner`; 3 compliant, 1 pending — DEC-WP03-001 |
+| WP03-02: `purchase_request` workflow | `procurement.officer` → PR User; `head.procurement` → PR Manager; WP03-TEST-PR-001 draft→to_approve→approved — PASS |
+| WP03-03: `purchase_requisition` Call for Tender | Type id=2 created; T/REQ/001 → P00010 (Abuja, ₦250K) + P00011 (ProLearn, ₦242.5K); ProLearn awarded; Abuja cancelled; requisition closed — PASS |
+| WP03-04: Goods receipt | NADF/IN/00004 validated (5× HP Toner from P00011); stock.move state=done, qty=5.0 — PASS |
+| WP03-05: OCA `contract` evaluation | OCA `contract` not in addons_path; fit-gap: RACI requirement unmet; recommendation = DEFER Phase 2/3; DEC-CONTRACT-001 logged |
+| WP03-06: mail.thread audit | purchase.request: 2 messages ✅; purchase.order: 5 messages ✅ — AC-14 PASS |
+| WP03-07: Multi-level approval | BLOCKED — B-02 (RACI 1.19) + B-03 (thresholds) client confirmation outstanding. ₦500,000 threshold UNCHANGED |
+
+**WP-03 exit gate status:** CONDITIONAL PASS — 6/7 items done; WP03-07 blocked (B-02/B-03). Compliance field is DB-only (R-WP03-01, creation command documented).
+
+**Key findings:**
+- OCA `purchase_request` uses its own group hierarchy; NADF procurement users mapped via direct group assignment (DEC-WP03-002).
+- `purchase.requisition` CE native flow: confirm → manual RFQ creation per vendor → award (confirm winner, cancel losers) → close.
+- Odoo 17 `stock.move.line` uses `quantity` field (not `qty_done` — removed); `stock.move` uses `quantity` computed from move_line_ids.
+- `ir.model.fields` creation via shell works for simple selection fields; field is DB-resident (not version-controlled).
+
 ### WP-02 — Finance Core re-validated (2026-06-25) — M1 Foundation active
 
 | Item | Result |
