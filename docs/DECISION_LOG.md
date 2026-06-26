@@ -632,5 +632,111 @@ The OCA `purchase_request` module ships with its own groups ("Purchase Request U
 
 ---
 
+---
+
+## DEC-WP04-001 — hr_recruitment Installation (WP-04 prerequisite)
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Install the native CE `hr_recruitment` module (17.0.0.1) to support the NADF recruitment pipeline configuration in WP-04. Installed via `Registry.new(update_module=True)` while the live server was stopped; live server restarted at 105 modules (was 100 — hr_recruitment + 4 auto-pulled deps: utm, attachment_indexation, digest, hr_recruitment_sms).
+
+### Context
+WP-04 scope requires recruitment pipeline stages (vacancy → shortlist → interview → offer → appointment) per Transfer Package §3.3. `hr_recruitment` was uninstalled at WP-04 start despite being in the Transfer Package module list.
+
+### Rationale
+- `hr_recruitment` is CE native; no OCA gate required.
+- Installation adds `hr.applicant` model (mail.thread inheritance) satisfying AC-14 mail.thread requirement.
+- 5-stage NADF pipeline preferred over 6-stage Odoo defaults; Odoo defaults folded (sequence=100, fold=True).
+
+### Consequences
+- Module count: 100 → 105. Registry exit 0, no ERROR/CRITICAL.
+- NADF recruitment pipeline: Vacancy Posted → Shortlisted → Interview → Offer → Appointment. Appointment = `hired_stage=True`.
+- Default Odoo stages (New, Initial Qualification, First/Second Interview, Contract Proposal, Contract Signed) folded — not deleted (cannot be deleted due to xmlid constraints).
+
+---
+
+## DEC-WP04-002 — x_employment_state Field and CEO Appointment Notification
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION / ARCHITECTURE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Create a custom selection field `x_employment_state` on `hr.employee` via `ir.model.fields.create()` (shell, DB-resident) with values: `employed` (default), `pending_appointment`, `pending_separation`, `terminated`. Create two `base.automation` rules (trigger=`on_write`, state=`next_activity`) that create a To-Do activity for the CEO user (Executive Secretary, `login=executive.secretary`) when the field transitions to `pending_appointment` or `pending_separation`.
+
+### Context
+Transfer Package §3.3 requires "appointment and separation approval state on `hr.employee` with activity notification to CEO." This implements the Section 4 approval type: HR appointment/separation. No Enterprise module (`approvals`) is available in CE.
+
+### Rationale
+- `ir.model.fields.create()` pattern consistent with DEC-WP03-001 (x_compliance_status on res.partner).
+- `base.automation` with `state='next_activity'` is the CE-native mechanism for activity creation (state='activity' is EE-only — confirmed during execution).
+- CEO user identified via NADF HR / CEO group (id=106): Executive Secretary (login=executive.secretary).
+- Field is DB-resident: risk of loss on DB rebuild. Mitigation: command documented in IMPLEMENTATION_HISTORY.md; Phase 2 `nadf_vendor_compliance` or equivalent module should implement version-controlled equivalent.
+
+### Consequences
+- `x_employment_state` (id=11644) on `hr.employee`; all 24 active employees initialised to `employed`.
+- 2 automations active: auto ids 7 (Appointment) and 8 (Separation), deadline 3 days.
+- Phase 2 risk: DB rebuild will lose the field and automations. Document in RISK_REGISTER.md.
+
+---
+
+## DEC-WP04-003 — Leave Type Approval Workflow Correction
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Standardise leave type `leave_validation_type` to `both` (line manager → HR) for all discretionary leave categories. Retain `hr` for statutory/medical leave where there is no managerial discretion. No leave types deleted — 11 retained; deduplication (Paid Time Off / Annual Leave, Sick Time Off / Sick Leave) deferred to WP-05 UAT preparation pending client guidance.
+
+### Context
+Legacy build had inconsistent approval settings: Annual Leave, Casual Leave, Sick Leave each set to either `manager` or `hr` only. Transfer Package §3.3 specifies two-level: "request → line manager approval → HR confirmation".
+
+### Rationale
+| Leave type | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Annual Leave (5) | hr | both | Discretionary — needs line mgr gate |
+| Casual Leave (7) | manager | both | Discretionary — needs HR recording |
+| Sick Leave (6) | manager | both | Pay continuity requires HR co-sign |
+| Compensatory Days (3) | manager | both | Entitlement tracking requires HR |
+| Maternity/Paternity (8,9) | hr | hr | Statutory right — no mgr discretion |
+| Compassionate (11) | hr | hr | Bereavement — no mgr discretion |
+
+### Consequences
+- 4 leave types updated. 7 unchanged.
+- Duplicate leave types (Paid Time Off vs Annual Leave; Sick Time Off vs Sick Leave) retained for now — client confirmation required before archiving defaults. Flagged as B-WP04-02 client action.
+
+---
+
+## DEC-WP04-004 — Manager Hierarchy Correction
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Set `parent_id` on `hr.employee` records to implement the NADF 4-level org hierarchy (MD/ES → Director/Dept Head → Manager/Senior Officer → Officer). Corrected 8 records; 6 Admin-department employees left unassigned pending client confirmation (B-WP04-01).
+
+### Context
+Legacy build had most employees with no manager (`parent_id = False`) or incorrect manager (Suleiman Yusuf was under Strategy Head Adebanke Fajana; Finance Officers Sam Ediale and Ibrahim AlhaJi had no manager). The parent_id hierarchy drives the first-level leave approval.
+
+### Rationale
+- NADF structure: ES/CEO → Corporate Services Head → HR Head / Comms Head / ICT Head. ES/CEO → Finance Head → Finance Officers. ES/CEO → Procurement Head → etc.
+- Suleiman Yusuf corrected: Finance Officer should report to Finance Head (Dr Yusuf Jatto), not Strategy Head (Adebanke Fajana) — prior mapping was a legacy data error.
+- 6 Admin employees: no org data available; client must confirm dept assignments and reporting lines.
+
+### Consequences
+- 8 `parent_id` changes committed. Leave approval first-level now routes to correct manager.
+- B-WP04-01 raised: 6 Admin employees (IDs 12, 13, 14, 18, 20, 23) pending client confirmation of department and manager assignment.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
