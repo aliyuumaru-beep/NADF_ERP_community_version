@@ -8,7 +8,7 @@
 **Product / Programme:** NADF ERP MVP — Odoo 17 Community Edition
 **Client:** National Agricultural Development Fund (NADF)
 **Consultant:** Lanasoft Technologies
-**Version:** 1.0
+**Version:** 1.2
 **Date Initialised:** 2026-06-26
 **Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-06-26 (Present)
 **Maintained by:** A1 Master Orchestrator — NADF
@@ -30,8 +30,8 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total Decisions** | **28** |
-| Active | 26 |
+| **Total Decisions** | **29** |
+| Active | 27 |
 | Open (Escalation) | 1 |
 | Deferred | 1 |
 | Closed | 0 |
@@ -41,7 +41,7 @@
 **Register period:** 2026-06-02 — 2026-06-26 (present)
 **Active milestone:** M1 — Foundation (Phase 1 in progress: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 pending · WP-ADM-01 ✅)
 **Last updated:** 2026-06-26
-**Updated by:** A1 Master Orchestrator — WP-ADM-01 exit gate
+**Updated by:** A1 Master Orchestrator — AOP-015 receipt (DEC-AOP014-001 added to ICT)
 
 ---
 
@@ -55,12 +55,12 @@
 | HR | 2 |
 | Administration | 3 |
 | Project Coordination | 0 |
-| ICT | 9 |
+| ICT | 10 |
 | Communications | 0 |
 | Legal | 0 |
 | Operations | 1 |
 | Other | 0 |
-| **Total** | **28** |
+| **Total** | **29** |
 
 ---
 
@@ -154,6 +154,7 @@
 | ICT | DEC-OCA-02 | WP-01 Foundation Hardening | Escalation | `account_budget_oca` version 17.0.1.0.0 NOT installed. Install failed with field compatibility error (`theoritical_amount` does not exist on `account.analytic.account` in this Odoo 17 build). Module directory retained at `/Users/mac/oca_addons/account_budget_oca/` for future resolution. G1/G2/G3 must decide between: (A) OCA patch, (B) CE native `account_budget`, (C) defer to future WP. | Budget module incompatibility blocks WP02-07 (budget control configuration) only. All other Phase 1 WPs are unaffected. Decision must not be rushed — an incompatible module install could corrupt the database schema. Escalation follows R-WP01-01 mitigation as designed. | A1 Master Orchestrator — WP-01 execution (escalated) | EA-4 | Open | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-02` |
 | ICT | DEC-OCA-04 | WP-01 Foundation Hardening | Architecture Decision | OCA `helpdesk_mgmt` version 17.0.1.10.4 installed from OCA/helpdesk. State: installed. Registry exit 0. Replaces unratified `project`-based ICT helpdesk workaround from legacy build. | Odoo 17 CE `helpdesk` module is Enterprise-only. `helpdesk_mgmt` is the authorized CE/OCA replacement, approved in PEG-6 §3. ICT Help Desk capability (CA-04) requires a proper helpdesk module, not a project workaround. | A1 Master Orchestrator — G1/G2/G3 authorized | EA-4 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-04` · `EXECUTION_AUTHORITY_REGISTER.md#EA-NADF-WP01-001` |
 | ICT | DEC-2FA-002 | WP-01 Foundation Hardening | Architecture Decision | `auth_totp.policy` set to `required` globally in `ir.config_parameter`. All active Odoo users must complete TOTP enrollment before login. Per-group enforcement is not natively available in Odoo 17 CE `auth_totp`. | Setting global `required` policy satisfies DEC-2FA-001 and exceeds its minimum requirement by enforcing 2FA for all users. Global enforcement is acceptable for a multi-department public sector system and introduces no code risk. Per-group enforcement requires custom code or OCA `auth_totp_mandatory_group` — Phase 2 scope. | A1 Master Orchestrator — WP-01 execution | EA-3 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-2FA-002` · `EXECUTION_AUTHORITY_REGISTER.md#EA-NADF-WP01-002` |
+| ICT | DEC-AOP014-001 | N/A — SF Enhancement AOP-014 | Governance Decision | AOP-014 Development Environment Trust Profile adopted for NADF pod. 67 Level A command patterns deployed to `/nadf_erp/.claude/settings.json` effective 2026-06-26. Level B (one-time session approval) and Level C (always require approval) protections unchanged. Six Sponsor conditions apply: NADF-only scope; Level C unchanged; no production deployment commands; whitelist changes documented; metrics collected per WP; FamOil/WamaCare adoption requires separate decision. | Routine development commands (git status, git diff, pytest, pg_dump, backup scripts, etc.) required approval on every invocation, creating approval fatigue and preventing effective unattended execution of approved Work Packages. Trust profile eliminates prompts for genuinely low-risk, read-only, and trivially reversible commands while preserving all gates on destructive, security-sensitive, and production operations. AOP-013 Execution Authority Framework is unaffected. | Human Sponsor (DEC-AOP014-001) | EA-1 | Active | 2026-06-26 | `software-factory-governance/DECISION_LOG.md#DEC-017` · `enhancements/AOP-014/07_DEPLOYMENT_RECORD_NADF.md` · `/nadf_erp/.claude/settings.json` |
 
 ---
 
@@ -272,6 +273,7 @@
 | DEC-ADM01-001 | `docs/DECISION_LOG.md#DEC-ADM01-001` | `docs/work_packages/WP_ADM_01.md` | — |
 | DEC-ADM01-002 | `docs/DECISION_LOG.md#DEC-ADM01-002` | `docs/work_packages/WP_ADM_01.md` | — |
 | DEC-ADM01-003 | `docs/DECISION_LOG.md#DEC-ADM01-003` | `docs/work_packages/WP_ADM_01.md` | — |
+| DEC-AOP014-001 | `software-factory-governance/DECISION_LOG.md#DEC-017` | N/A — SF Enhancement | `enhancements/AOP-014/07_DEPLOYMENT_RECORD_NADF.md` · `/nadf_erp/.claude/settings.json` |
 
 ---
 
@@ -281,6 +283,7 @@
 |------|-----------|---------|-------------------|---------|
 | 2026-06-26 | A1 Master Orchestrator | 1.0 | Initial creation — backward-populated from all NADF decisions as at 2026-06-26. 25 decisions across 7 departments. 3 open escalations. 8 deferred items. 9 AOP-013 authority entries. | AOP-015 Software Factory Governance Standard deployment |
 | 2026-06-26 | A1 Master Orchestrator | 1.1 | WP-ADM-01 exit gate: Administration section populated — DEC-ADM01-001/002/003 added. Total 28 decisions. Executive Summary updated. | WP-ADM-01 Administration Core — CONDITIONAL PASS |
+| 2026-06-26 | A1 Master Orchestrator | 1.2 | AOP-015 receipt review: DEC-AOP014-001 (trust profile NADF deployment) added to ICT section. Total 29 decisions. Cross-reference index updated. | AOP-015 delivery acknowledgement — post-deployment GAR gap identified and closed |
 
 ---
 
