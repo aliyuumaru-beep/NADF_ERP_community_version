@@ -46,6 +46,30 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### WP-04 — HR Core executed (2026-06-26) — M1 Foundation active
+
+| Item | Result |
+|------|--------|
+| WP04-00: Pre-work backup | `nadf_20260625_142500` — dump 6.3 MB + filestore 37 MB — PASS |
+| WP04-00: `hr_recruitment` install | 17.0.0.1 CE native installed; 105 modules (was 100); exit 0 — DEC-WP04-001 |
+| WP04-01: Manager hierarchy | 8 `parent_id` corrections committed; 4-level org: ES → CS Head → HR/Comms/ICT Heads → Officers — DEC-WP04-004 |
+| WP04-02: Admin dept employees | 6 employees (IDs 12,13,14,18,20,23) flagged; dept/mgr pending client — B-WP04-01 |
+| WP04-03: Leave approval workflows | 4 types corrected to `both` (Annual, Casual, Sick, Compensatory); statutory retained at `hr` — DEC-WP04-003 |
+| WP04-04: Recruitment pipeline | 5-stage NADF pipeline: Vacancy Posted → Shortlisted → Interview → Offer → Appointment (hired_stage=True). Odoo defaults folded — DEC-WP04-001 |
+| WP04-05: x_employment_state | Selection field id=11644 on `hr.employee`; 24 employees = `employed`; 2 CEO automations active (auto ids 7,8) — DEC-WP04-002 |
+| WP04-06: mail.thread audit | `hr.employee` ✅ `hr.leave` ✅ `hr.applicant` ✅ — AC-14 PASS |
+| WP04-07: HR group assignments | Employee (8), Line Manager (5), HR Officer (1), HR Manager (1), CEO (1); Time Off Officer + Responsible wired |
+| WP04-08: Company RC/TIN | DEFERRED — client must supply NADF RC number and TIN (B-WP04-02) |
+| WP04-09: Claude API key | Pre-confirmed SET (108 chars) — PASS |
+
+**WP-04 exit gate status:** CONDITIONAL PASS — 25/26 criteria PASS; WP04-08 DEFERRED (client action); WP04-02 DEFERRED (client action). 0 FAIL. All blocking items are client-data dependencies, not technical blockers.
+
+**Key findings:**
+- `hr_recruitment` ships with 6 default stages; stages have no `active` field — use `fold=True` + high sequence to suppress defaults.
+- `base.automation` activity action state is `next_activity` (not `activity` — that is Enterprise-only). Confirmed in CE Odoo 17.
+- Suleiman Yusuf (Finance Officer) was incorrectly mapped to Strategy Head in legacy build — corrected to Finance Head.
+- x_employment_state is DB-resident (same pattern as x_compliance_status, DEC-WP03-001). Risk of loss on DB rebuild — document in Phase 2 `nadf_vendor_compliance` or `nadf_hr_custom` spec.
+
 ### WP-03 — Procurement Core executed (2026-06-25) — M1 Foundation active
 
 | Item | Result |
