@@ -46,6 +46,43 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### AOP-015 — Governance Approval Register deployed (2026-06-26) — Software Factory Standard
+
+| Item | Result |
+|------|--------|
+| GAR-NADF-001 v1.0 created | `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` — 25 decisions across 7 departments, 3 open escalations, 8 deferred items, 9 AOP-013 authority entries — PASS |
+| V1 Validation Report | `docs/governance/GOVERNANCE_APPROVAL_REGISTER_V1_VALIDATION.md` — all 5 checks PASS; all 25 DEC entries present exactly once; department grouping correct; cross-references valid; totals reconcile |
+| SF template created | `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md` — blank reusable template for all future products |
+| SF governance standards updated | `GOVERNANCE_STANDARD.md` §3.2 added; `AI_ONBOARDING_STANDARD.md` Step 7 added; `PROJECT_CONTINUITY_BRIEFING_TEMPLATE.md` §3 added; `PEF_WORK_PACKAGE_TEMPLATE.md` mandatory exit gate AC added |
+| SF DECISION_LOG updated | DEC-018 (AOP-015 adoption) logged in `software-factory-governance/DECISION_LOG.md` |
+
+**Scope:** Software Factory-wide standard (DEC-018). NADF is the first deployment. FamOil and WamaCare inherit on next session.
+
+### WP-ADM-01 — Administration Core executed (2026-06-26) — M1 Foundation active (Wave B, Session 3)
+
+| Item | Result |
+|------|--------|
+| WP-ADM-01-00: Pre-work backup | `nadf_20260626_102923` — dump 7.0 MB + filestore 48 MB — PASS |
+| WP-ADM-01-00: Go/No-Go | G1/G2/G3 PASS — helpdesk_mgmt installed ✅; WP-01 PASS ✅; admin groups exist ✅; nadf_facility excluded ✅ |
+| D-ADM01-07: Legacy ICT helpdesk documented | project.project id=1 "ICT Help Desk": 6 stages, 10 tags (101-110), 77 tasks (70 closed) — D-ADM01-07 PASS |
+| WP-ADM-01-01: Fleet register | 5 vehicles → state=Registered; years 2019-2021 set; plates PENDING (R-ADM01-03); drivers PENDING (B-WP04-01) |
+| WP-ADM-01-01: Fuel service type | fleet.service.type id=4 "Fuel Refueling" created (category=service) |
+| WP-ADM-01-01: Fuel log + odometer | 5 odometer readings (28K–61K km) + 5 fuel service log entries (₦45,000 each) — D-ADM01-02 PASS |
+| WP-ADM-01-02: Asset categories confirmed | 5 categories with accounts + journals: IT Equip (60m), Office Furn (120m), Motor Vehicles (60m — GL anomaly DEC-ADM01-002), A/C Equip (120m), Office Appliances (60m) |
+| WP-ADM-01-02: Assets validated | 3 assets → state=open: Projector (₦700K), Office Sofa (₦1M), A/C unit (₦52.6M); depreciation lines computed |
+| WP-ADM-01-02: Asset method_number anomaly | 61 assets have method_number=5 (5 months) — legacy Phase 8 data error; deferred to WP-05/Finance review |
+| WP-ADM-01-03: Ticket categories | 5 helpdesk.ticket.category records: Hardware / Software / Network / Access & Identity / Service Outage |
+| WP-ADM-01-03: Helpdesk team | helpdesk.ticket.team id=1 "NADF ICT Helpdesk": lead=director.cs, 2 members, all 5 categories linked |
+| WP-ADM-01-03: SLA finding | OCA helpdesk_mgmt 17.0.1.10.4 has no SLA model — DEC-ADM01-001; priority + stage timestamps used as Phase 1 proxy |
+| WP-ADM-01-03: Test ticket | helpdesk.ticket id=1 created (Hardware Faults, priority=High) → stage=Done; 3 mail.thread messages — D-ADM01-05 PASS |
+| WP-ADM-01-04: User group assignments | IT Manager (111) + Fleet Manager (108) + Asset Manager (109) → director.cs; Driver (107) + IT Officer (110) PENDING B-WP04-01 — DEC-ADM01-003 |
+| WP-ADM-01-05: mail.thread | fleet.vehicle (4 msgs) ✅ account.asset.asset (2 msgs) ✅ helpdesk.ticket (3 msgs) ✅ — AC-14 PASS |
+| WP-ADM-01-06: wkhtmltopdf | NOT INSTALLED — known infrastructure gap; R-ENV-001 carry-forward |
+
+**WP-ADM-01 exit gate:** CONDITIONAL PASS — 21/25 PASS · 4 DEFERRED (plates, drivers, SLA model, partial user groups) · 0 FAIL  
+**Key decisions:** DEC-ADM01-001 (SLA proxy), DEC-ADM01-002 (Motor Vehicles GL anomaly), DEC-ADM01-003 (partial group population)  
+**Key findings:** OCA helpdesk_mgmt has no SLA model; asset method_number set at asset level (not category); helpdesk model is `helpdesk.ticket.team` not `helpdesk.team`; fleet.vehicle.log.services covers both fuel and service logs
+
 ### WP-03 — Procurement Core executed (2026-06-25) — M1 Foundation active
 
 | Item | Result |

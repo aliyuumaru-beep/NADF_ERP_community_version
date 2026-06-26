@@ -5,6 +5,25 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### AOP-015 — Governance Approval Register (2026-06-26)
+- **governance:** `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (GAR-NADF-001 v1.0) created — 25 decisions, 7 departments, 3 open escalations, 9 AOP-013 authority entries. Backward-populated from all existing NADF decisions. Validation: 5/5 checks PASS.
+- **governance:** `docs/governance/GOVERNANCE_APPROVAL_REGISTER_V1_VALIDATION.md` created — all checks PASS.
+- **governance:** Software Factory template `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md` created (AOP-015 standard).
+- **governance:** SF `GOVERNANCE_STANDARD.md`, `AI_ONBOARDING_STANDARD.md`, `PROJECT_CONTINUITY_BRIEFING_TEMPLATE.md`, `PEF_WORK_PACKAGE_TEMPLATE.md` updated per AOP-015.
+- **governance:** `software-factory-governance/DECISION_LOG.md` DEC-018 (AOP-015) logged.
+
+### WP-ADM-01 — Administration Core executed (2026-06-26)
+- **feat(admin):** Fleet register: 5 Toyota vehicles state=Registered; model years set (2019–2021); Fuel Refueling service type created; 5 odometer readings + fuel service log entries per vehicle — AC-ADM01-02 PASS.
+- **feat(admin):** Asset register: 5 categories confirmed with GL accounts + journals; 61 assets in DB; 3 assets validated (state→open, depreciation lines active: Projector ₦700K/5m, Sofa ₦1M/5m, A/C ₦52.6M/5m) — AC-ADM01-03 PASS.
+- **feat(admin):** helpdesk_mgmt configured: 5 ticket categories (Hardware, Software, Network, Access/Identity, Service Outage); "NADF ICT Helpdesk" team (lead=director.cs); test ticket id=1 created→resolved (Done), 3 mail.thread messages — AC-ADM01-05 PASS.
+- **feat(security):** Administration user groups: IT Manager (id=111) + Fleet Manager (id=108) + Asset Manager (id=109) → director.cs interim; Driver (107) + IT Officer (110) PENDING B-WP04-01.
+- **governance:** mail.thread confirmed: fleet.vehicle (4 msgs) ✅ account.asset.asset (2 msgs) ✅ helpdesk.ticket (3 msgs) ✅ — AC-14 PASS.
+- **governance:** D-ADM01-07 legacy ICT helpdesk documented: project.project id=1, 6 stages, 10 tags, 77 tasks (70 closed) — superseded by helpdesk_mgmt.
+- **governance:** DEC-ADM01-001: OCA helpdesk_mgmt 17.0.1.10.4 has no SLA model — priority + stage timestamps as proxy.
+- **governance(deferred):** DEC-ADM01-002: Motor Vehicles category GL accounts incorrect (Earth Moving Equipment mapping) — deferred to Finance review.
+- **governance(deferred):** AC-ADM01-01 fleet plates/drivers — PENDING R-ADM01-03 (plates) + B-WP04-01 (drivers).
+- **ops:** GOVERNANCE_APPROVAL_REGISTER.md Administration section updated: 3 DEC-ADM01 entries added.
+
 ### WP-03 — Procurement Core executed (2026-06-25)
 - **feat(procurement):** `x_compliance_status` selection field created on `res.partner` (compliant/non_compliant/pending); 4 vendors tagged — DEC-WP03-001.
 - **feat(procurement):** `purchase_request` workflow configured: `procurement.officer` → PR User; `head.procurement` → PR Manager. Full draft→to_approve→approved cycle validated.
