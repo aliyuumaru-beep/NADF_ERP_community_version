@@ -46,6 +46,33 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### WP-PC-01 — Project Coordination Configuration executed (2026-06-26) — M1 Foundation active (Wave B, Session 4)
+
+| Item | Result |
+|------|--------|
+| WP-PC-01-00: Pre-work backup | `nadf_20260626_wp_pc01_precheck.dump` — 6.5 MB + filestore 48 MB — PASS |
+| D-ADM01-legacy: ICT Help Desk archived | project.project id=1 active=False; 77 tasks preserved (70 Closed) — superseded by helpdesk_mgmt |
+| WP-PC-01-01: User group validation | Director (id=114, 1 user), PCU Head (id=115, 0), PM (id=113, 0), PTM (id=112, 0) — all 4 groups PASS |
+| WP-PC-01-02: NADF ERP Programme | id=2, status=on_track, user=director.cs, privacy=employees — PASS |
+| WP-PC-01-02: NADF ERP Phase 1 sub-project | id=3 — hierarchy via naming convention (DEC-PC01-001) — PASS |
+| WP-PC-01-02: 5 PCU task stages | Initiation (id=14, seq=10), Planning (id=15, seq=20), Execution (id=16, seq=30), Monitoring & Control (id=17, seq=40), Closure (id=18, seq=50) — PASS |
+| WP-PC-01-03: Test milestone | id=1 'M1-CPC — Core Configuration Baseline', deadline=2026-07-15, is_reached=True, reached_date=2026-06-26 — PASS |
+| WP-PC-01-04: Director ir.model.access | id=1062 'nadf.project.milestone.director' — Director group full CRUD on project.milestone — PASS |
+| WP-PC-01-04: Director-only restriction | CE project.milestone cannot restrict is_reached at field level — DEC-PC01-002; organizational control (0 PM users); Phase 2 deferred — DEFERRED |
+| WP-PC-01-05: mail.thread | project.project: message_ids=YES (3 msgs on NADF Programme, 3 on Phase 1) ✅; project.task: message_ids=YES ✅ — AC-14 PASS |
+| project.project parent_id | NOT FOUND in CE 17 — DEC-PC01-001 raised |
+| last_update_status | EXISTS on project.project: on_track, at_risk, off_track, on_hold, to_define, done — kanban grouping field confirmed |
+
+**WP-PC-01 exit gate status:** CONDITIONAL PASS — 7 PASS · 4 DEFERRED · 0 FAIL
+
+**Key findings:**
+- CE 17 `project.project` has no `parent_id` field — programme hierarchy is via naming convention.
+- CE 17 `project.milestone` supports `is_reached` but write access is at model level, not field level.
+- `last_update_status` on `project.project` has 6 values; CE kanban view natively groups by this field.
+- `director.cs` is in Project/Administrator (id=65) + Project/User (id=64) + NADF Director (id=114) — full project access.
+
+**Phase gate protocol:** Before activating a new project phase, Director must mark the phase-end milestone `is_reached=True` in the NADF ERP Programme project. No next-phase tasks should be activated until the prior phase milestone is reached. Protocol is organizational; technical enforcement in Phase 2.
+
 ### WP-03 — Procurement Core executed (2026-06-25) — M1 Foundation active
 
 | Item | Result |

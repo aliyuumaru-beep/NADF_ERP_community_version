@@ -5,6 +5,17 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### WP-PC-01 — Project Coordination Configuration executed (2026-06-26)
+- **feat(project):** NADF ERP Programme project created: id=2, status=on_track, user=director.cs; NADF ERP Phase 1 sub-project id=3 — programme hierarchy via naming convention (DEC-PC01-001).
+- **feat(project):** 5 NADF PCU task stages created: Initiation (id=14), Planning (id=15), Execution (id=16), Monitoring & Control (id=17), Closure (id=18) — AC-PC01-01 PASS.
+- **feat(project):** Test milestone id=1 'M1-CPC — Core Configuration Baseline' created on NADF ERP Programme; marked is_reached=True (director.cs) — AC-PC01-02 partial PASS.
+- **feat(security):** ir.model.access id=1062 'nadf.project.milestone.director' — Director group full access on project.milestone — AC-PC01-02 partial PASS.
+- **governance:** Legacy ICT Help Desk project (id=1, 77 tasks) archived — superseded by helpdesk_mgmt (WP-ADM-01).
+- **governance:** mail.thread confirmed: project.project (3 msgs) ✅ project.task (YES) ✅ — AC-14 PASS.
+- **governance:** DEC-PC01-001: CE project.project has no parent_id — programme hierarchy via naming convention.
+- **governance(deferred):** DEC-PC01-002: CE project.milestone cannot enforce Director-only is_reached at field level — organizational control Phase 1; Phase 2 custom module.
+- **governance(deferred):** AC-PC01-04 list view % complete — CE has no native % complete field on project.project; Phase 2 scope.
+
 ### WP-03 — Procurement Core executed (2026-06-25)
 - **feat(procurement):** `x_compliance_status` selection field created on `res.partner` (compliant/non_compliant/pending); 4 vendors tagged — DEC-WP03-001.
 - **feat(procurement):** `purchase_request` workflow configured: `procurement.officer` → PR User; `head.procurement` → PR Manager. Full draft→to_approve→approved cycle validated.
