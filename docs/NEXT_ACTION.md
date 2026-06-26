@@ -1,6 +1,6 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-06-26 (WP-04 HR Core — CONDITIONAL PASS)
+**Last updated:** 2026-06-26 (Wave A CLOSED · Wave B AUTHORIZED · WP-ADM-01 IN PROGRESS)
 
 ## Current Milestone
 **M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED (PEG-6 2026-06-24). WP-01 CONDITIONAL PASS (PR #5). WP-02 CONDITIONAL PASS (PR #6). WP-03 CONDITIONAL PASS (PR #8 merged `be7ed8b`). WP-04 CONDITIONAL PASS (PR #10 pending).
@@ -29,15 +29,19 @@
 | WP04-08 Company RC/TIN | ⚠️ DEFERRED — B-WP04-02 client action |
 | WP04-09 Claude API key | ✅ Pre-confirmed SET |
 
-## ➡️ IMMEDIATE NEXT ACTION
+## ➡️ CURRENT ACTIVE WORK PACKAGE
 
-**Push PR #10 (WP-04), then begin WP-ADM-01 Administration Core (Wave B, Session 3).**
+**WP-ADM-01 Administration Core — Wave B Session 3 (IN PROGRESS)**
 
-WP-ADM-01 scope (Wave B Session 3):
+Wave A CLOSED. Wave B AUTHORIZED. WAVE_A_COMPLETION_REPORT.md produced. M1 NOT YET ACHIEVED (WP-ADM-01 + WP-PC-01 outstanding).
+
+Branch: `feat/wp-adm-01-administration-core`
+
+WP-ADM-01 scope:
 - WP-ADM-01-01: Re-validate vehicle register (`fleet`) — 5 Toyota vehicles from legacy Phase 8
 - WP-ADM-01-02: Re-validate asset register (`account_asset`) — 61 accounting assets, 421 maintenance.equipment records
-- WP-ADM-01-03: Re-validate ICT helpdesk (`helpdesk_mgmt`) — 6 stages, 10 fault tags, 77 historical tickets
-- WP-ADM-01-04: Configure Administration user groups and access rights (5 groups from WP-01)
+- WP-ADM-01-03: Re-validate ICT helpdesk (`helpdesk_mgmt`) — document legacy project-based ICT helpdesk (77 tickets) before supersession, then configure helpdesk_mgmt
+- WP-ADM-01-04: Configure Administration user groups and access rights (5 groups from WP-01: Driver, Fleet Manager, Asset Manager, IT Officer, IT Manager)
 - WP-ADM-01-05: Verify mail.thread on fleet.vehicle, account.asset, helpdesk.ticket
 - WP-ADM-01-06: Confirm wkhtmltopdf gap (known from nadf_facilities_management Phase 8)
 
@@ -59,9 +63,10 @@ WP-ADM-01 scope (Wave B Session 3):
 
 ## Execution wave plan
 ```
-Wave A:  Session 1 → WP-03 execute → PR #8 [MERGED be7ed8b]
-         Session 2 → WP-04 execute → PR #10 [COMPLETE — push pending]
-Wave B:  Session 3 → WP-ADM-01 execute → PR #11
+Wave A:  Session 1 → WP-03 execute → PR #8 [MERGED be7ed8b]         ✅ CLOSED
+         Session 2 → WP-04 execute → PR #10 [open; pending merge]    ✅ CLOSED
+         Wave A Completion Report: docs/governance/WAVE_A_COMPLETION_REPORT.md
+Wave B:  Session 3 → WP-ADM-01 execute → PR #11                     🔄 IN PROGRESS
          Session 4 → WP-PC-01 execute → PR #12 (after/while PR #11 reviewed)
 Wave C:  DEC-OCA-02 Option A investigation + WP-05 UAT preparation
 ```
