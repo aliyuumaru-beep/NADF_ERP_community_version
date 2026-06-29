@@ -808,5 +808,56 @@ WP-ADM-01-04 requires all 5 Administration groups populated (Driver, Fleet Manag
 
 ---
 
+## DEC-PC01-001 — Programme/Project Hierarchy: Naming Convention
+
+**Date:** 2026-06-26
+**Type:** ARCHITECTURE DECISION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-PC-01 execution)
+
+### Decision
+CE Odoo 17 `project.project` does not have a `parent_id` field. Programme/sub-project hierarchy is expressed via naming convention: 'NADF ERP Programme' (top-level) → 'NADF ERP Phase 1 — Foundation' (sub-project). No technical parent-child link between projects.
+
+### Context
+WP-PC-01-05 requires a programme/project hierarchy. The discovery showed `parent_id` does not exist on `project.project` in CE 17. A native hierarchy mechanism is absent.
+
+### Rationale
+- Naming convention is zero-risk and immediately legible
+- Avoids custom field or ir.rule complexity in Phase 1
+- Phase 2 `nadf_project_governance` custom module may add `parent_id` computed via tag or a native `project.project` extension if product roadmap requires it
+- CONDITIONAL PASS — documented limitation, not a blocker
+
+### Consequences
+- Programme oversight is by convention, not enforced by the data model
+- NADF ERP Programme (id=2) and NADF ERP Phase 1 (id=3) are sibling project.project records, named to show hierarchy
+
+---
+
+## DEC-PC01-002 — project.milestone Director-Only Sign-Off: Organizational Control
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION DECISION
+**Status:** DEFERRED
+**Made By:** A1 Master Orchestrator (WP-PC-01 execution)
+
+### Decision
+CE Odoo 17 `project.milestone` does not support field-level access restriction on `is_reached`. Phase 1 Director-only sign-off is implemented as organizational control: (a) NADF Director group (id=114) has 1 user (director.cs); (b) `ir.model.access` record id=1062 'nadf.project.milestone.director' confirms explicit full access for the Director group; (c) the existing CE ACL grants write to `project.group_user` which includes director.cs via Project/Administrator membership. Technical restriction (field-level or record-rule-level) is deferred to Phase 2.
+
+### Context
+AC-PC01-02 requires "Director marks milestone done; Project Manager cannot." The CE `project.milestone` model has no hook for field-level restriction. `ir.rule` operates at record level, not field level. Modifying existing CE ACLs (id=839-842) would survive only until module upgrade.
+
+### Rationale
+- All NADF PC groups except Director have 0 users — no PM can sign off milestones today
+- Organizational control is sufficient for Phase 1 / CONDITIONAL PASS
+- Phase 2 `nadf_project_governance` module will implement the restriction properly (override write method on `project.milestone`, check group membership before allowing `is_reached=True`)
+- Mirrors DEC-ADM01-001 pattern (OCA helpdesk SLA proxy)
+
+### Consequences
+- Technical Director-only enforcement not active in Phase 1
+- UAT (WP-05) must create a PM test user and verify restriction before M1 close
+- Risk documented as R-PC01-04 (deferred)
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*

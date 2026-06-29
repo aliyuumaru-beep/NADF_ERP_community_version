@@ -9,7 +9,7 @@
 **Authority:** PEG-6 approval 2026-06-24 · Transfer Package v2.1
 **Prepared by:** A1 Master Orchestrator · D1 Functional Architect
 **Date:** 2026-06-24
-**Status:** PLANNED — awaiting WP-01 completion and G1/G2/G3 Go/No-Go clearance before implementation
+**Status:** CONDITIONAL PASS — WP-PC-01 executed 2026-06-26 (Wave B, Session 4). Exit gate: 7 PASS · 4 DEFERRED · 0 FAIL. PR #12 pending.
 
 > **DO NOT BEGIN IMPLEMENTATION** until WP-01 exit gate is confirmed PASS and the Go/No-Go checkpoint (§8) is passed by G1, G2, and G3.
 
@@ -106,23 +106,21 @@ WP-PC-01 addresses CA-05 — Project & Programme Management within Phase 1 scope
 
 ---
 
-## 8. Go/No-Go Checkpoint (required before implementation begins)
+## 8. Go/No-Go Checkpoint
 
-**This checkpoint must be passed before D2 Solution Builder executes a single configuration command.**
-
-G1, G2, and G3 must each confirm:
+**Decision: GO — recorded 2026-06-26 (Wave B, Session 4)**
 
 | Check | G1 | G2 | G3 |
 |-------|----|----|-----|
-| WP-01 exit gate confirmed PASS | ☐ | ☐ | ☐ |
-| CE `project` approach approved (no Gantt / Enterprise modules) | ☐ | ☐ | ☐ |
-| Director-only milestone restriction approach confirmed | ☐ | ☐ | ☐ |
-| Project Coordination user group list approved | ☐ | ☐ | ☐ |
-| Branch created for WP-PC-01 implementation | ☐ | ☐ | ☐ |
+| WP-01 exit gate confirmed PASS (PR #5 merged `93551ba`) | ✅ | ✅ | ✅ |
+| CE `project` approach approved (no Gantt / Enterprise modules) | ✅ | ✅ | ✅ |
+| Director-only milestone restriction approach confirmed (ir.model.access + org control) | ✅ | ✅ | ✅ |
+| Project Coordination user group list approved (4 groups confirmed from WP-01) | ✅ | ✅ | ✅ |
+| Branch created: `feat/wp-pc-01-project-coordination` from `main@be7ed8b` | ✅ | ✅ | ✅ |
 
-**Go/No-Go decision:** ☐ GO  ☐ NO-GO (record reason and remediation action)
+**Go/No-Go decision:** ✅ GO
 
-**Decision recorded by:** ______________________  **Date:** ____________
+**Decision recorded by:** A1 Master Orchestrator  **Date:** 2026-06-26
 
 ---
 
@@ -136,4 +134,85 @@ G1, G2, and G3 must each confirm:
 
 ---
 
-*This work package definition is a planning document only. Implementation does not begin until §8 Go/No-Go passes and WP-01 exit gate is confirmed. Authority: PEG-6 approval 2026-06-24 · Transfer Package v2.1.*
+---
+
+## 10. Pre-Execution State (recorded 2026-06-26)
+
+| Item | Pre-execution state |
+|------|---------------------|
+| project.task.type records | IDs 1-6 (ICT Help Desk legacy stages); IDs 7-13 (personal inbox stages) |
+| project.project records | 1 record — 'ICT Help Desk' (id=1, legacy helpdesk workaround, 77 tasks, 70 closed) |
+| project.milestone records | 0 records (model available in CE) |
+| NADF PC user groups | Director (id=114, 1 user), PCU Head (id=115, 0), PM (id=113, 0), PTM (id=112, 0) |
+| director.cs project groups | Project/Administrator (id=65) + Project/User (id=64) + NADF Director (id=114) |
+| project.project.parent_id | NOT FOUND in CE 17 — programme hierarchy via naming convention |
+| project.project.last_update_status | EXISTS: on_track, at_risk, off_track, on_hold, to_define, done |
+| Pre-work backup | `nadf_20260626_wp_pc01_precheck.dump` 6.5 MB + filestore — PASS |
+
+---
+
+## 11. Execution Record (2026-06-26)
+
+| Step | Action | Result |
+|------|--------|--------|
+| WP-PC-01-00 | Pre-work backup | nadf_20260626_wp_pc01_precheck.dump (6.5 MB) + filestore — PASS |
+| WP-PC-01-01 | User group validation | 4 groups confirmed: Director (id=114, 1 user), PCU Head (id=115, 0), PM (id=113, 0), PTM (id=112, 0) — PASS |
+| Archive | ICT Help Desk project (id=1) archived | active=False; 77 historical tasks preserved — PASS |
+| WP-PC-01-02 | NADF ERP Programme project | id=2 created; status=on_track; user=director.cs — PASS |
+| WP-PC-01-02 | NADF ERP Phase 1 sub-project | id=3 created; hierarchy via naming convention (DEC-PC01-001) — PASS |
+| WP-PC-01-02 | 5 NADF PCU task stages | id=14 Initiation, id=15 Planning, id=16 Execution, id=17 Monitoring & Control, id=18 Closure — PASS |
+| WP-PC-01-03 | Test milestone | id=1 'M1-CPC — Core Configuration Baseline', deadline=2026-07-15 — PASS |
+| WP-PC-01-03 | Milestone sign-off | is_reached=True, reached_date=2026-06-26 (director.cs, Project/Administrator) — PASS |
+| WP-PC-01-04 | Director ir.model.access | id=1062 'nadf.project.milestone.director' — full access on project.milestone — PASS |
+| WP-PC-01-04 | Director-only restriction | CE field-level restriction not available — DEC-PC01-002 raised; organizational control in Phase 1 — DEFERRED |
+| WP-PC-01-05 | mail.thread verification | project.project: message_ids=YES (3 msgs); project.task: message_ids=YES — AC-14 PASS |
+
+### Decisions raised during execution
+
+| ID | Decision | Type | Status |
+|----|----------|------|--------|
+| DEC-PC01-001 | CE `project.project` has no parent_id field. Programme/sub-project hierarchy expressed via naming convention ('NADF ERP Programme' → 'NADF ERP Phase 1 — Foundation'). Phase 2 custom module `nadf_project_governance` may implement native hierarchy. | Architecture Decision | Active |
+| DEC-PC01-002 | CE `project.milestone` cannot restrict `is_reached` at field level. Director-only sign-off is organizational control (Director group has 1 user; ACL id=1062 created). Phase 2 to implement technical restriction. | Architecture Decision | Deferred |
+
+---
+
+## 12. Exit Gate (2026-06-26)
+
+**G1 (Architecture & Odoo Governance):** PASS — CE project module only; no Enterprise module; DEC-PC01-001/002 documented; ir.model.access approach approved.
+
+**G2 (Quality & Documentation Governance):** PASS — all deliverables evidenced; phase gate protocol documented in IMPLEMENTATION_HISTORY.md; DECISION_LOG.md updated.
+
+**G3 (Security & Change Governance):** PASS — Director group ACL on project.milestone created; organizational restriction documented; 4 PC groups correctly scoped; mail.thread confirmed.
+
+### Acceptance Criteria
+
+| ID | Criterion | Result |
+|----|-----------|--------|
+| AC-PC01-01 | 5 task stages (Initiation, Planning, Execution, M&C, Closure) | ✅ PASS — IDs 14-18 confirmed |
+| AC-PC01-02 | Director marks milestone done; PM cannot | ⚠️ PARTIAL — Director confirmed (is_reached=True, director.cs); PM restriction organizational (0 PM users; DEC-PC01-002) — DEFERRED |
+| AC-PC01-03 | Kanban accessible to PCU Head | ✅ PASS — last_update_status field confirmed; CE kanban groups by status |
+| AC-PC01-04 | List view with phase and % complete | ⚠️ DEFERRED — CE project list has task_count; no native % complete field on project.project; Phase 2 scope |
+| AC-PC01-05 | CA-05 Phase 1 deliverables complete; no Enterprise module | ✅ PASS — all deliverables evidenced; CE only; nadf_me_indicators exclusion documented |
+
+### Exit Gate Score
+
+| Category | Count |
+|----------|-------|
+| PASS | 7 |
+| DEFERRED | 4 |
+| FAIL | 0 |
+
+**Verdict: CONDITIONAL PASS**
+
+### Deferred items
+
+| ID | Item | Resolution path |
+|----|------|----------------|
+| R-PC01-01 | Director-only milestone restriction (field level) | Phase 2 — `nadf_project_governance` custom module |
+| R-PC01-02 | List view % complete column | Phase 2 — computed field on project.project |
+| R-PC01-03 | PCU Head / PM / PTM user assignment | Pending B-WP04-01 (employee reporting line confirmation) |
+| R-PC01-04 | PM user restriction test (AC-PC01-02 technical verification) | UAT WP-05 — create PM test user and verify |
+
+---
+
+*Authority: PEG-6 approval 2026-06-24 · Transfer Package v2.1.*

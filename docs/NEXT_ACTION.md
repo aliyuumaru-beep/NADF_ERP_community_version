@@ -1,44 +1,51 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-06-26 (WP-ADM-01 Administration Core — CONDITIONAL PASS · Wave B Session 3)
+**Last updated:** 2026-06-26 (WP-PC-01 Project Coordination — CONDITIONAL PASS · Wave B COMPLETE · Session 4)
 
 ## Current Milestone
-**M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED. Wave A CLOSED. Wave B AUTHORIZED. WP-01/02/03/04/ADM-01 all CONDITIONAL PASS.
+**M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED. Wave A CLOSED. Wave B COMPLETE. WP-01/02/03/04/ADM-01/PC-01 all CONDITIONAL PASS.
 
 ## Current State
-- **main:** `5e3861e` (PRs #9 + #10 merged). Odoo PID 59090, 105 modules, exit 0.
+- **main:** `6f7f4bb` (PRs #9 + #10 + #11 merged). Odoo PID 59090, 105 modules, exit 0.
 - **PR #10 MERGED:** `feat/wp-04-hr-core` — WP-04 HR Core CONDITIONAL PASS (`5e3861e`).
-- **PR #11 OPEN:** `feat/wp-adm-01-administration-core` — WP-ADM-01 Administration Core CONDITIONAL PASS (this branch).
-- **Wave A CLOSED:** WAVE_A_COMPLETION_REPORT.md produced. M1 NOT ACHIEVED (WP-PC-01 + WP-05 + client sign-offs outstanding).
+- **PR #11 MERGED:** `feat/wp-adm-01-administration-core` — WP-ADM-01 Administration Core CONDITIONAL PASS (`6f7f4bb`).
+- **PR #12 OPEN:** `feat/wp-pc-01-project-coordination` — WP-PC-01 Project Coordination CONDITIONAL PASS (this branch).
+- **Wave A CLOSED:** WAVE_A_COMPLETION_REPORT.md produced.
+- **Wave B COMPLETE:** WP-ADM-01 + WP-PC-01 both CONDITIONAL PASS.
 - **WP-01 CONDITIONAL PASS:** 4/5 OCA installed; account_budget_oca blocked (DEC-OCA-02).
 - **WP-02 CONDITIONAL PASS:** CoA ✅; bill workflow ✅; payment dual-auth ✅; analytic accounts ✅.
 - **WP-03 CONDITIONAL PASS:** compliance field ✅; purchase_request ✅; Call for Tender ✅; WP03-07 BLOCKED (B-02/B-03).
 - **WP-04 CONDITIONAL PASS:** hr_recruitment ✅; org hierarchy ✅; leave workflows ✅; x_employment_state ✅; WP04-08 DEFERRED (B-WP04-02).
 - **WP-ADM-01 CONDITIONAL PASS:** fleet register ✅; asset register ✅; helpdesk_mgmt ✅; mail.thread ✅; Driver + IT Officer groups PENDING (B-WP04-01).
+- **WP-PC-01 CONDITIONAL PASS:** 5 PCU stages ✅; NADF Programme project ✅; milestone ✅; Director ACL ✅; mail.thread ✅; Director-only field restriction DEFERRED (DEC-PC01-002).
 - **Single Claude Code session enforced.**
 
-## WP-ADM-01 exit gate summary
+## WP-PC-01 exit gate summary
 | Item | Result |
 |------|--------|
-| WP-ADM-01-01 Fleet register | ✅ 5 vehicles Registered; years set. Plates PENDING (R-ADM01-03). Drivers PENDING (B-WP04-01) |
-| WP-ADM-01-02 Fuel log | ✅ 5 service logs + odometer entries |
-| WP-ADM-01-03 Asset register | ✅ 5 categories; 61 assets; 3 validated (open + depreciation lines) |
-| WP-ADM-01-04 helpdesk_mgmt | ✅ 5 categories, NADF ICT Helpdesk team. SLA: priority proxy (DEC-ADM01-001) |
-| WP-ADM-01-05 Test ticket | ✅ Created → Done; 3 mail.thread messages |
-| WP-ADM-01-06 User groups | ✅ IT Mgr + Fleet Mgr + Asset Mgr assigned (director.cs). Driver + IT Officer PENDING |
-| WP-ADM-01-07 mail.thread | ✅ fleet.vehicle + account.asset.asset + helpdesk.ticket — AC-14 PASS |
-| WP-ADM-01-08 wkhtmltopdf | ⚠️ NOT INSTALLED — R-ENV-001 documented |
+| WP-PC-01-01 User groups | ✅ 4 groups confirmed — Director (1 user), PCU Head (0), PM (0), PTM (0) |
+| WP-PC-01-02 NADF ERP Programme | ✅ id=2, status=on_track; NADF ERP Phase 1 id=3 (naming hierarchy) |
+| WP-PC-01-02 5 PCU task stages | ✅ Initiation (14), Planning (15), Execution (16), M&C (17), Closure (18) |
+| WP-PC-01-03 Test milestone | ✅ id=1, is_reached=True, reached_date=2026-06-26 |
+| WP-PC-01-04 Director ACL | ✅ id=1062 'nadf.project.milestone.director' — full CRUD on project.milestone |
+| WP-PC-01-04 Director-only restriction | ⚠️ DEFERRED — DEC-PC01-002; organizational control; Phase 2 technical enforcement |
+| WP-PC-01-05 mail.thread | ✅ project.project (3 msgs) + project.task — AC-14 PASS |
 
 ## ➡️ CURRENT ACTIVE WORK PACKAGE
 
-**Begin WP-PC-01 Project Coordination (Wave B, Session 4) — while PR #11 awaits review.**
+**Repository governance: PR #12 awaiting merge.** PRs #10 and #11 merged. PR #12 (WP-PC-01, this branch) pending reviewer approval.
 
-WP-PC-01 scope (Wave B Session 4):
-- WP-PC-01-01: Re-validate Project Coordination groups (4 groups from WP-01: Project Team Member, Project Manager, PCU Head, Director)
-- WP-PC-01-02: Configure project.project types and stages for NADF project lifecycle
-- WP-PC-01-03: Re-validate project task/kanban workflow
-- WP-PC-01-04: Verify mail.thread on project.project, project.task
-- WP-PC-01-05: Configure programme/project hierarchy (parent project for NADF programme)
+**Wave C — next session after PR #12 merges:**
+- DEC-OCA-02 resolution: investigate `account_budget_oca` patch (Option A)
+- WP-05 UAT preparation
+- M1-CPC sub-milestone closure assessment (per milestone model recommendation pending approval)
+
+## Milestone model recommendation (pending approval)
+A recommendation to split M1 into three sub-milestones has been produced in the Wave B Session 4 response:
+- **M1-CPC** (Core Product Capability) — closes upon WP-PC-01 PASS: IMMINENT
+- **M1-OPR** (Operational Readiness) — closes after WP-05 + DEC-OCA-02: Wave C
+- **M1-PRD** (Production Readiness) — closes after client sign-offs: client-dependent
+No implementation until recommendation is accepted by A1 Master Orchestrator.
 
 ## Open escalations
 | ID | Description | Status |
@@ -62,8 +69,8 @@ WP-PC-01 scope (Wave B Session 4):
 Wave A:  Session 1 → WP-03 → PR #8 [MERGED be7ed8b]        ✅ CLOSED
          Session 2 → WP-04 → PR #10 [MERGED 5e3861e]        ✅ CLOSED
          WAVE_A_COMPLETION_REPORT.md produced
-Wave B:  Session 3 → WP-ADM-01 → PR #11 [this branch]       ✅ CLOSED
-         Session 4 → WP-PC-01 → PR #12 (while PR #11 reviewed)   🔄 NEXT
+Wave B:  Session 3 → WP-ADM-01 → PR #11 [MERGED 6f7f4bb]    ✅ CLOSED
+         Session 4 → WP-PC-01 → PR #12 [this branch — pending merge]   🔄 WAVE B COMPLETE
 Wave C:  DEC-OCA-02 Option A investigation + WP-05 UAT preparation
 ```
 

@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-26 (M1 active; WP-01/02/03/04 CONDITIONAL PASS)  
+**Last updated:** 2026-06-26 (Wave B complete; WP-PC-01 CONDITIONAL PASS; PR #12 open; Wave C next)  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  

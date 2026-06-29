@@ -30,18 +30,18 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total Decisions** | **29** |
-| Active | 27 |
+| **Total Decisions** | **31** |
+| Active | 28 |
 | Open (Escalation) | 1 |
-| Deferred | 1 |
+| Deferred | 2 |
 | Closed | 0 |
 | Revoked | 0 |
 | Superseded | 0 |
 
 **Register period:** 2026-06-02 — 2026-06-26 (present)
-**Active milestone:** M1 — Foundation (Phase 1 in progress: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 pending · WP-ADM-01 ✅)
+**Active milestone:** M1 — Foundation (Phase 1 in progress: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 CONDITIONAL PASS · WP-ADM-01 ✅ · WP-PC-01 ✅)
 **Last updated:** 2026-06-26
-**Updated by:** A1 Master Orchestrator — AOP-015 receipt (DEC-AOP014-001 added to ICT)
+**Updated by:** A1 Master Orchestrator — WP-PC-01 exit gate (DEC-PC01-001/002 added)
 
 ---
 
@@ -54,7 +54,7 @@
 | Procurement | 5 |
 | HR | 2 |
 | Administration | 3 |
-| Project Coordination | 0 |
+| Project Coordination | 2 |
 | ICT | 10 |
 | Communications | 0 |
 | Legal | 0 |
@@ -135,7 +135,10 @@
 
 *Decisions affecting project management, programme coordination, reporting, and stakeholder management.*
 
-*No decisions recorded in the current register period. Project Coordination build is included in Phase 1 WP-PC-01 (pending execution).*
+| Department | Decision ID | Work Package | Approval Type | Decision Taken | Business Rationale | Approved By | Authority Class | Status | Date | Source Document |
+|------------|-------------|--------------|---------------|----------------|-------------------|-------------|-----------------|--------|------|-----------------|
+| Project Coordination | DEC-PC01-001 | WP-PC-01 Project Coordination | Architecture Decision | CE Odoo 17 `project.project` has no `parent_id` field. Programme/sub-project hierarchy expressed via naming convention: 'NADF ERP Programme' (id=2) is the programme-level project; 'NADF ERP Phase 1 — Foundation' (id=3) is the Phase 1 sub-project. No technical parent-child link between project.project records in CE. | CE 17 does not offer native project portfolio/programme hierarchy. Naming convention is zero-risk, immediately legible, and sufficient for Phase 1 PCU oversight. Phase 2 `nadf_project_governance` custom module may add native hierarchy if product roadmap requires. | A1 Master Orchestrator — WP-PC-01 execution | EA-3 | Active | 2026-06-26 | `docs/DECISION_LOG.md#DEC-PC01-001` |
+| Project Coordination | DEC-PC01-002 | WP-PC-01 Project Coordination | Architecture Decision (Deferred) | CE `project.milestone.is_reached` cannot be restricted at field level using standard ir.rule (record-level) or ir.model.access (model-level). Phase 1 Director-only sign-off is organizational: (a) NADF Director group (id=114) has 1 user; (b) ir.model.access id=1062 'nadf.project.milestone.director' grants explicit CRUD for Director group; (c) CE ACL (id=841) gives write to project.group_user including director.cs. Technical field-level restriction deferred to Phase 2 `nadf_project_governance` module. | CE 17 has no hook for field-level write restriction without custom code. Modifying CE module ACLs would not survive module upgrade. Organizational control is sufficient for Phase 1 (0 PM users; 1 Director user). Mirrors DEC-ADM01-001 (OCA helpdesk SLA proxy) pattern. | A1 Master Orchestrator — WP-PC-01 execution | EA-3 | Deferred | 2026-06-26 | `docs/DECISION_LOG.md#DEC-PC01-002` |
 
 ---
 
@@ -274,6 +277,8 @@
 | DEC-ADM01-002 | `docs/DECISION_LOG.md#DEC-ADM01-002` | `docs/work_packages/WP_ADM_01.md` | — |
 | DEC-ADM01-003 | `docs/DECISION_LOG.md#DEC-ADM01-003` | `docs/work_packages/WP_ADM_01.md` | — |
 | DEC-AOP014-001 | `software-factory-governance/DECISION_LOG.md#DEC-017` | N/A — SF Enhancement | `enhancements/AOP-014/07_DEPLOYMENT_RECORD_NADF.md` · `/nadf_erp/.claude/settings.json` |
+| DEC-PC01-001 | `docs/DECISION_LOG.md#DEC-PC01-001` | `docs/work_packages/WP_PC_01.md` | — |
+| DEC-PC01-002 | `docs/DECISION_LOG.md#DEC-PC01-002` | `docs/work_packages/WP_PC_01.md` | — |
 
 ---
 
@@ -284,11 +289,12 @@
 | 2026-06-26 | A1 Master Orchestrator | 1.0 | Initial creation — backward-populated from all NADF decisions as at 2026-06-26. 25 decisions across 7 departments. 3 open escalations. 8 deferred items. 9 AOP-013 authority entries. | AOP-015 Software Factory Governance Standard deployment |
 | 2026-06-26 | A1 Master Orchestrator | 1.1 | WP-ADM-01 exit gate: Administration section populated — DEC-ADM01-001/002/003 added. Total 28 decisions. Executive Summary updated. | WP-ADM-01 Administration Core — CONDITIONAL PASS |
 | 2026-06-26 | A1 Master Orchestrator | 1.2 | AOP-015 receipt review: DEC-AOP014-001 (trust profile NADF deployment) added to ICT section. Total 29 decisions. Cross-reference index updated. | AOP-015 delivery acknowledgement — post-deployment GAR gap identified and closed |
+| 2026-06-26 | A1 Master Orchestrator | 1.3 | WP-PC-01 exit gate: Project Coordination section populated — DEC-PC01-001/002 added. Total 31 decisions. Executive Summary updated (Active 28, Deferred 2). | WP-PC-01 Project Coordination — CONDITIONAL PASS |
 
 ---
 
 *Governance Approval Register — NADF ERP Programme*
-*Document ID: GAR-NADF-001 · Version 1.0*
+*Document ID: GAR-NADF-001 · Version 1.3*
 *Maintained by A1 Master Orchestrator — POD-NADF*
 *Software Factory Governance Standard AOP-015 — Mandatory Artifact*
 *Authority: `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`*
