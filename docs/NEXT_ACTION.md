@@ -6,11 +6,10 @@
 **M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED. Wave A CLOSED. Wave B AUTHORIZED. WP-01/02/03/04/ADM-01 all CONDITIONAL PASS.
 
 ## Current State
-- **main:** `be7ed8b` (PR #8 merged). Odoo PID 59090, 105 modules, exit 0.
-- **PR #9 OPEN:** `docs/wp-02-governance-outputs-v2` — governance recovery; awaiting reviewer.
-- **PR #10 OPEN:** `feat/wp-04-hr-core` — WP-04 HR Core CONDITIONAL PASS (pending merge).
+- **main:** `5e3861e` (PRs #9 + #10 merged). Odoo PID 59090, 105 modules, exit 0.
+- **PR #10 MERGED:** `feat/wp-04-hr-core` — WP-04 HR Core CONDITIONAL PASS (`5e3861e`).
 - **PR #11 OPEN:** `feat/wp-adm-01-administration-core` — WP-ADM-01 Administration Core CONDITIONAL PASS (this branch).
-- **Wave A CLOSED:** WAVE_A_COMPLETION_REPORT.md produced. M1 NOT ACHIEVED (WP-ADM-01 + WP-PC-01 pending).
+- **Wave A CLOSED:** WAVE_A_COMPLETION_REPORT.md produced. M1 NOT ACHIEVED (WP-PC-01 + WP-05 + client sign-offs outstanding).
 - **WP-01 CONDITIONAL PASS:** 4/5 OCA installed; account_budget_oca blocked (DEC-OCA-02).
 - **WP-02 CONDITIONAL PASS:** CoA ✅; bill workflow ✅; payment dual-auth ✅; analytic accounts ✅.
 - **WP-03 CONDITIONAL PASS:** compliance field ✅; purchase_request ✅; Call for Tender ✅; WP03-07 BLOCKED (B-02/B-03).
@@ -30,7 +29,7 @@
 | WP-ADM-01-07 mail.thread | ✅ fleet.vehicle + account.asset.asset + helpdesk.ticket — AC-14 PASS |
 | WP-ADM-01-08 wkhtmltopdf | ⚠️ NOT INSTALLED — R-ENV-001 documented |
 
-## ➡️ IMMEDIATE NEXT ACTION
+## ➡️ CURRENT ACTIVE WORK PACKAGE
 
 **Begin WP-PC-01 Project Coordination (Wave B, Session 4) — while PR #11 awaits review.**
 
@@ -60,10 +59,10 @@ WP-PC-01 scope (Wave B Session 4):
 
 ## Execution wave plan
 ```
-Wave A:  Session 1 → WP-03 → PR #8 [MERGED be7ed8b]   ✅ CLOSED
-         Session 2 → WP-04 → PR #10 [open]             ✅ CLOSED
+Wave A:  Session 1 → WP-03 → PR #8 [MERGED be7ed8b]        ✅ CLOSED
+         Session 2 → WP-04 → PR #10 [MERGED 5e3861e]        ✅ CLOSED
          WAVE_A_COMPLETION_REPORT.md produced
-Wave B:  Session 3 → WP-ADM-01 → PR #11 [this branch]  ✅ CLOSED
+Wave B:  Session 3 → WP-ADM-01 → PR #11 [this branch]       ✅ CLOSED
          Session 4 → WP-PC-01 → PR #12 (while PR #11 reviewed)   🔄 NEXT
 Wave C:  DEC-OCA-02 Option A investigation + WP-05 UAT preparation
 ```

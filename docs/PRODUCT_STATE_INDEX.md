@@ -68,6 +68,6 @@ Re-assess at Wave B close.
 
 **Authoritative Wave A completion record:** `docs/governance/WAVE_A_COMPLETION_REPORT.md`  
 **Governance register:** `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (mandatory — read at session start)  
-**Open PRs:** #9 (governance recovery), #10 (WP-04), #11 (WP-ADM-01)  
+**Open PRs:** #11 (WP-ADM-01 — this branch)  
 **Active branch for next session:** `feat/wp-pc-01-project-coordination`  
-**main:** `be7ed8b`
+**main:** `5e3861e`

@@ -24,6 +24,19 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 - **governance(deferred):** AC-ADM01-01 fleet plates/drivers — PENDING R-ADM01-03 (plates) + B-WP04-01 (drivers).
 - **ops:** GOVERNANCE_APPROVAL_REGISTER.md Administration section updated: 3 DEC-ADM01 entries added.
 
+### WP-04 — HR Core executed (2026-06-26)
+- **feat(hr):** `hr_recruitment` 17.0.0.1 installed (CE native); 105 modules total — DEC-WP04-001.
+- **feat(hr):** Manager hierarchy (`parent_id`) set on 24 employees for 4-level NADF org structure (ES → Director → Manager → Officer). 8 corrections committed — DEC-WP04-004.
+- **feat(hr):** Leave type approval workflows corrected to two-level (`both`): Annual Leave, Casual Leave, Sick Leave, Compensatory Days. Statutory leave types retain `hr` — DEC-WP04-003.
+- **feat(hr):** Recruitment pipeline configured: Vacancy Posted → Shortlisted → Interview → Offer → Appointment (hired_stage=True). Odoo defaults folded — DEC-WP04-001.
+- **feat(hr):** `x_employment_state` selection field (id=11644) on `hr.employee`; 24 employees initialised to `employed` — DEC-WP04-002.
+- **feat(hr):** 2 `base.automation` CEO activity rules: `pending_appointment` and `pending_separation` → To-Do activity on Executive Secretary — DEC-WP04-002.
+- **feat(security):** NADF HR groups populated: Employee (8 users), Line Manager (5 users), HR Officer (1), HR Manager (1), CEO (1). Time Off Officer + Responsible groups wired for two-level approval.
+- **governance:** mail.thread verified on `hr.employee`, `hr.leave`, `hr.applicant` — AC-14 PASS.
+- **governance(deferred):** WP04-08 company RC/TIN — client must provide registration number (B-WP04-02).
+- **governance(deferred):** 6 Admin-dept employees — dept and reporting line pending client confirmation (B-WP04-01).
+- **governance(deferred):** Duplicate leave type deduplication (Paid Time Off/Annual Leave, Sick Time Off/Sick Leave) deferred to WP-05 UAT pending client guidance.
+
 ### WP-03 — Procurement Core executed (2026-06-25)
 - **feat(procurement):** `x_compliance_status` selection field created on `res.partner` (compliant/non_compliant/pending); 4 vendors tagged — DEC-WP03-001.
 - **feat(procurement):** `purchase_request` workflow configured: `procurement.officer` → PR User; `head.procurement` → PR Manager. Full draft→to_approve→approved cycle validated.
