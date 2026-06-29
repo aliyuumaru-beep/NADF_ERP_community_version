@@ -60,13 +60,14 @@ This file is the entry index to POD-NADF state and the **binding session protoco
 | WP-02 Finance Core | Pre-wave | CONDITIONAL PASS | #6 (merged `e58e15c`) |
 | WP-03 Procurement Core | Wave A · Session 1 | CONDITIONAL PASS | #8 (merged `be7ed8b`) |
 | WP-04 HR Core | Wave A · Session 2 | CONDITIONAL PASS | #10 (open) |
-| WP-ADM-01 Administration Core | Wave B · Session 3 | CONDITIONAL PASS | #11 (open) |
+| WP-ADM-01 Administration Core | Wave B · Session 3 | CONDITIONAL PASS | #11 (merged `6f7f4bb`) |
 | **WP-PC-01 Project Coordination** | **Wave B · Session 4** | **CONDITIONAL PASS** | **#12 (this branch — pending)** |
 
 **M1 — Foundation milestone:** NOT ACHIEVED (M1-CPC assessment pending; M1-OPR + M1-PRD not yet open)
 M1 exit criteria: WP-01..04 + WP-ADM-01 + WP-PC-01 PASS ✅ done · WP-05 UAT prep ⏳ · DEC-OCA-02 ⏳ · client CoA sign-off ⏳
 
-**Open PRs:** #10 (WP-04), #11 (WP-ADM-01), #12 (WP-PC-01) — merge in order: #10 → #11 → #12
+**Authoritative Wave A completion record:** `docs/governance/WAVE_A_COMPLETION_REPORT.md`
 **Governance register:** `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (mandatory — read at session start)
-**Active branch for next session (Wave C):** new branch from updated main after PRs merge
-**main:** `be7ed8b`
+**Open PRs:** #12 (WP-PC-01 — this branch, pending merge)
+**Active branch for next session (Wave C):** new branch from updated main after PR #12 merges
+**main:** `6f7f4bb`

@@ -111,7 +111,7 @@
 |-------|-------|
 | Milestone ID | M1 — Foundation |
 | Title | Phase 1 Foundation — Finance, Procurement, HR, Administration, Project Coordination |
-| Status | 🔄 **ACTIVE** — WP-01 CONDITIONAL PASS; WP-02 CONDITIONAL PASS; WP-03 Go/No-Go PASS (execution in progress) |
+| Status | 🔄 **ACTIVE** — WP-01/02/03/04 CONDITIONAL PASS; WP-ADM-01 and WP-PC-01 next |
 | M0 predecessor | M0 CLOSED 2026-06-24 — PEG-6 approved; Governance Gate 21/21 PASS; all 6 PRs merged |
 | Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 complete; WP-05 UAT preparation done; DEC-OCA-02 resolved; client CoA sign-off received |
 
@@ -121,12 +121,12 @@
 
 | Field | Value |
 |-------|-------|
-| Work Package | WP-03 — Procurement Core |
-| Phase | Phase 1 — Foundation (Wave A, Session 1) |
+| Work Package | WP-04 — HR Core (CONDITIONAL PASS 2026-06-26) → WP-ADM-01 next |
+| Phase | Phase 1 — Foundation (Wave B, Session 3) |
 | Assigned to | D2 Solution Builder / A1 Orchestrator |
-| Status | 🔄 Go/No-Go PASS 2026-06-25 — execution authorised; pre-work backup required before first mutating operation |
-| Inputs required | `docs/work_packages/WP_03_PROCUREMENT_CORE.md` (Go/No-Go PASS) |
-| Branch | `feat/wp-03-procurement-core` from main@`e58e15c` |
+| Status | ✅ WP-04 CONDITIONAL PASS — PR #10 to be opened; Wave B = WP-ADM-01 next |
+| Inputs required | `docs/work_packages/WP_04_HR_CORE.md` |
+| Branch | `feat/wp-04-hr-core` from main@`be7ed8b` (PR pending) |
 
 ---
 
@@ -152,8 +152,10 @@
 
 | ID | Blocker | Owner | Impact |
 |----|---------|-------|--------|
-| DEC-OCA-02 | `account_budget_oca` incompatible — Option A OCA patch investigation pending; Option C defer fallback | D2 / G1 | Blocks WP02-07 (budget) only; WP-03/04/ADM-01/PC-01 unaffected |
+| DEC-OCA-02 | `account_budget_oca` incompatible — Option A OCA patch investigation pending; Option C defer fallback | D2 / G1 | Blocks WP02-07 (budget) only; WP-ADM-01/PC-01 unaffected |
 | WP03-07 | Procurement multi-level approval — client B-02 (RACI 1.19) and B-03 (thresholds) not confirmed | Client | Approval chain cannot be configured until client confirms |
+| WP04-08 | Company RC/TIN — client must provide NADF registration number and TIN | Client | WP04-08; company registration fields empty |
+| B-WP04-01 | 6 Admin-dept employees: dept and reporting lines not confirmed | Client | Org hierarchy incomplete for those staff |
 | WP02-08 | mis_builder dashboard — client KPI sign-off not received | Client (Aliyu) | Dashboard dormant; module installed |
 | WP02-02 | CoA client countersignature — CSV delivered; formal sign-off pending | Client | UAT Finance scenario pre-requisite |
 
@@ -243,7 +245,7 @@ verified against the actual repository tree.
 | GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 6 PRs merged |
 | Branch protection | ✅ Active — 1 PR approval required, enforce_admins, require_last_push_approval |
 | CI workflows | ✅ `.github/workflows/ci.yml` — manifest parse + py_compile + XML well-formedness |
-| Active branches | `feat/wp-03-procurement-core` (Go/No-Go PASS), `docs/wp-02-governance-outputs` (PR #7 open) |
+| Active branches | `feat/wp-04-hr-core` (CONDITIONAL PASS, PR pending), `docs/wp-02-governance-outputs-v2` (PR #9 open) |
 | Claude hooks | `.claude/hooks/` present but empty |
 | Tags | None |
 | Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/`. Must NOT be used as an authority source. |

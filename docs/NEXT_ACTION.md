@@ -6,10 +6,11 @@
 **M1 — Foundation** (ROADMAP Phase 1). M0 CLOSED. Wave A CLOSED. Wave B COMPLETE. WP-01/02/03/04/ADM-01/PC-01 all CONDITIONAL PASS.
 
 ## Current State
-- **main:** `be7ed8b` (PR #8 merged). Odoo PID 59090, 105 modules, exit 0.
-- **PR #10 OPEN:** `feat/wp-04-hr-core` — WP-04 HR Core CONDITIONAL PASS (pending merge).
-- **PR #11 OPEN:** `feat/wp-adm-01-administration-core` — WP-ADM-01 Administration Core CONDITIONAL PASS (pending merge).
+- **main:** `6f7f4bb` (PRs #9 + #10 + #11 merged). Odoo PID 59090, 105 modules, exit 0.
+- **PR #10 MERGED:** `feat/wp-04-hr-core` — WP-04 HR Core CONDITIONAL PASS (`5e3861e`).
+- **PR #11 MERGED:** `feat/wp-adm-01-administration-core` — WP-ADM-01 Administration Core CONDITIONAL PASS (`6f7f4bb`).
 - **PR #12 OPEN:** `feat/wp-pc-01-project-coordination` — WP-PC-01 Project Coordination CONDITIONAL PASS (this branch).
+- **Wave A CLOSED:** WAVE_A_COMPLETION_REPORT.md produced.
 - **Wave B COMPLETE:** WP-ADM-01 + WP-PC-01 both CONDITIONAL PASS.
 - **WP-01 CONDITIONAL PASS:** 4/5 OCA installed; account_budget_oca blocked (DEC-OCA-02).
 - **WP-02 CONDITIONAL PASS:** CoA ✅; bill workflow ✅; payment dual-auth ✅; analytic accounts ✅.
@@ -30,18 +31,11 @@
 | WP-PC-01-04 Director-only restriction | ⚠️ DEFERRED — DEC-PC01-002; organizational control; Phase 2 technical enforcement |
 | WP-PC-01-05 mail.thread | ✅ project.project (3 msgs) + project.task — AC-14 PASS |
 
-## ➡️ IMMEDIATE NEXT ACTION
+## ➡️ CURRENT ACTIVE WORK PACKAGE
 
-**Repository governance: Merge PRs in order.** Level 2 concurrency complete — both Wave B WPs in PR.
+**Repository governance: PR #12 awaiting merge.** PRs #10 and #11 merged. PR #12 (WP-PC-01, this branch) pending reviewer approval.
 
-Priority order:
-1. **Merge PR #10** (`feat/wp-04-hr-core` — WP-04 HR Core) — oldest open WP branch
-2. **Merge PR #11** (`feat/wp-adm-01-administration-core` — WP-ADM-01) — after #10 merges
-3. **Merge PR #12** (`feat/wp-pc-01-project-coordination` — WP-PC-01, this branch) — after #11 merges
-
-After all three PRs merge, main will be at Wave B complete state.
-
-**Wave C — next session after merge:**
+**Wave C — next session after PR #12 merges:**
 - DEC-OCA-02 resolution: investigate `account_budget_oca` patch (Option A)
 - WP-05 UAT preparation
 - M1-CPC sub-milestone closure assessment (per milestone model recommendation pending approval)
@@ -72,12 +66,11 @@ No implementation until recommendation is accepted by A1 Master Orchestrator.
 
 ## Execution wave plan
 ```
-Wave A:  Session 1 → WP-03 → PR #8 [MERGED be7ed8b]   ✅ CLOSED
-         Session 2 → WP-04 → PR #10 [open]             ✅ CLOSED
+Wave A:  Session 1 → WP-03 → PR #8 [MERGED be7ed8b]        ✅ CLOSED
+         Session 2 → WP-04 → PR #10 [MERGED 5e3861e]        ✅ CLOSED
          WAVE_A_COMPLETION_REPORT.md produced
-Wave B:  Session 3 → WP-ADM-01 → PR #11 [open]         ✅ CLOSED
-         Session 4 → WP-PC-01 → PR #12 [this branch]   ✅ CLOSED
-         WAVE B COMPLETE — merge PRs #10 → #11 → #12
+Wave B:  Session 3 → WP-ADM-01 → PR #11 [MERGED 6f7f4bb]    ✅ CLOSED
+         Session 4 → WP-PC-01 → PR #12 [this branch — pending merge]   🔄 WAVE B COMPLETE
 Wave C:  DEC-OCA-02 Option A investigation + WP-05 UAT preparation
 ```
 

@@ -632,6 +632,182 @@ The OCA `purchase_request` module ships with its own groups ("Purchase Request U
 
 ---
 
+## DEC-WP04-001 — hr_recruitment Installation (WP-04 prerequisite)
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Install the native CE `hr_recruitment` module (17.0.0.1) to support the NADF recruitment pipeline configuration in WP-04. Installed via `Registry.new(update_module=True)` while the live server was stopped; live server restarted at 105 modules (was 100 — hr_recruitment + 4 auto-pulled deps: utm, attachment_indexation, digest, hr_recruitment_sms).
+
+### Context
+WP-04 scope requires recruitment pipeline stages (vacancy → shortlist → interview → offer → appointment) per Transfer Package §3.3. `hr_recruitment` was uninstalled at WP-04 start despite being in the Transfer Package module list.
+
+### Rationale
+- `hr_recruitment` is CE native; no OCA gate required.
+- Installation adds `hr.applicant` model (mail.thread inheritance) satisfying AC-14 mail.thread requirement.
+- 5-stage NADF pipeline preferred over 6-stage Odoo defaults; Odoo defaults folded (sequence=100, fold=True).
+
+### Consequences
+- Module count: 100 → 105. Registry exit 0, no ERROR/CRITICAL.
+- NADF recruitment pipeline: Vacancy Posted → Shortlisted → Interview → Offer → Appointment. Appointment = `hired_stage=True`.
+- Default Odoo stages (New, Initial Qualification, First/Second Interview, Contract Proposal, Contract Signed) folded — not deleted (cannot be deleted due to xmlid constraints).
+
+---
+
+## DEC-WP04-002 — x_employment_state Field and CEO Appointment Notification
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION / ARCHITECTURE
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Create a custom selection field `x_employment_state` on `hr.employee` via `ir.model.fields.create()` (shell, DB-resident) with values: `employed` (default), `pending_appointment`, `pending_separation`, `terminated`. Create two `base.automation` rules (trigger=`on_write`, state=`next_activity`) that create a To-Do activity for the CEO user (Executive Secretary, `login=executive.secretary`) when the field transitions to `pending_appointment` or `pending_separation`.
+
+### Context
+Transfer Package §3.3 requires "appointment and separation approval state on `hr.employee` with activity notification to CEO." This implements the Section 4 approval type: HR appointment/separation. No Enterprise module (`approvals`) is available in CE.
+
+### Rationale
+- `ir.model.fields.create()` pattern consistent with DEC-WP03-001 (x_compliance_status on res.partner).
+- `base.automation` with `state='next_activity'` is the CE-native mechanism for activity creation (state='activity' is EE-only — confirmed during execution).
+- CEO user identified via NADF HR / CEO group (id=106): Executive Secretary (login=executive.secretary).
+- Field is DB-resident: risk of loss on DB rebuild. Mitigation: command documented in IMPLEMENTATION_HISTORY.md; Phase 2 `nadf_vendor_compliance` or equivalent module should implement version-controlled equivalent.
+
+### Consequences
+- `x_employment_state` (id=11644) on `hr.employee`; all 24 active employees initialised to `employed`.
+- 2 automations active: auto ids 7 (Appointment) and 8 (Separation), deadline 3 days.
+- Phase 2 risk: DB rebuild will lose the field and automations. Document in RISK_REGISTER.md.
+
+---
+
+## DEC-WP04-003 — Leave Type Approval Workflow Correction
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Standardise leave type `leave_validation_type` to `both` (line manager → HR) for all discretionary leave categories. Retain `hr` for statutory/medical leave where there is no managerial discretion. No leave types deleted — 11 retained; deduplication (Paid Time Off / Annual Leave, Sick Time Off / Sick Leave) deferred to WP-05 UAT preparation pending client guidance.
+
+### Context
+Legacy build had inconsistent approval settings: Annual Leave, Casual Leave, Sick Leave each set to either `manager` or `hr` only. Transfer Package §3.3 specifies two-level: "request → line manager approval → HR confirmation".
+
+### Rationale
+| Leave type | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Annual Leave (5) | hr | both | Discretionary — needs line mgr gate |
+| Casual Leave (7) | manager | both | Discretionary — needs HR recording |
+| Sick Leave (6) | manager | both | Pay continuity requires HR co-sign |
+| Compensatory Days (3) | manager | both | Entitlement tracking requires HR |
+| Maternity/Paternity (8,9) | hr | hr | Statutory right — no mgr discretion |
+| Compassionate (11) | hr | hr | Bereavement — no mgr discretion |
+
+### Consequences
+- 4 leave types updated. 7 unchanged.
+- Duplicate leave types (Paid Time Off vs Annual Leave; Sick Time Off vs Sick Leave) retained for now — client confirmation required before archiving defaults. Flagged as B-WP04-02 client action.
+
+---
+
+## DEC-WP04-004 — Manager Hierarchy Correction
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-04 execution)
+
+### Decision
+Set `parent_id` on `hr.employee` records to implement the NADF 4-level org hierarchy (MD/ES → Director/Dept Head → Manager/Senior Officer → Officer). Corrected 8 records; 6 Admin-department employees left unassigned pending client confirmation (B-WP04-01).
+
+### Context
+Legacy build had most employees with no manager (`parent_id = False`) or incorrect manager (Suleiman Yusuf was under Strategy Head Adebanke Fajana; Finance Officers Sam Ediale and Ibrahim AlhaJi had no manager). The parent_id hierarchy drives the first-level leave approval.
+
+### Rationale
+- NADF structure: ES/CEO → Corporate Services Head → HR Head / Comms Head / ICT Head. ES/CEO → Finance Head → Finance Officers. ES/CEO → Procurement Head → etc.
+- Suleiman Yusuf corrected: Finance Officer should report to Finance Head (Dr Yusuf Jatto), not Strategy Head (Adebanke Fajana) — prior mapping was a legacy data error.
+- 6 Admin employees: no org data available; client must confirm dept assignments and reporting lines.
+
+### Consequences
+- 8 `parent_id` changes committed. Leave approval first-level now routes to correct manager.
+- B-WP04-01 raised: 6 Admin employees (IDs 12, 13, 14, 18, 20, 23) pending client confirmation of department and manager assignment.
+
+---
+
+## DEC-ADM01-001 — helpdesk_mgmt OCA: No SLA Model (Priority + Stage Timestamps as SLA Proxy)
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (WP-ADM-01 execution)
+
+### Decision
+OCA `helpdesk_mgmt` 17.0.1.10.4 does not include a separate SLA rules model. Accept `priority` field (0=Normal, 1=High) and `last_stage_update` timestamp as the Phase 1 SLA proxy. AC-ADM01-04 "≥1 SLA rule" is satisfied by team configuration with priority-tagged tickets. No additional SLA module required for Phase 1.
+
+### Context
+WP-ADM-01 scope specified "configure ticket categories, SLA rules (response + resolution time)". The OCA module provides: `helpdesk.ticket.team`, `helpdesk.ticket.category`, `helpdesk.ticket.stage`, `helpdesk.ticket.tag` — no `helpdesk.sla` or equivalent model. The Enterprise `helpdesk` module includes SLA; it is prohibited. Inspecting `ir.model` at runtime confirmed no SLA model present.
+
+### Rationale
+- CE/OCA alternative without a separate SLA module: priority field + `last_stage_update` auditing covers Phase 1 MVP needs.
+- Importing a third OCA SLA module not on the WP-01 authorized list would require a new gate decision.
+- Phase 2 custom module `nadf_ict_helpdesk` (if scoped) can add formal SLA policies.
+
+### Consequences
+- Phase 1 helpdesk configuration: 5 categories, team, priority-based routing, stage timestamps for SLA measurement. No separate SLA rule records.
+- Future: `nadf_ict_helpdesk` Phase 2 spec should include SLA policy model if formal SLA tracking is required.
+
+---
+
+## DEC-ADM01-002 — Motor Vehicles Asset Category: Incorrect GL Account Mapping (Deferred)
+
+**Date:** 2026-06-26
+**Type:** DATA
+**Status:** DEFERRED
+**Made By:** A1 Master Orchestrator (WP-ADM-01 execution)
+
+### Decision
+The "Motor Vehicles" asset category (id=3) is mapped to GL account "EARTH MOVING EQUIPMENT — BULL DOZERS ETC." (11030301, id=294) and "PROV. FOR DEP-POWER GENERATING SETS" (11032007, id=325). This is an incorrect GL mapping from the legacy Phase 8 build. Correction is deferred to WP-05 UAT preparation / Finance review (DEC-WP02-002 analytic accounts remain authoritative).
+
+### Context
+During WP-ADM-01 asset register validation, the Motor Vehicles category GL accounts were inspected. The legacy build assigned Earth Moving Equipment accounts to the Motor Vehicles category. No assets are currently linked to the Motor Vehicles category (fleet vehicles tracked in `fleet.vehicle`, not `account.asset.asset`). No immediate business impact.
+
+### Rationale
+- No assets in Motor Vehicles category — zero immediate impact.
+- Finance review (WP-02 / client) required before moving fleet vehicles to asset register.
+- Correcting the GL mapping requires Finance team sign-off; deferred per Transfer Package authority hierarchy.
+
+### Consequences
+- Motor Vehicles asset category must NOT be used to record fleet vehicle acquisition costs until GL accounts are corrected.
+- Action required: Finance team to confirm correct asset and depreciation accounts for motor vehicles before Phase 2/3 asset capitalisation.
+
+---
+
+## DEC-ADM01-003 — Administration User Groups: Partial Population (B-WP04-01 Dependency)
+
+**Date:** 2026-06-26
+**Type:** CONFIGURATION
+**Status:** DEFERRED — pending B-WP04-01
+**Made By:** A1 Master Orchestrator (WP-ADM-01 execution)
+
+### Decision
+Three of five Administration groups populated with Director Corporate Services (director.cs, uid=12) as interim dept head overseeing ICT, Fleet, and Asset operations. Driver (id=107) and IT Officer (id=110) groups have 0 users. No dedicated ICT Officer, Fleet Manager, Driver Odoo user accounts exist. User account creation is blocked pending B-WP04-01 (client to confirm Admin department employee roles).
+
+### Context
+WP-ADM-01-04 requires all 5 Administration groups populated (Driver, Fleet Manager, Asset Manager, IT Officer, IT Manager). The 6 Admin-department employees (IDs 12,13,14,18,20,23 — employee IDs) have no Odoo internal user accounts; only one has a connected user (Al-amin Uwais → no login). The Corporate Services Head (director.cs) oversees ICT, HR, and Communications departments and is the appropriate interim IT Manager and Fleet/Asset manager.
+
+### Rationale
+- Functional authority: director.cs is the department head and can act as group authority until dedicated staff user accounts are created.
+- Practical: creating user accounts for staff whose roles are unconfirmed (B-WP04-01) would create stale/incorrect access grants.
+
+### Consequences
+- IT Officer and Driver group remain empty until B-WP04-01 resolved and user accounts created.
+- Client action B-ADM01-01: confirm role assignments for Admin employees and request Odoo account creation.
+- Admin employees cannot log in to Odoo or access Administration-specific features until accounts created.
+
+---
+
 ## DEC-PC01-001 — Programme/Project Hierarchy: Naming Convention
 
 **Date:** 2026-06-26

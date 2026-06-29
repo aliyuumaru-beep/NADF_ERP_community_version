@@ -46,8 +46,8 @@ milestone can be formally closed.
 | Active milestone | **M1 — Foundation** / ROADMAP Phase 1 |
 | Milestone ID | M1 |
 | Active Work Package | Wave B complete. Wave C next: DEC-OCA-02 resolution + WP-05 UAT preparation |
-| Wave | Wave B COMPLETE — WP-ADM-01 (Session 3 CONDITIONAL PASS, PR #11) + WP-PC-01 (Session 4 CONDITIONAL PASS, PR #12) |
-| Status | 🔄 **In progress** — WP-01/02/03/04/ADM-01/PC-01 all CONDITIONAL PASS (PRs #5 merged; #6 merged; #8 merged; #10/#11/#12 pending) |
+| Wave | Wave B COMPLETE — WP-ADM-01 (Session 3 CONDITIONAL PASS, PR #11 merged `6f7f4bb`) + WP-PC-01 (Session 4 CONDITIONAL PASS, PR #12 pending) |
+| Status | 🔄 **In progress** — WP-01/02/03/04/ADM-01/PC-01 all CONDITIONAL PASS (PRs #5 merged; #6 merged; #8 merged; #10 merged `5e3861e`; #11 merged `6f7f4bb`; #12 pending) |
 | M0 predecessor | ✅ **CLOSED 2026-06-24** — PEG-6 approved (`DEC-PEG6-001`); Governance Gate 21/21 PASS; PR #1–#3 merged |
 | Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 all PASS ✅ done; WP-05 UAT preparation complete ⏳; DEC-OCA-02 resolved ⏳; client CoA sign-off received ⏳ |
 
@@ -97,4 +97,8 @@ Until then, downstream work is tracked as **"built / unratified,"** never as **"
 | 2026-06-23 | **M-D executed**: closure-tier docs authored; CI added; Governance Gate 21/21 PASS. Open: fold PR merge + PEG-6. | A1 Orchestrator |
 | 2026-06-24 | **M0 CLOSED**: PEG-6 approved (DEC-PEG6-001); PR #4 merged; Phase 1 activated. M1 Foundation active. | A1 Orchestrator |
 | 2026-06-25 | **WP-01 CONDITIONAL PASS** (PR #5 merged `93551ba`): 4/5 OCA installed; 22 user groups; TOTP global required. **WP-02 CONDITIONAL PASS** (PR #6 merged `e58e15c`): CoA validated; bill workflow; analytic accounts; 8 staff assigned. DEC-OCA-02 open (account_budget_oca). WP-03 Go/No-Go PASS — execution authorised on branch `feat/wp-03-procurement-core`. PR #7 open (governance docs). | A1 Orchestrator |
-| 2026-06-26 | **WP-03 CONDITIONAL PASS** (PR #8 merged `be7ed8b`): purchase_request ✅; Call for Tender ✅; goods receipt ✅; WP03-07 BLOCKED (B-02/B-03). **WP-04 CONDITIONAL PASS** (PR #10 open): hr_recruitment ✅; org hierarchy ✅; leave workflows ✅; x_employment_state ✅. **Wave A CLOSED** — WAVE_A_COMPLETION_REPORT.md produced; M1 NOT achieved. **WP-ADM-01 CONDITIONAL PASS** (PR #11 open): fleet ✅; assets ✅; helpdesk_mgmt ✅; mail.thread ✅. **WP-PC-01 CONDITIONAL PASS** (PR #12 open): 5 PCU stages ✅; NADF Programme project ✅; milestone ✅; Director ACL ✅; mail.thread ✅. **Wave B COMPLETE.** Open PRs #10/#11/#12 to merge sequentially. Wave C next: DEC-OCA-02 + WP-05 UAT. | A1 Orchestrator |
+| 2026-06-25 | **WP-03 CONDITIONAL PASS** (PR #8 merged `be7ed8b`): compliance field; purchase_request workflow; Call for Tender; goods receipt; mail.thread. WP03-07 BLOCKED (B-02/B-03). Wave A Session 1 CLOSED. | A1 Orchestrator |
+| 2026-06-26 | **WP-04 CONDITIONAL PASS** (PR #10 merged `5e3861e`): hr_recruitment 105 modules; manager hierarchy 8 corrections; leave approvals 4 types→both; recruitment 5-stage; x_employment_state + CEO automations; mail.thread PASS; HR groups populated. WP04-08 DEFERRED (B-WP04-02). Wave A Session 2 CLOSED. | A1 Orchestrator |
+| 2026-06-26 | **Wave A CLOSED** — WAVE_A_COMPLETION_REPORT.md produced. M1 NOT ACHIEVED (WP-ADM-01 + WP-PC-01 + WP-05 + client sign-offs outstanding). Wave B AUTHORIZED. | A1 Orchestrator |
+| 2026-06-26 | **WP-ADM-01 CONDITIONAL PASS** (Wave B Session 3, PR #11 merged `6f7f4bb`): fleet register 5 vehicles; asset register 61 assets / 3 validated; helpdesk_mgmt 5 categories + team; mail.thread PASS; Admin groups 3/5 populated. DEC-ADM01-001/002/003. | A1 Orchestrator |
+| 2026-06-26 | **WP-PC-01 CONDITIONAL PASS** (Wave B Session 4, PR #12 pending): 5 PCU stages ✅; NADF Programme project id=2 ✅; NADF Phase 1 id=3 ✅; milestone id=1 is_reached=True ✅; Director ACL id=1062 ✅; mail.thread ✅. DEC-PC01-001/002. **Wave B COMPLETE.** Wave C next: DEC-OCA-02 + WP-05 UAT. | A1 Orchestrator |

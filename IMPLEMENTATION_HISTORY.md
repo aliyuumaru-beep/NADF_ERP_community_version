@@ -73,6 +73,67 @@
 
 **Phase gate protocol:** Before activating a new project phase, Director must mark the phase-end milestone `is_reached=True` in the NADF ERP Programme project. No next-phase tasks should be activated until the prior phase milestone is reached. Protocol is organizational; technical enforcement in Phase 2.
 
+### AOP-015 — Governance Approval Register deployed (2026-06-26) — Software Factory Standard
+
+| Item | Result |
+|------|--------|
+| GAR-NADF-001 v1.0 created | `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` — 25 decisions across 7 departments, 3 open escalations, 8 deferred items, 9 AOP-013 authority entries — PASS |
+| V1 Validation Report | `docs/governance/GOVERNANCE_APPROVAL_REGISTER_V1_VALIDATION.md` — all 5 checks PASS; all 25 DEC entries present exactly once; department grouping correct; cross-references valid; totals reconcile |
+| SF template created | `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md` — blank reusable template for all future products |
+| SF governance standards updated | `GOVERNANCE_STANDARD.md` §3.2 added; `AI_ONBOARDING_STANDARD.md` Step 7 added; `PROJECT_CONTINUITY_BRIEFING_TEMPLATE.md` §3 added; `PEF_WORK_PACKAGE_TEMPLATE.md` mandatory exit gate AC added |
+| SF DECISION_LOG updated | DEC-018 (AOP-015 adoption) logged in `software-factory-governance/DECISION_LOG.md` |
+
+**Scope:** Software Factory-wide standard (DEC-018). NADF is the first deployment. FamOil and WamaCare inherit on next session.
+
+### WP-ADM-01 — Administration Core executed (2026-06-26) — M1 Foundation active (Wave B, Session 3)
+
+| Item | Result |
+|------|--------|
+| WP-ADM-01-00: Pre-work backup | `nadf_20260626_102923` — dump 7.0 MB + filestore 48 MB — PASS |
+| WP-ADM-01-00: Go/No-Go | G1/G2/G3 PASS — helpdesk_mgmt installed ✅; WP-01 PASS ✅; admin groups exist ✅; nadf_facility excluded ✅ |
+| D-ADM01-07: Legacy ICT helpdesk documented | project.project id=1 "ICT Help Desk": 6 stages, 10 tags (101-110), 77 tasks (70 closed) — D-ADM01-07 PASS |
+| WP-ADM-01-01: Fleet register | 5 vehicles → state=Registered; years 2019-2021 set; plates PENDING (R-ADM01-03); drivers PENDING (B-WP04-01) |
+| WP-ADM-01-01: Fuel service type | fleet.service.type id=4 "Fuel Refueling" created (category=service) |
+| WP-ADM-01-01: Fuel log + odometer | 5 odometer readings (28K–61K km) + 5 fuel service log entries (₦45,000 each) — D-ADM01-02 PASS |
+| WP-ADM-01-02: Asset categories confirmed | 5 categories with accounts + journals: IT Equip (60m), Office Furn (120m), Motor Vehicles (60m — GL anomaly DEC-ADM01-002), A/C Equip (120m), Office Appliances (60m) |
+| WP-ADM-01-02: Assets validated | 3 assets → state=open: Projector (₦700K), Office Sofa (₦1M), A/C unit (₦52.6M); depreciation lines computed |
+| WP-ADM-01-02: Asset method_number anomaly | 61 assets have method_number=5 (5 months) — legacy Phase 8 data error; deferred to WP-05/Finance review |
+| WP-ADM-01-03: Ticket categories | 5 helpdesk.ticket.category records: Hardware / Software / Network / Access & Identity / Service Outage |
+| WP-ADM-01-03: Helpdesk team | helpdesk.ticket.team id=1 "NADF ICT Helpdesk": lead=director.cs, 2 members, all 5 categories linked |
+| WP-ADM-01-03: SLA finding | OCA helpdesk_mgmt 17.0.1.10.4 has no SLA model — DEC-ADM01-001; priority + stage timestamps used as Phase 1 proxy |
+| WP-ADM-01-03: Test ticket | helpdesk.ticket id=1 created (Hardware Faults, priority=High) → stage=Done; 3 mail.thread messages — D-ADM01-05 PASS |
+| WP-ADM-01-04: User group assignments | IT Manager (111) + Fleet Manager (108) + Asset Manager (109) → director.cs; Driver (107) + IT Officer (110) PENDING B-WP04-01 — DEC-ADM01-003 |
+| WP-ADM-01-05: mail.thread | fleet.vehicle (4 msgs) ✅ account.asset.asset (2 msgs) ✅ helpdesk.ticket (3 msgs) ✅ — AC-14 PASS |
+| WP-ADM-01-06: wkhtmltopdf | NOT INSTALLED — known infrastructure gap; R-ENV-001 carry-forward |
+
+**WP-ADM-01 exit gate:** CONDITIONAL PASS — 21/25 PASS · 4 DEFERRED (plates, drivers, SLA model, partial user groups) · 0 FAIL  
+**Key decisions:** DEC-ADM01-001 (SLA proxy), DEC-ADM01-002 (Motor Vehicles GL anomaly), DEC-ADM01-003 (partial group population)  
+**Key findings:** OCA helpdesk_mgmt has no SLA model; asset method_number set at asset level (not category); helpdesk model is `helpdesk.ticket.team` not `helpdesk.team`; fleet.vehicle.log.services covers both fuel and service logs
+
+### WP-04 — HR Core executed (2026-06-26) — M1 Foundation active
+
+| Item | Result |
+|------|--------|
+| WP04-00: Pre-work backup | `nadf_20260625_142500` — dump 6.3 MB + filestore 37 MB — PASS |
+| WP04-00: `hr_recruitment` install | 17.0.0.1 CE native installed; 105 modules (was 100); exit 0 — DEC-WP04-001 |
+| WP04-01: Manager hierarchy | 8 `parent_id` corrections committed; 4-level org: ES → CS Head → HR/Comms/ICT Heads → Officers — DEC-WP04-004 |
+| WP04-02: Admin dept employees | 6 employees (IDs 12,13,14,18,20,23) flagged; dept/mgr pending client — B-WP04-01 |
+| WP04-03: Leave approval workflows | 4 types corrected to `both` (Annual, Casual, Sick, Compensatory); statutory retained at `hr` — DEC-WP04-003 |
+| WP04-04: Recruitment pipeline | 5-stage NADF pipeline: Vacancy Posted → Shortlisted → Interview → Offer → Appointment (hired_stage=True). Odoo defaults folded — DEC-WP04-001 |
+| WP04-05: x_employment_state | Selection field id=11644 on `hr.employee`; 24 employees = `employed`; 2 CEO automations active (auto ids 7,8) — DEC-WP04-002 |
+| WP04-06: mail.thread audit | `hr.employee` ✅ `hr.leave` ✅ `hr.applicant` ✅ — AC-14 PASS |
+| WP04-07: HR group assignments | Employee (8), Line Manager (5), HR Officer (1), HR Manager (1), CEO (1); Time Off Officer + Responsible wired |
+| WP04-08: Company RC/TIN | DEFERRED — client must supply NADF RC number and TIN (B-WP04-02) |
+| WP04-09: Claude API key | Pre-confirmed SET (108 chars) — PASS |
+
+**WP-04 exit gate status:** CONDITIONAL PASS — 25/26 criteria PASS; WP04-08 DEFERRED (client action); WP04-02 DEFERRED (client action). 0 FAIL. All blocking items are client-data dependencies, not technical blockers.
+
+**Key findings:**
+- `hr_recruitment` ships with 6 default stages; stages have no `active` field — use `fold=True` + high sequence to suppress defaults.
+- `base.automation` activity action state is `next_activity` (not `activity` — that is Enterprise-only). Confirmed in CE Odoo 17.
+- Suleiman Yusuf (Finance Officer) was incorrectly mapped to Strategy Head in legacy build — corrected to Finance Head.
+- x_employment_state is DB-resident (same pattern as x_compliance_status, DEC-WP03-001). Risk of loss on DB rebuild — document in Phase 2 `nadf_vendor_compliance` or `nadf_hr_custom` spec.
+
 ### WP-03 — Procurement Core executed (2026-06-25) — M1 Foundation active
 
 | Item | Result |
