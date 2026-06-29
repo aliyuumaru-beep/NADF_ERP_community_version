@@ -25,7 +25,10 @@ Project-specific instructions for any Claude Code / Software Factory agent worki
 - **Never** mutate the live `NADF` database for verification — use `--stop-after-init` for load checks and `restore_nadf.sh` (drill DB) for restore tests. Take a backup before any schema/data-mutating operation.
 
 ## Session protocol
-Follow `docs/PRODUCT_STATE_INDEX.md`: read `docs/NEXT_ACTION.md` → `PROJECT_STATE.md` → `MILESTONE_TRACKER.md` → `planning/BACKLOG.md` → `git status` at start; update state docs and commit at end.
+Follow `docs/PRODUCT_STATE_INDEX.md`: read `docs/NEXT_ACTION.md` → `PROJECT_STATE.md` → `MILESTONE_TRACKER.md` → `planning/BACKLOG.md` → `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (open escalations + deferred decisions) → `git status` at start; update state docs and commit at end.
+
+## Governance Approval Register (AOP-015)
+`docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (GAR-NADF-001) is a **mandatory governance artifact**. Read it at session start to understand open escalations, deferred decisions, and active exceptions. Update it as a mandatory acceptance criterion on every Work Package Exit Gate before closing the gate. Never close a Work Package without confirming the register is current.
 
 ## Milestone closure
 A milestone closes only when its Work Packages are closed, G1/G2/G3 governance reviews pass, docs are complete, and (for production) a human sponsor approves. Until then, work is tracked **built / unratified**, never "closed."

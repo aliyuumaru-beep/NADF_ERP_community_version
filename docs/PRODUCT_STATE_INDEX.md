@@ -51,7 +51,7 @@ This file is the entry index to POD-NADF state and the **binding session protoco
 ## 5. Programme Checkpoint — Wave A Complete / Wave B Active (2026-06-26)
 
 **Wave A status:** CLOSED  
-**Wave B status:** AUTHORIZED — WP-ADM-01 executing (Session 3)
+**Wave B status:** WP-ADM-01 CONDITIONAL PASS (Session 3) · WP-PC-01 NEXT (Session 4)
 
 | Work Package | Wave | Status | PR |
 |-------------|------|--------|----|
@@ -59,14 +59,15 @@ This file is the entry index to POD-NADF state and the **binding session protoco
 | WP-02 Finance Core | Pre-wave | CONDITIONAL PASS | #6 (merged `e58e15c`) |
 | WP-03 Procurement Core | Wave A · Session 1 | CONDITIONAL PASS | #8 (merged `be7ed8b`) |
 | WP-04 HR Core | Wave A · Session 2 | CONDITIONAL PASS | #10 (open) |
-| **WP-ADM-01 Administration Core** | **Wave B · Session 3** | **IN PROGRESS** | #11 (pending) |
+| **WP-ADM-01 Administration Core** | **Wave B · Session 3** | **CONDITIONAL PASS** | **#11 (this branch — pending)** |
 | WP-PC-01 Project Coordination | Wave B · Session 4 | NOT STARTED | — |
 
 **M1 — Foundation milestone:** NOT ACHIEVED  
-M1 exit criteria require WP-ADM-01 + WP-PC-01 PASS + WP-05 UAT prep + DEC-OCA-02 resolution + client CoA sign-off.  
+M1 requires WP-ADM-01 + WP-PC-01 PASS + WP-05 UAT prep + DEC-OCA-02 resolution + client CoA sign-off.  
 Re-assess at Wave B close.
 
 **Authoritative Wave A completion record:** `docs/governance/WAVE_A_COMPLETION_REPORT.md`  
-**Open PRs:** #9 (governance recovery), #10 (WP-04)  
-**Active branch:** `feat/wp-adm-01-administration-core`  
-**main:** `be7ed8b`
+**Governance register:** `docs/governance/GOVERNANCE_APPROVAL_REGISTER.md` (mandatory — read at session start)  
+**Open PRs:** #11 (WP-ADM-01 — this branch)  
+**Active branch for next session:** `feat/wp-pc-01-project-coordination`  
+**main:** `5e3861e`
