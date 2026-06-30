@@ -46,6 +46,22 @@
 ### M-D — Closure-tier docs, CI, main fold (2026-06-23)
 - Authored mandatory root docs (`README`, `CLAUDE.md`, `CHANGELOG`, `IMPLEMENTATION_HISTORY`, `MODULE_REGISTRY`, root `ROADMAP`), `docs/PRODUCT_STATE_INDEX.md` (session rules, BL-GOV-09), and CI (`.github/workflows/ci.yml`). Governance Gate re-run to full 21/21. PR opened to fold `phase/0-governance` → `main`.
 
+### Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control (2026-06-29) — M1 Foundation active
+
+| Item | Result |
+|------|--------|
+| Wave C pre-work backup | `nadf_20260629_144419` — 6.5 MB dump + 38 MB filestore — PASS |
+| DEC-OCA-02 investigation (Option A) | Local `account_budget_oca` 17.0.1.0.0 has no `theoritical_amount` (misspelled) — field corrected in local OCA copy; no version bump. `theoretical_amount` correctly defined on `crossovered.budget.lines` model; `account_analytic_account.py` properly inherits `account.analytic.account` to add `crossovered_budget_line_ids`. |
+| Drill DB validation | NADF_drill created from NADF backup; `account_budget_oca` installed via `--stop-after-init`; exit 0; 289 queries; no ERROR/CRITICAL on module load. Drill DB dropped after validation. |
+| NADF DB install | Odoo stopped; `account_budget_oca` installed with `--stop-after-init -i account_budget_oca`; exit 0; 289 queries. Module count: 105 → 106. `account_budget_oca` state=installed in `ir_module_module`. |
+| WP02-07-01: Budgetary positions | 3 positions created: Personnel Cost (id=1, 1 acct — 21010101), Operating Expenses (id=2, 34 accts — 22xxx codes), Capital Expenditure (id=3, 5 accts — 3xxx/4xxx codes) — mapped from `nadf_budget_fy2026.csv` |
+| WP02-07-02: FY2026 Budget | `crossovered.budget` id=1 'NADF FY2026 Budget'; date_from=2026-01-01; date_to=2026-12-31; state=confirm (action_budget_confirm executed) |
+| WP02-07-03: Budget lines | 3 lines: Personnel Cost ₦150,000,000 · Operating Expenses ₦350,000,000 · Capital Expenditure ₦106,821,826,467 · Total planned ₦107,321,826,467 |
+| Backlog reconciliation | Phase 0: 9 items → Done. Phase 1: Finance (7 Done, 1 Blocked WP02-08, 1 Done BL-FIN-04), Procurement (7 Done, 2 Blocked B-02/B-03), HR (5 Done, 1 Deferred), Admin (4 Done), PCU (4 Done), OCA (6 Done, 1 Not Started BL-OCA-07 Phase 2) |
+
+**DEC-OCA-02 resolution:** Option A — local OCA copy already patched. No code change required. Module installs cleanly on Odoo 17 CE.
+**WP02-07 exit:** PASS — budget module operational; FY2026 budget confirmed; planned amounts match `nadf_budget_fy2026.csv` totals.
+
 ### WP-PC-01 — Project Coordination Configuration executed (2026-06-26) — M1 Foundation active (Wave B, Session 4)
 
 | Item | Result |
