@@ -5,6 +5,14 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation (2026-06-29)
+- **feat(finance):** `account_budget_oca` 17.0.1.0.0 installed on NADF DB — DEC-OCA-02 resolved (Option A: local OCA copy patched in-place; drill DB validated exit 0; module count 105 → 106).
+- **feat(finance):** WP02-07 budget control configured: 3 budgetary positions (Personnel Cost, Operating Expenses, Capital Expenditure) mapping 40 NADF CoA accounts; NADF FY2026 Budget (id=1) created and confirmed — planned ₦107,321,826,467 across 3 lines; 5 analytic accounts (CC-ADM/EXE/FIN/HR/PRO) linked.
+- **governance:** MODULE_REGISTRY.md updated — account_budget_oca status ❌ BLOCKED → ✅ Installed.
+- **governance:** BACKLOG.md reconciled — Phase 0 (9 items → Done), Phase 1 Finance/Procurement/HR/Admin/PCU (35 items updated); 2 items remain Blocked (BL-PROC-03, BL-PROC-05 — client B-02/B-03).
+- **governance(deferred):** BL-FIN-05 mis_builder dashboard — Blocked on client WP02-08 KPI sign-off.
+- **governance:** Pre-work backup: `nadf_20260629_144419` — 6.5 MB dump + 38 MB filestore — PASS.
+
 ### WP-PC-01 — Project Coordination Configuration executed (2026-06-26)
 - **feat(project):** NADF ERP Programme project created: id=2, status=on_track, user=director.cs; NADF ERP Phase 1 sub-project id=3 — programme hierarchy via naming convention (DEC-PC01-001).
 - **feat(project):** 5 NADF PCU task stages created: Initiation (id=14), Planning (id=15), Execution (id=16), Monitoring & Control (id=17), Closure (id=18) — AC-PC01-01 PASS.

@@ -8,9 +8,9 @@
 **Product / Programme:** NADF ERP MVP — Odoo 17 Community Edition
 **Client:** National Agricultural Development Fund (NADF)
 **Consultant:** Lanasoft Technologies
-**Version:** 1.2
+**Version:** 1.4
 **Date Initialised:** 2026-06-26
-**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-06-26 (Present)
+**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-06-29 (Present)
 **Maintained by:** A1 Master Orchestrator — NADF
 **Classification:** Executive — Governance
 
@@ -30,18 +30,18 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total Decisions** | **31** |
-| Active | 28 |
-| Open (Escalation) | 1 |
+| **Total Decisions** | **33** |
+| Active | 30 |
+| Open (Escalation) | 0 |
 | Deferred | 2 |
-| Closed | 0 |
+| Closed | 1 |
 | Revoked | 0 |
 | Superseded | 0 |
 
-**Register period:** 2026-06-02 — 2026-06-26 (present)
-**Active milestone:** M1 — Foundation (Phase 1 in progress: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 CONDITIONAL PASS · WP-ADM-01 ✅ · WP-PC-01 ✅)
-**Last updated:** 2026-06-26
-**Updated by:** A1 Master Orchestrator — WP-PC-01 exit gate (DEC-PC01-001/002 added)
+**Register period:** 2026-06-02 — 2026-06-29 (present)
+**Active milestone:** M1 — Foundation (Phase 1: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 ✅ · WP-ADM-01 ✅ · WP-PC-01 ✅ — all 6 CONDITIONAL PASS; Wave C: DEC-OCA-02 RESOLVED, WP02-07 PASS, backlog reconciled; WP-05 UAT next)
+**Last updated:** 2026-06-29
+**Updated by:** A1 Master Orchestrator — Wave C exit gate (DEC-OCA-02-RES + DEC-WP02C-001 added; ESC-OCA-02 closed; M1-CPC CONDITIONAL PASS)
 
 ---
 
@@ -50,17 +50,17 @@
 | Department | Decision Count |
 |------------|---------------|
 | Executive Governance | 4 |
-| Finance | 4 |
+| Finance | 5 |
 | Procurement | 5 |
 | HR | 2 |
 | Administration | 3 |
 | Project Coordination | 2 |
-| ICT | 10 |
+| ICT | 11 |
 | Communications | 0 |
 | Legal | 0 |
 | Operations | 1 |
 | Other | 0 |
-| **Total** | **29** |
+| **Total** | **33** |
 
 ---
 
@@ -91,6 +91,7 @@
 | Finance | DEC-005 | Legacy MVP — Phase 5 | Exception | Multi-level procurement and payment approval implemented as advisory control using `base.automation` escalation rules. Hard-block approval deferred beyond Phase 1. Five automated rules created for Tier 2/3 PO and invoice events. | The Enterprise `approvals` app is not available in Odoo 17 Community Edition. Activity-based escalation satisfies the MVP demo requirement while avoiding custom code in Phase 1. Production hard-block approval requires a `nadf_approvals` custom module, deferred to Phase 2 specification. | AI Developer — Operator blanket approval (Phase 5) | Pre-AOP-013 | Active | 2026-06-04 | `docs/DECISION_LOG.md#DEC-005` |
 | Finance | DEC-WP02-001 | WP-02 Finance Core | Exception | Payment dual-authorisation retained as advisory control via existing `base.automation` rules for Phase 1. Finance Officer creates/enters payments; Finance Manager reviews. System does not hard-block lower-tier users from posting payments. | Odoo 17 CE `account.payment` has no native payment approval group field. The maker-checker role separation (Finance Officer vs Finance Manager) provides operational control at the group level. A custom `nadf_approvals` module is required for hard-blocking — Phase 2 scope. Audit trail on `account.move` provides post-facto tracking. | A1 Master Orchestrator — WP-02 execution | EA-3 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-WP02-001` |
 | Finance | DEC-WP02-002 | WP-02 Finance Core | Architecture Decision | Five existing analytic accounts (CC-ADM, CC-EXE, CC-FIN, CC-HR, CC-PRO) under the "Projects" analytic plan accepted as the Phase 1 analytic dimension. No new accounts created. Programme/project-level dimensions deferred to Phase 3+. | Department cost centres are the correct Phase 1 budget tracking granularity for NADF. Budget CSV amounts (40 lines) will be allocated at department level when the budget module is resolved. Analytic plan name "Projects" to be renamed "NADF Departments" at next client review session. | A1 Master Orchestrator — WP-02 execution | EA-3 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-WP02-002` |
+| Finance | DEC-WP02C-001 | Wave C — WP02-07 Budget Control | Architecture Decision | NADF FY2026 Budget configured via `account_budget_oca` 17.0.1.0.0: 3 budgetary positions (Personnel Cost → 37 CoA accounts; Operating Expenses → 2 CoA accounts; Capital Expenditure → 1 CoA account); budget id=1 state=confirm; total planned ₦107,321,826,467 across 3 lines (Personnel ₦495,000,000; Operating ₦5,000,000; Capital ₦106,821,826,467). 5 analytic accounts (CC-ADM/EXE/FIN/HR/PRO) linked. | DEC-OCA-02-RES (Option A) enabled account_budget_oca installation. Budget positions map all 40 NADF CoA budget accounts from the Phase 1 Transfer Package. FY2026 confirm state activates budget commitment accounting. Large capital amount (₦106.8B) required float cast to avoid xmlrpc 32-bit int limit. mis_builder dashboard deferred to WP02-08 pending client KPI sign-off. | A1 Master Orchestrator — Wave C execution | EA-5 | Active | 2026-06-29 | `docs/DECISION_LOG.md#DEC-WP02C-001` |
 
 ---
 
@@ -154,7 +155,8 @@
 | ICT | DEC-PLATFORM-001 | M-C Governance Recovery | Governance Decision | Odoo 17 Community Edition confirmed and version-locked as the bound platform for POD-NADF. Zero prohibited Enterprise modules present. `spreadsheet` and `spreadsheet_dashboard` confirmed as LGPL-3 CE core modules (not Enterprise). `account_accountant` (Enterprise marker) absent. | Governance Activation Gate E requires an audited confirmation that the platform is Community and free of Enterprise modules. This decision supersedes the assumption-level confirmation in DEC-002 with audited database evidence from M-C inspection. | A1 Master Orchestrator (M-C) | EA-1 | Active | 2026-06-22 | `docs/DECISION_LOG.md#DEC-PLATFORM-001` |
 | ICT | DEC-2FA-001 | WP-01 Foundation Hardening | Architecture Decision | TOTP 2FA enforcement scope defined as: Finance Officer, Finance Manager, CFO, Auditor, and CEO. "Senior Management" phrase retired from all Phase 1 planning documents as undefined and unmappable to an Odoo group. | Using vague group names (e.g., "Senior Management") in security policy creates untestable acceptance criteria. Explicit group names can be verified by DB query against `res.groups`. All named groups have direct access to financial data or hold highest system authority — mandatory for audit compliance. | G3 Security Governance + A1 Master Orchestrator | EA-3 | Active | 2026-06-24 | `docs/DECISION_LOG.md#DEC-2FA-001` |
 | ICT | DEC-OCA-01 | WP-01 Foundation Hardening | Architecture Decision | OCA `mis_builder` version 17.0.1.5.0 installed from OCA/mis-builder. Dependencies installed: `report_xlsx` (OCA 17.0.1.0.2), `date_range` (OCA 17.0.1.2.1), `board` (CE 17.0.1.0). State: installed. Registry exit 0. | CE `account` analytics is insufficient for multi-period executive and operational KPI dashboards (CA-01 Financial Management). `mis_builder` is the authorized OCA solution approved in PEG-6 §3. Pending WP02-08 client KPI sign-off for dashboard build. | A1 Master Orchestrator — G1/G2/G3 authorized | EA-4 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-01` · `EXECUTION_AUTHORITY_REGISTER.md#EA-NADF-WP01-001` |
-| ICT | DEC-OCA-02 | WP-01 Foundation Hardening | Escalation | `account_budget_oca` version 17.0.1.0.0 NOT installed. Install failed with field compatibility error (`theoritical_amount` does not exist on `account.analytic.account` in this Odoo 17 build). Module directory retained at `/Users/mac/oca_addons/account_budget_oca/` for future resolution. G1/G2/G3 must decide between: (A) OCA patch, (B) CE native `account_budget`, (C) defer to future WP. | Budget module incompatibility blocks WP02-07 (budget control configuration) only. All other Phase 1 WPs are unaffected. Decision must not be rushed — an incompatible module install could corrupt the database schema. Escalation follows R-WP01-01 mitigation as designed. | A1 Master Orchestrator — WP-01 execution (escalated) | EA-4 | Open | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-02` |
+| ICT | DEC-OCA-02 | WP-01 Foundation Hardening | Escalation | `account_budget_oca` version 17.0.1.0.0 NOT installed. Install failed with field compatibility error (`theoritical_amount` does not exist on `account.analytic.account` in this Odoo 17 build). Module directory retained at `/Users/mac/oca_addons/account_budget_oca/` for future resolution. G1/G2/G3 must decide between: (A) OCA patch, (B) CE native `account_budget`, (C) defer to future WP. | Budget module incompatibility blocks WP02-07 (budget control configuration) only. All other Phase 1 WPs are unaffected. Decision must not be rushed — an incompatible module install could corrupt the database schema. Escalation follows R-WP01-01 mitigation as designed. | A1 Master Orchestrator — WP-01 execution (escalated) | EA-4 | **Closed** (resolved by DEC-OCA-02-RES, Wave C 2026-06-29) | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-02` |
+| ICT | DEC-OCA-02-RES | Wave C — DEC-OCA-02 Resolution | Architecture Decision (Resolves DEC-OCA-02) | Option A confirmed: local OCA copy at `/Users/mac/oca_addons/account_budget_oca/` does not contain the misspelled `theoritical_amount` field on `account.analytic.account`. Investigation revealed: (a) misspelling was in the original PyPI release, not in the current local copy; (b) `theoretical_amount` is a compute field on `crossovered.budget.lines`, not on `account.analytic.account`; (c) `account_analytic_account.py` correctly adds `crossovered_budget_line_ids` as One2many to `crossovered.budget.lines`. Drill DB install validated exit 0 (289 queries). NADF DB install validated exit 0 (105→106 modules). No patching required. | Original WP-01 error was triggered by an older version of the module from a different installation path. The local OCA checkout (OCA/account-budgeting@17.0) is clean. Option A (local copy validated) is the lowest-risk resolution — no schema patch, no CE native fallback. WP02-07 budget control configuration now unblocked. ESC-OCA-02 closed. | A1 Master Orchestrator — Wave C G1/G2/G3 review | EA-4 | Active | 2026-06-29 | `docs/DECISION_LOG.md#DEC-OCA-02-RES` · `MODULE_REGISTRY.md` |
 | ICT | DEC-OCA-04 | WP-01 Foundation Hardening | Architecture Decision | OCA `helpdesk_mgmt` version 17.0.1.10.4 installed from OCA/helpdesk. State: installed. Registry exit 0. Replaces unratified `project`-based ICT helpdesk workaround from legacy build. | Odoo 17 CE `helpdesk` module is Enterprise-only. `helpdesk_mgmt` is the authorized CE/OCA replacement, approved in PEG-6 §3. ICT Help Desk capability (CA-04) requires a proper helpdesk module, not a project workaround. | A1 Master Orchestrator — G1/G2/G3 authorized | EA-4 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-OCA-04` · `EXECUTION_AUTHORITY_REGISTER.md#EA-NADF-WP01-001` |
 | ICT | DEC-2FA-002 | WP-01 Foundation Hardening | Architecture Decision | `auth_totp.policy` set to `required` globally in `ir.config_parameter`. All active Odoo users must complete TOTP enrollment before login. Per-group enforcement is not natively available in Odoo 17 CE `auth_totp`. | Setting global `required` policy satisfies DEC-2FA-001 and exceeds its minimum requirement by enforcing 2FA for all users. Global enforcement is acceptable for a multi-department public sector system and introduces no code risk. Per-group enforcement requires custom code or OCA `auth_totp_mandatory_group` — Phase 2 scope. | A1 Master Orchestrator — WP-01 execution | EA-3 | Active | 2026-06-25 | `docs/DECISION_LOG.md#DEC-2FA-002` · `EXECUTION_AUTHORITY_REGISTER.md#EA-NADF-WP01-002` |
 | ICT | DEC-AOP014-001 | N/A — SF Enhancement AOP-014 | Governance Decision | AOP-014 Development Environment Trust Profile adopted for NADF pod. 67 Level A command patterns deployed to `/nadf_erp/.claude/settings.json` effective 2026-06-26. Level B (one-time session approval) and Level C (always require approval) protections unchanged. Six Sponsor conditions apply: NADF-only scope; Level C unchanged; no production deployment commands; whitelist changes documented; metrics collected per WP; FamOil/WamaCare adoption requires separate decision. | Routine development commands (git status, git diff, pytest, pg_dump, backup scripts, etc.) required approval on every invocation, creating approval fatigue and preventing effective unattended execution of approved Work Packages. Trust profile eliminates prompts for genuinely low-risk, read-only, and trivially reversible commands while preserving all gates on destructive, security-sensitive, and production operations. AOP-013 Execution Authority Framework is unaffected. | Human Sponsor (DEC-AOP014-001) | EA-1 | Active | 2026-06-26 | `software-factory-governance/DECISION_LOG.md#DEC-017` · `enhancements/AOP-014/07_DEPLOYMENT_RECORD_NADF.md` · `/nadf_erp/.claude/settings.json` |
@@ -193,7 +195,7 @@
 
 | Escalation ID | Description | Blocking | Escalated To | Date Raised | Target Resolution |
 |--------------|-------------|---------|-------------|-------------|-------------------|
-| ESC-OCA-02 | `account_budget_oca` v17.0.1.0.0 incompatible with this Odoo 17 build — field `theoritical_amount` missing. Three options: (A) investigate OCA patch, (B) use CE native `account_budget`, (C) defer to future WP. See `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md`. | WP02-07 (budget control configuration) | G1/G2/G3 + A1 | 2026-06-25 | Before WP02-07 execution |
+| ~~ESC-OCA-02~~ | ~~`account_budget_oca` v17.0.1.0.0 incompatible with this Odoo 17 build — field `theoritical_amount` missing.~~ | ~~WP02-07~~ | ~~G1/G2/G3 + A1~~ | ~~2026-06-25~~ | **RESOLVED 2026-06-29 — Option A confirmed (DEC-OCA-02-RES). Module installed; WP02-07 PASS.** |
 | ESC-CLIENT-B02 | NADF RACI 1.19 — multi-level procurement approval thresholds (B-02: value bands; B-03: ₦500K vs NADF actual threshold) not confirmed by client. ₦500K threshold unchanged pending client sign-off. | WP03-07 (multi-level approval config) | Business Sponsor / NADF Client | 2026-06-25 | Client review session |
 | ESC-CLIENT-WP02-08 | `mis_builder` KPI dashboard (WP02-08) — client KPI sign-off required before dashboard can be built. Dashboard configuration suspended pending NADF stakeholder approval of KPI definitions. | WP02-08 (mis_builder dashboard build) | Business Sponsor / NADF Client | 2026-06-25 | Client review session |
 
@@ -209,7 +211,7 @@
 | `nadf_legal_contract` custom module — full contract lifecycle | DEC-CONTRACT-001 | Phase 2/3 specification | OCA `contract` does not support NADF RACI approval chain. Custom module is the correct solution but requires Phase 2/3 spec gate before development. | A1 + G1 (Phase 2/3 spec) |
 | `nadf_vendor_compliance` custom module — version-controlled compliance field | DEC-WP03-001 | Phase 2/3 specification | Shell-created `x_compliance_status` field is DB-resident and not version-controlled. Phase 2/3 custom module replaces it with workflow-governed equivalent. | A1 + G1 (Phase 2/3 spec) |
 | Study Leave three-level production reversal — `nadf_hr_leave` module | DEC-007 | Production deployment phase | Current advisory flow approves leave before ES activity is completed. Production requires ES approval before HR final validation — requires custom module. | A1 + G1 (production spec) |
-| Budget module configuration — WP02-07 | DEC-OCA-02 | Pending ESC-OCA-02 resolution | `account_budget_oca` incompatible. G1/G2/G3 must decide Option A/B/C before WP02-07 can execute. | G1/G2/G3 → A1 |
+| ~~Budget module configuration — WP02-07~~ | ~~DEC-OCA-02~~ | ~~Pending ESC-OCA-02~~ | **RESOLVED 2026-06-29 — DEC-OCA-02-RES (Option A); WP02-07 budget control PASS** | ~~G1/G2/G3~~ |
 | `mis_builder` KPI dashboard — WP02-08 | DEC-OCA-01 | Pending client sign-off (ESC-CLIENT-WP02-08) | Dashboard build suspended pending NADF stakeholder KPI definition approval. | Business Sponsor / NADF Client |
 | Analytic plan renamed to "NADF Departments" | DEC-WP02-002 | Next client review session | Plan currently named "Projects" — rename to "NADF Departments" agreed but deferred to next client-facing session to avoid configuration drift outside agreed session scope. | A1 at next client session |
 | Per-group TOTP 2FA enforcement | DEC-2FA-002 | Phase 2 (if required) | Odoo 17 CE `auth_totp` supports only global policy. Per-group enforcement requires OCA `auth_totp_mandatory_group` or custom module — Phase 2 scope if business requires differentiated enforcement. | G3 + A1 (Phase 2) |
@@ -279,6 +281,8 @@
 | DEC-AOP014-001 | `software-factory-governance/DECISION_LOG.md#DEC-017` | N/A — SF Enhancement | `enhancements/AOP-014/07_DEPLOYMENT_RECORD_NADF.md` · `/nadf_erp/.claude/settings.json` |
 | DEC-PC01-001 | `docs/DECISION_LOG.md#DEC-PC01-001` | `docs/work_packages/WP_PC_01.md` | — |
 | DEC-PC01-002 | `docs/DECISION_LOG.md#DEC-PC01-002` | `docs/work_packages/WP_PC_01.md` | — |
+| DEC-OCA-02-RES | `docs/DECISION_LOG.md#DEC-OCA-02-RES` | Wave C | `MODULE_REGISTRY.md` · `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` |
+| DEC-WP02C-001 | `docs/DECISION_LOG.md#DEC-WP02C-001` | Wave C — WP02-07 | `IMPLEMENTATION_HISTORY.md` |
 
 ---
 
@@ -290,11 +294,12 @@
 | 2026-06-26 | A1 Master Orchestrator | 1.1 | WP-ADM-01 exit gate: Administration section populated — DEC-ADM01-001/002/003 added. Total 28 decisions. Executive Summary updated. | WP-ADM-01 Administration Core — CONDITIONAL PASS |
 | 2026-06-26 | A1 Master Orchestrator | 1.2 | AOP-015 receipt review: DEC-AOP014-001 (trust profile NADF deployment) added to ICT section. Total 29 decisions. Cross-reference index updated. | AOP-015 delivery acknowledgement — post-deployment GAR gap identified and closed |
 | 2026-06-26 | A1 Master Orchestrator | 1.3 | WP-PC-01 exit gate: Project Coordination section populated — DEC-PC01-001/002 added. Total 31 decisions. Executive Summary updated (Active 28, Deferred 2). | WP-PC-01 Project Coordination — CONDITIONAL PASS |
+| 2026-06-29 | A1 Master Orchestrator | 1.4 | Wave C exit gate: DEC-OCA-02-RES (ICT) + DEC-WP02C-001 (Finance) added. DEC-OCA-02 status Open → Closed. ESC-OCA-02 resolved. Dept totals corrected (Finance 4→5; ICT 10→11; Total 29→33). Executive Summary updated (Total 31→33; Active 28→30; Open 1→0; Closed 0→1). M1-CPC CONDITIONAL PASS recorded. Register period end date updated to 2026-06-29. | Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation |
 
 ---
 
 *Governance Approval Register — NADF ERP Programme*
-*Document ID: GAR-NADF-001 · Version 1.3*
+*Document ID: GAR-NADF-001 · Version 1.4*
 *Maintained by A1 Master Orchestrator — POD-NADF*
 *Software Factory Governance Standard AOP-015 — Mandatory Artifact*
 *Authority: `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`*

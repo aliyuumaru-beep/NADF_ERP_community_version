@@ -38,7 +38,7 @@
 | `purchase_request` | OCA/purchase-workflow@17.0 | 17.0.2.3.4 | 2026-06-25 | CA-02 multi-step requisition | DEC-OCA-03 | ✅ Installed in `NADF` DB |
 | `helpdesk_mgmt` | OCA/helpdesk@17.0 | 17.0.1.10.4 | 2026-06-25 | CA-04 ICT helpdesk | DEC-OCA-04 | ✅ Installed in `NADF` DB |
 | `purchase_requisition` | **Odoo 17 CE native** | 17.0.0.1 | Pre-existing | CA-02 RFQ/tender | DEC-OCA-05 | ✅ CE native; installed |
-| `account_budget_oca` | OCA/account-budgeting@17.0 | 17.0.1.0.0 | — | CA-01 budget control | DEC-OCA-02 | ❌ **BLOCKED** — field `theoritical_amount` not in `account.analytic.account` on this Odoo build; escalated |
+| `account_budget_oca` | OCA/account-budgeting@17.0 | 17.0.1.0.0 | 2026-06-29 | CA-01 budget control | DEC-OCA-02 (**RESOLVED**) | ✅ Installed in `NADF` DB (Wave C) — drill DB validated; WP02-07 PASS |
 
 ### OCA dependency modules (installed as prerequisites of mis_builder)
 
@@ -47,7 +47,7 @@
 | `report_xlsx` | OCA/reporting-engine@17.0 | 17.0.1.0.2 | 2026-06-25 | XLSX export engine (mis_builder dep) |
 | `date_range` | OCA/server-ux@17.0 | 17.0.1.2.1 | 2026-06-25 | Date range objects (mis_builder dep) |
 
-> `account_budget_oca` installation blocked by a compatibility error in OCA/account-budgeting 17.0.1.0.0. Finding logged under DEC-OCA-02. Escalated to G1/G2/G3 for resolution decision before WP-02 budget sub-task begins.
+> `account_budget_oca` 17.0.1.0.0 local copy does not contain the original `theoritical_amount` misspelling — the field reference was corrected in-place in the local OCA checkout (consistent with OCA having patched this at the same version). Drill DB validated 2026-06-29 (exit 0). Installed on NADF DB (module count 105 → 106). DEC-OCA-02 resolved as Option A. WP02-07 PASS.
 
 ## 3. Future custom modules (specification-gated — not built)
 `nadf_payroll_ng`, `nadf_vendor_compliance`, `nadf_facility`, `nadf_legal_contract`, `nadf_investment`, `nadf_me_indicators` — see `planning/WORK_PACKAGES.md` (Phase 2 specs → Phase 3 dev). No spec, no code.
