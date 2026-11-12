@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Prioritised Implementation Inventory
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-21 (coverage closure — 9 omissions and 3 scope reductions addressed)  
+**Last updated:** 2026-06-29 (Wave C backlog reconciliation — Phase 0 and Phase 1 statuses updated to reflect M0 CLOSED and Wave A/B CONDITIONAL PASS)  
 **Authority:** NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md  
 **Update rule:** Status must be updated after every session. No item is marked Done until its acceptance criteria are verified.
 
@@ -22,15 +22,15 @@
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-GOV-01 | Repository discovery and audit | CA-14 | MH | 0 | Not Started | Repo access | D-0.1 |
-| BL-GOV-02 | Odoo instance Enterprise module audit | CA-14 | MH | 0 | Not Started | Odoo access | D-0.5 |
-| BL-GOV-03 | Governance Activation Gate — run all five gates | CA-14 | MH | 0 | Not Started | BL-GOV-01, BL-GOV-02 | D-0.2 |
-| BL-GOV-04 | Repository scaffold committed to main | CA-14 | MH | 0 | Not Started | BL-GOV-03 | D-0.4 |
-| BL-GOV-05 | Backup strategy documented and verified | CA-14 | MH | 0 | Not Started | Odoo access | D-0.3 |
-| BL-GOV-06 | GitHub branch protection enabled | CA-14 | MH | 0 | Not Started | Repo access | D-0.2 |
-| BL-GOV-07 | CI workflow created and active | CA-14 | SH | 0 | Not Started | BL-GOV-06 | D-0.2 |
-| BL-GOV-08 | DEC-PLATFORM-001 logged in Decision Log | CA-14 | MH | 0 | Not Started | BL-GOV-02 | D-0.5 |
-| BL-GOV-09 | Document session start and end rules in `docs/PRODUCT_STATE_INDEX.md` | CA-14 | MH | 0 | Not Started | BL-GOV-04 | Session rules committed to repo |
+| BL-GOV-01 | Repository discovery and audit | CA-14 | MH | 0 | Done | Repo access | D-0.1 |
+| BL-GOV-02 | Odoo instance Enterprise module audit | CA-14 | MH | 0 | Done | Odoo access | D-0.5 |
+| BL-GOV-03 | Governance Activation Gate — run all five gates | CA-14 | MH | 0 | Done | BL-GOV-01, BL-GOV-02 | D-0.2 |
+| BL-GOV-04 | Repository scaffold committed to main | CA-14 | MH | 0 | Done | BL-GOV-03 | D-0.4 |
+| BL-GOV-05 | Backup strategy documented and verified | CA-14 | MH | 0 | Done | Odoo access | D-0.3 |
+| BL-GOV-06 | GitHub branch protection enabled | CA-14 | MH | 0 | Done | Repo access | D-0.2 |
+| BL-GOV-07 | CI workflow created and active | CA-14 | SH | 0 | Done | BL-GOV-06 | D-0.2 |
+| BL-GOV-08 | DEC-PLATFORM-001 logged in Decision Log | CA-14 | MH | 0 | Done | BL-GOV-02 | D-0.5 |
+| BL-GOV-09 | Document session start and end rules in `docs/PRODUCT_STATE_INDEX.md` | CA-14 | MH | 0 | Done | BL-GOV-04 | Session rules committed to repo |
 
 ---
 
@@ -40,69 +40,69 @@
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-FIN-01 | Configure government chart of accounts | CA-01 | MH | 1 | In Progress | Phase 0 complete | AC-01 |
-| BL-FIN-02 | Configure vendor bill workflow | CA-01 | MH | 1 | In Progress | BL-FIN-01 | AC-01 |
-| BL-FIN-03 | Configure payment workflow with dual authorisation | CA-01 | MH | 1 | In Progress | BL-FIN-01 | AC-01 |
-| BL-FIN-04 | Configure analytic accounts and budget control (`account_budget_oca`) | CA-01 | MH | 1 | Not Started | BL-OCA-02 | AC-01 |
-| BL-FIN-05 | Install and configure `mis_builder` financial dashboard | CA-01 | SH | 1 | Not Started | BL-OCA-01 | AC-01 |
-| BL-FIN-06 | Configure Finance user groups and access rights | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
-| BL-FIN-07 | Enable and enforce TOTP two-factor authentication | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
-| BL-FIN-08 | Verify `mail.thread` audit trail on all Finance records | CA-14 | MH | 1 | Not Started | BL-FIN-01 | AC-14 |
-| BL-FIN-09 | Configure and verify native `account` financial reports (trial balance, P&L, balance sheet) | CA-01 | SH | 1 | Not Started | BL-FIN-01 | AC-01 |
+| BL-FIN-01 | Configure government chart of accounts | CA-01 | MH | 1 | Done | Phase 0 complete | AC-01 |
+| BL-FIN-02 | Configure vendor bill workflow | CA-01 | MH | 1 | Done | BL-FIN-01 | AC-01 |
+| BL-FIN-03 | Configure payment workflow with dual authorisation | CA-01 | MH | 1 | Done | BL-FIN-01 | AC-01 |
+| BL-FIN-04 | Configure analytic accounts and budget control (`account_budget_oca`) | CA-01 | MH | 1 | Done | BL-OCA-02 | AC-01 |
+| BL-FIN-05 | Install and configure `mis_builder` financial dashboard | CA-01 | SH | 1 | Blocked | BL-OCA-01 | AC-01 |
+| BL-FIN-06 | Configure Finance user groups and access rights | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
+| BL-FIN-07 | Enable and enforce TOTP two-factor authentication | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
+| BL-FIN-08 | Verify `mail.thread` audit trail on all Finance records | CA-14 | MH | 1 | Done | BL-FIN-01 | AC-14 |
+| BL-FIN-09 | Configure and verify native `account` financial reports (trial balance, P&L, balance sheet) | CA-01 | SH | 1 | Done | BL-FIN-01 | AC-01 |
 
 ### Procurement (CA-02)
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-PROC-01 | Configure vendor record structure with compliance status field | CA-02 | MH | 1 | In Progress | Phase 0 complete | AC-02 |
-| BL-PROC-02 | Install and configure `purchase_request` multi-step requisition | CA-02 | MH | 1 | Not Started | BL-OCA-03 | AC-02 |
-| BL-PROC-03 | Configure multi-level requisition approval chain | CA-02 | MH | 1 | Blocked | BL-PROC-02 + B-02, B-03 resolved | AC-02 |
-| BL-PROC-04 | Configure RFQ and tender workflow (`purchase_requisition`) | CA-02 | MH | 1 | Not Started | BL-OCA-04 | AC-02 |
-| BL-PROC-05 | Configure purchase order approval with threshold limits | CA-02 | MH | 1 | Blocked | B-03 resolved | AC-02 |
-| BL-PROC-06 | Configure goods receipt and stock flow | CA-02 | MH | 1 | Not Started | Phase 0 complete | AC-02 |
-| BL-PROC-07 | Configure Procurement user groups and access rights | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
-| BL-PROC-08 | Verify `mail.thread` audit trail on all Procurement records | CA-14 | MH | 1 | Not Started | BL-PROC-01 | AC-14 |
-| BL-PROC-09 | Evaluate OCA `contract` module fit for PO-linked contract records; decide and log in Decision Log | CA-02 | MH | 1 | Not Started | BL-PROC-01 | Decision Log entry DEC-CONTRACT-001 |
+| BL-PROC-01 | Configure vendor record structure with compliance status field | CA-02 | MH | 1 | Done | Phase 0 complete | AC-02 |
+| BL-PROC-02 | Install and configure `purchase_request` multi-step requisition | CA-02 | MH | 1 | Done | BL-OCA-03 | AC-02 |
+| BL-PROC-03 | Configure multi-level requisition approval chain | CA-02 | MH | 1 | Blocked | B-02, B-03 client confirmation outstanding | AC-02 |
+| BL-PROC-04 | Configure RFQ and tender workflow (`purchase_requisition`) | CA-02 | MH | 1 | Done | BL-OCA-04 | AC-02 |
+| BL-PROC-05 | Configure purchase order approval with threshold limits | CA-02 | MH | 1 | Blocked | B-03 client confirmation outstanding; ₦500K threshold UNCHANGED | AC-02 |
+| BL-PROC-06 | Configure goods receipt and stock flow | CA-02 | MH | 1 | Done | Phase 0 complete | AC-02 |
+| BL-PROC-07 | Configure Procurement user groups and access rights | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
+| BL-PROC-08 | Verify `mail.thread` audit trail on all Procurement records | CA-14 | MH | 1 | Done | BL-PROC-01 | AC-14 |
+| BL-PROC-09 | Evaluate OCA `contract` module fit for PO-linked contract records; decide and log in Decision Log | CA-02 | MH | 1 | Done | BL-PROC-01 | Decision Log entry DEC-CONTRACT-001 |
 
 ### HR (CA-03)
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-HR-01 | Configure employee records with NADF 4-level org hierarchy | CA-03 | MH | 1 | In Progress | Phase 0 complete | AC-03 |
-| BL-HR-02 | Configure leave request and approval workflow (`hr_holidays`) | CA-03 | MH | 1 | In Progress | BL-HR-01 | AC-03 |
-| BL-HR-03 | Configure recruitment pipeline (`hr_recruitment`) | CA-03 | MH | 1 | Not Started | BL-HR-01 | AC-03 |
-| BL-HR-04 | Configure HR user groups and access rights | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
-| BL-HR-05 | Verify `mail.thread` audit trail on HR records | CA-14 | MH | 1 | Not Started | BL-HR-01 | AC-14 |
+| BL-HR-01 | Configure employee records with NADF 4-level org hierarchy | CA-03 | MH | 1 | Done | Phase 0 complete | AC-03 |
+| BL-HR-02 | Configure leave request and approval workflow (`hr_holidays`) | CA-03 | MH | 1 | Done | BL-HR-01 | AC-03 |
+| BL-HR-03 | Configure recruitment pipeline (`hr_recruitment`) | CA-03 | MH | 1 | Done | BL-HR-01 | AC-03 |
+| BL-HR-04 | Configure HR user groups and access rights | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
+| BL-HR-05 | Verify `mail.thread` audit trail on HR records | CA-14 | MH | 1 | Done | BL-HR-01 | AC-14 |
 | BL-HR-06 | HR performance management (appraisal workflow) | CA-03 | CH | Future | Deferred | OCA appraisal module availability confirmed | AC-03 (future extension) |
 
 ### Administration (CA-04)
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-ADM-01 | Configure vehicle register and fuel log (`fleet`) | CA-04 | MH | 1 | In Progress | Phase 0 complete | AC-04 |
-| BL-ADM-02 | Configure asset register and depreciation schedule (`account_asset`) | CA-04 | MH | 1 | In Progress | Phase 0 complete | AC-04 |
-| BL-ADM-03 | Install and configure `helpdesk_mgmt` ICT helpdesk | CA-04 | MH | 1 | Not Started | BL-OCA-05 | AC-04 |
-| BL-ADM-04 | Configure Administration user groups and access rights | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
+| BL-ADM-01 | Configure vehicle register and fuel log (`fleet`) | CA-04 | MH | 1 | Done | Phase 0 complete | AC-04 |
+| BL-ADM-02 | Configure asset register and depreciation schedule (`account_asset`) | CA-04 | MH | 1 | Done | Phase 0 complete | AC-04 |
+| BL-ADM-03 | Install and configure `helpdesk_mgmt` ICT helpdesk | CA-04 | MH | 1 | Done | BL-OCA-05 | AC-04 |
+| BL-ADM-04 | Configure Administration user groups and access rights | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
 
 ### Project Coordination (CA-05)
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-PC-01 | Configure `project` module: project record, phases, tasks | CA-05 | MH | 1 | Not Started | Phase 0 complete | AC-05 |
-| BL-PC-02 | Configure milestone tracking with phase gate approval | CA-05 | MH | 1 | Not Started | BL-PC-01 | AC-05 |
-| BL-PC-03 | Configure project status dashboard view | CA-05 | SH | 1 | Not Started | BL-PC-01 | AC-05 |
-| BL-PC-04 | Configure Project Coordination user groups and access rights | CA-14 | MH | 1 | Not Started | Phase 0 complete | AC-14 |
+| BL-PC-01 | Configure `project` module: project record, phases, tasks | CA-05 | MH | 1 | Done | Phase 0 complete | AC-05 |
+| BL-PC-02 | Configure milestone tracking with phase gate approval | CA-05 | MH | 1 | Done | BL-PC-01 | AC-05 |
+| BL-PC-03 | Configure project status dashboard view | CA-05 | SH | 1 | Done | BL-PC-01 | AC-05 |
+| BL-PC-04 | Configure Project Coordination user groups and access rights | CA-14 | MH | 1 | Done | Phase 0 complete | AC-14 |
 
 ### OCA Module Installation (Phase 1)
 
 | ID | Title | Capability | Priority | Phase | Status | Dependency | AC Reference |
 |----|-------|-----------|---------|-------|--------|-----------|-------------|
-| BL-OCA-01 | Install and version-pin `mis_builder` | CA-01, CA-11, CA-12 | MH | 1 | Not Started | Phase 0 complete | AC-01 |
-| BL-OCA-02 | Install and version-pin `account_budget_oca` | CA-01 | MH | 1 | Not Started | Phase 0 complete | AC-01 |
-| BL-OCA-03 | Install and version-pin `purchase_request` | CA-02 | MH | 1 | Not Started | Phase 0 complete | AC-02 |
-| BL-OCA-04 | Install and version-pin `purchase_requisition` | CA-02 | MH | 1 | Not Started | Phase 0 complete | AC-02 |
-| BL-OCA-05 | Install and version-pin `helpdesk_mgmt` | CA-04 | MH | 1 | Not Started | Phase 0 complete | AC-04 |
-| BL-OCA-06 | Log all OCA installations in Decision Log | CA-14 | MH | 1 | Not Started | BL-OCA-01 to 05 | — |
+| BL-OCA-01 | Install and version-pin `mis_builder` | CA-01, CA-11, CA-12 | MH | 1 | Done | Phase 0 complete | AC-01 |
+| BL-OCA-02 | Install and version-pin `account_budget_oca` | CA-01 | MH | 1 | Done | Phase 0 complete | AC-01 |
+| BL-OCA-03 | Install and version-pin `purchase_request` | CA-02 | MH | 1 | Done | Phase 0 complete | AC-02 |
+| BL-OCA-04 | Install and version-pin `purchase_requisition` | CA-02 | MH | 1 | Done | Phase 0 complete | AC-02 |
+| BL-OCA-05 | Install and version-pin `helpdesk_mgmt` | CA-04 | MH | 1 | Done | Phase 0 complete | AC-04 |
+| BL-OCA-06 | Log all OCA installations in Decision Log | CA-14 | MH | 1 | Done | BL-OCA-01 to 05 | — |
 | BL-OCA-07 | Install and version-pin OCA payroll base module | CA-03 | MH | 2 | Not Started | BL-SPEC-01 approved | OCA payroll base confirmed installed before BL-DEV-01 |
 
 ---

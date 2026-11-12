@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-26 (Wave B complete; WP-PC-01 CONDITIONAL PASS; PR #12 open; Wave C next)  
+**Last updated:** 2026-06-29 (Wave C complete: DEC-OCA-02 resolved, WP02-07 PASS, backlog reconciled, M1-CPC CONDITIONAL PASS; WP-05 UAT prep authored; PR #13 pending)  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  
@@ -111,9 +111,10 @@
 |-------|-------|
 | Milestone ID | M1 — Foundation |
 | Title | Phase 1 Foundation — Finance, Procurement, HR, Administration, Project Coordination |
-| Status | 🔄 **ACTIVE** — WP-01/02/03/04 CONDITIONAL PASS; WP-ADM-01 and WP-PC-01 next |
-| M0 predecessor | M0 CLOSED 2026-06-24 — PEG-6 approved; Governance Gate 21/21 PASS; all 6 PRs merged |
-| Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 complete; WP-05 UAT preparation done; DEC-OCA-02 resolved; client CoA sign-off received |
+| Status | 🔄 **ACTIVE** — All 6 WPs CONDITIONAL PASS; M1-CPC CONDITIONAL PASS 2026-06-29; WP-05 UAT preparation in progress |
+| M0 predecessor | M0 CLOSED 2026-06-24 — PEG-6 approved; Governance Gate 21/21 PASS; all PRs merged |
+| Exit criteria | WP-01..04, WP-ADM-01, WP-PC-01 ✅ done; DEC-OCA-02 resolved ✅; WP-05 UAT execution ⏳ pending client; client sign-offs ⏳ pending |
+| Sub-milestone | M1-CPC ✅ CONDITIONAL PASS · M1-OPR ⏳ (WP-05 UAT pending) · M1-PRD ⏳ (client sign-offs) |
 
 ---
 
@@ -121,12 +122,12 @@
 
 | Field | Value |
 |-------|-------|
-| Work Package | WP-04 — HR Core (CONDITIONAL PASS 2026-06-26) → WP-ADM-01 next |
-| Phase | Phase 1 — Foundation (Wave B, Session 3) |
-| Assigned to | D2 Solution Builder / A1 Orchestrator |
-| Status | ✅ WP-04 CONDITIONAL PASS — PR #10 to be opened; Wave B = WP-ADM-01 next |
-| Inputs required | `docs/work_packages/WP_04_HR_CORE.md` |
-| Branch | `feat/wp-04-hr-core` from main@`be7ed8b` (PR pending) |
+| Work Package | WP-05 — UAT / Operational Readiness (Wave C preparation complete; execution pending client) |
+| Phase | Phase 1 — Foundation (Wave C) |
+| Assigned to | A1 Orchestrator + NADF Client (UAT execution) |
+| Status | 🔄 Test plan authored (`docs/work_packages/WP_05_UAT_PREPARATION.md`); 11 test scenarios defined; awaiting Wave C PR merge + client scheduling |
+| Inputs required | `docs/work_packages/WP_05_UAT_PREPARATION.md` |
+| Branch | `feat/wave-c-ops` from main@`63879e9` (PR pending) |
 
 ---
 
@@ -152,7 +153,6 @@
 
 | ID | Blocker | Owner | Impact |
 |----|---------|-------|--------|
-| DEC-OCA-02 | `account_budget_oca` incompatible — Option A OCA patch investigation pending; Option C defer fallback | D2 / G1 | Blocks WP02-07 (budget) only; WP-ADM-01/PC-01 unaffected |
 | WP03-07 | Procurement multi-level approval — client B-02 (RACI 1.19) and B-03 (thresholds) not confirmed | Client | Approval chain cannot be configured until client confirms |
 | WP04-08 | Company RC/TIN — client must provide NADF registration number and TIN | Client | WP04-08; company registration fields empty |
 | B-WP04-01 | 6 Admin-dept employees: dept and reporting lines not confirmed | Client | Org hierarchy incomplete for those staff |
@@ -189,7 +189,7 @@
 | E-01 | Nigerian payroll statutory requirements need legal/HR advisory input before `nadf_payroll_ng` spec is finalised | Aliyu / Lanasoft | Open |
 | E-02 | Client confirmation required on Procurement blockers B-02 (RACI 1.19) and B-03 (approval thresholds) | NADF Client | Open — WP03-07 blocked |
 | E-03 | Investment module scope requires client business requirements session before spec can be drafted | Aliyu / NADF | Open |
-| DEC-OCA-02 | `account_budget_oca` compatibility failure — G1/G2/G3 resolution: Option A investigation or Option C defer | G1 / D2 | Open — see `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` |
+| ~~DEC-OCA-02~~ | ~~`account_budget_oca` compatibility failure~~ | ~~G1 / D2~~ | **RESOLVED 2026-06-29 — Option A confirmed; DEC-OCA-02-RES; WP02-07 PASS** |
 
 ---
 

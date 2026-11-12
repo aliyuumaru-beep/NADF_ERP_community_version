@@ -859,5 +859,59 @@ AC-PC01-02 requires "Director marks milestone done; Project Manager cannot." The
 
 ---
 
+## DEC-OCA-02-RES — account_budget_oca: DEC-OCA-02 Resolved (Option A)
+
+**Date:** 2026-06-29
+**Type:** CONFIGURATION / PLATFORM DECISION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (Wave C execution)
+**Supersedes:** DEC-OCA-02 open escalation (logged 2026-06-25)
+
+### Decision
+DEC-OCA-02 escalation is resolved. Option A (upgrade to patched OCA release) is confirmed. The local `account_budget_oca` 17.0.1.0.0 copy in `/Users/mac/oca_addons/account_budget_oca/` does not contain the `theoritical_amount` (misspelled) field reference that caused the original WP-01 ParseError. The field is correctly named `theoretical_amount` and is defined on `crossovered.budget.lines` (an OCA model, not `account.analytic.account`). The `account_analytic_account.py` extension properly adds `crossovered_budget_line_ids` as a One2many on `account.analytic.account`. Module installs cleanly on this Odoo 17 CE build.
+
+### Context
+WP-01 (2026-06-25) failed to install `account_budget_oca` 17.0.1.0.0 with: `ParseError: Field 'theoritical_amount' does not exist on model account.analytic.account`. Investigation (Wave C) found the local OCA copy no longer contains that field reference — the OCA module was patched in-place without a version bump. Drill DB validation (`--stop-after-init`) confirmed exit 0, 289 queries, no ERROR/CRITICAL. Installed on NADF DB; module count 105 → 106, state=installed.
+
+### Rationale
+- Option A was the recommended first investigation path in DEC-OCA-02-GRR-001
+- Local copy is already patched — no manual intervention required
+- Option B permanently rejected (CE constraint). Option C (defer) not needed. Option D (custom) not needed.
+
+### Consequences
+- `account_budget_oca` operational in NADF DB
+- WP02-07 (budget control) is now unblocked and has been executed (see below: DEC-WP02C-001)
+- `MODULE_REGISTRY.md` updated: account_budget_oca status ✅ Installed 2026-06-29
+- DEC-OCA-02 open escalation closed
+
+---
+
+## DEC-WP02C-001 — NADF FY2026 Budget Configuration (WP02-07)
+
+**Date:** 2026-06-29
+**Type:** CONFIGURATION DECISION
+**Status:** ACTIVE
+**Made By:** A1 Master Orchestrator (Wave C execution)
+
+### Decision
+Configure NADF FY2026 budget with 3 aggregate budgetary positions derived from `csv_templates/nadf_budget_fy2026.csv`. All 40 budget accounts (100% CoA match) grouped into: Personnel Cost (1 account, ₦150M), Operating Expenses (34 accounts, ₦350M), Capital Expenditure (5 accounts, ₦106.8B). FY2026 Budget (id=1) created with date range 2026-01-01 to 2026-12-31 and confirmed (state=confirm).
+
+### Context
+WP02-07 was blocked since 2026-06-25 pending DEC-OCA-02 resolution. The budget CSV was prepared in legacy Phase 7 (40 lines, 3 captions). The Phase 1 approach uses 3 aggregate positions rather than 40 individual positions, to give a manageable Phase 1 budget view. The 5 analytic accounts (CC-ADM/EXE/FIN/HR/PRO) are available as line-level analytic references for Phase 2 detailed budget tracking.
+
+### Rationale
+- 3 positions align with the 3 Transfer Package budget captions (Personnel, Operating, Capital)
+- Phase 1 budget tracking is at category level; Phase 2 can add per-analytic-account or per-programme-line budget lines
+- Planned amounts match CSV totals exactly (Personnel ₦150M + Operating ₦350M + Capital ₦106.8B = ₦107.32B total)
+- Budget confirmed (state=confirm); not validated (state=validate) — full validation requires Finance user review of amounts
+
+### Consequences
+- NADF FY2026 Budget operational: budget-vs-actual visible in Odoo Finance menu
+- `theoretical_amount` computed field available at runtime (ORM-level, not via xmlrpc read)
+- Phase 2 enhancement: add analytic-account-level budget lines per department; validate budget (state=validate) after Finance sign-off
+- WP02-08 (mis_builder KPI dashboard) remains blocked on client sign-off (B-WP02-08)
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
