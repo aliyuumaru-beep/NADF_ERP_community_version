@@ -14,7 +14,7 @@
 | Module | Version | Category | Depends on | Provenance | Status |
 |--------|---------|----------|-----------|-----------|--------|
 | `nadf_vendor_onboarding` | 17.0.1.0.0 | Procurement | `base`, `mail`, `purchase` | Built legacy Phase 9; recovered to this repo in M-C (`a9738b4`, `DEC-RECOVERY-001`) from FamOil untracked tree | Installed in `NADF` DB; **built / unratified** (governance ratification at M1) |
-| `nadf_facilities_management` | 17.0.1.2.0 | Operations/Maintenance | `base`, `mail`, `hr`, `purchase`, `stock`, `account` | Built legacy Phase 10; relocated to this repo in M-C (`4ccb306`, `DEC-RECOVERY-002`) from `famoil-erp@55c1787` | Installed in `NADF` DB; **built / unratified** |
+| `nadf_facilities_management` | 17.0.1.3.1 | Operations/Maintenance | `base`, `mail`, `hr`, `purchase`, `stock`, `account` | Built legacy Phase 10; relocated to this repo in M-C (`4ccb306`, `DEC-RECOVERY-002`) from `famoil-erp@55c1787` | Installed in `NADF` DB; **built / unratified** |
 
 ### `nadf_vendor_onboarding` — detail
 - **Purpose:** Public vendor registration portal (`/vendor/register`, auth=public) with AI/Claude PDF compliance analysis.

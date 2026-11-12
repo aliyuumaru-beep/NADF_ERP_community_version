@@ -39,12 +39,18 @@
                     <button name="action_start" type="object" string="Start Work"
                             class="oe_highlight" invisible="state != 'assigned'"
                             groups="nadf_facilities_management.group_fm_tff_contractor,nadf_facilities_management.group_fm_branch_desk_officer"/>
+                    <button name="action_request_consumables" type="object" string="Request Consumables"
+                            icon="fa-cubes" invisible="state not in ('assigned', 'in_progress')"
+                            groups="nadf_facilities_management.group_fm_tff_contractor"/>
                     <button name="action_submit_completion" type="object" string="Submit Completion Report"
                             class="oe_highlight" invisible="state != 'in_progress'"
                             groups="nadf_facilities_management.group_fm_tff_contractor,nadf_facilities_management.group_fm_branch_desk_officer"/>
                     <button name="action_open_feedback_wizard" type="object" string="Record End-User Feedback"
                             class="oe_highlight" invisible="state != 'pending_feedback'"
                             groups="nadf_facilities_management.group_fm_end_user"/>
+                    <button name="action_request_feedback" type="object" string="Request End-User Feedback"
+                            class="oe_highlight" invisible="state != 'pending_feedback' or feedback_requested_date"
+                            groups="nadf_facilities_management.group_fm_branch_desk_officer"/>
                     <button name="action_close" type="object" string="Close"
                             invisible="state != 'pending_feedback'"
                             groups="nadf_facilities_management.group_fm_branch_desk_officer"/>
@@ -60,7 +66,8 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_consumable_requests" type="object"
-                                class="oe_stat_button" icon="fa-list-alt">
+                                class="oe_stat_button" icon="fa-list-alt"
+                                groups="nadf_facilities_management.group_fm_branch_desk_officer,nadf_facilities_management.group_fm_tff_contractor,nadf_facilities_management.group_fm_branch_facilities_manager">
                             <field name="consumable_request_count" widget="statinfo" string="Consumable Requests"/>
                         </button>
                         <button name="action_view_batch" type="object"
@@ -84,7 +91,9 @@
                         </group>
                         <group>
                             <field name="desk_officer_id"/>
+                            <field name="end_user_id" invisible="not end_user_id"/>
                             <field name="order_date"/>
+                            <field name="rework_count" invisible="not rework_count"/>
                             <field name="total_cost"/>
                         </group>
                     </group>
@@ -97,15 +106,42 @@
                                 <field name="assessment_notes" nolabel="1"/>
                             </group>
                         </page>
+                        <page string="Consumables" name="consumables" groups="nadf_facilities_management.group_fm_branch_desk_officer,nadf_facilities_management.group_fm_tff_contractor,nadf_facilities_management.group_fm_branch_facilities_manager">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <button name="action_request_consumables" type="object" string="Request Consumables"
+                                        class="btn-primary" icon="fa-plus"
+                                        invisible="state not in ('assigned', 'in_progress')"
+                                        groups="nadf_facilities_management.group_fm_tff_contractor"/>
+                                <span class="text-muted">
+                                    Pick the parts and quantities you need and submit for desk officer approval.
+                                    After approval, open the request and enter the <b>Quantity Used</b> before submitting your completion report.
+                                </span>
+                            </div>
+                            <field name="consumable_line_ids" readonly="1">
+                                <tree>
+                                    <field name="request_id"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity_requested"/>
+                                    <field name="quantity_approved"/>
+                                    <field name="quantity_consumed"/>
+                                    <field name="uom_id"/>
+                                    <field name="request_state" widget="badge"/>
+                                    <field name="consumption_posted"/>
+                                    <field name="total_cost" sum="Total"/>
+                                </tree>
+                            </field>
+                        </page>
                         <page string="Completion &amp; Feedback" name="completion">
                             <group>
                                 <group>
                                     <field name="completion_date" readonly="1"/>
                                     <field name="satisfaction_state" readonly="1"/>
+                                    <field name="feedback_requested_date" readonly="1"/>
                                 </group>
                             </group>
                             <group string="Completion Report">
-                                <field name="completion_report" nolabel="1"/>
+                                <field name="completion_report" nolabel="1" readonly="state not in ('in_progress',)"
+                                       placeholder="Describe the work done..."/>
                             </group>
                             <group string="Satisfaction Notes">
                                 <field name="satisfaction_notes" nolabel="1" readonly="1"/>

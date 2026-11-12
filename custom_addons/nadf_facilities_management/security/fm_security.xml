@@ -201,6 +201,23 @@
             <field name="groups" eval="[(4, ref('group_fm_tff_contractor'))]"/>
         </record>
 
+        <!-- DEC-FM-003: end users see only job orders raised from their own
+             complaints (they are asked for feedback on them); contractors
+             can only touch lines of their own consumable requests. -->
+        <record id="rule_fm_job_order_end_user" model="ir.rule">
+            <field name="name">FM Job Order: own complaints only (End User)</field>
+            <field name="model_id" ref="model_fm_job_order"/>
+            <field name="domain_force">[('complaint_id.end_user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_fm_end_user'))]"/>
+        </record>
+
+        <record id="rule_fm_consumable_request_line_contractor" model="ir.rule">
+            <field name="name">FM Consumable Request Line: own contractor only (TFF Contractor)</field>
+            <field name="model_id" ref="model_fm_consumable_request_line"/>
+            <field name="domain_force">[('request_id.contractor_id.user_ids', 'in', [user.id])]</field>
+            <field name="groups" eval="[(4, ref('group_fm_tff_contractor'))]"/>
+        </record>
+
         <!-- ── HQ tier: visibility limited to monthly-batch-linked records ── -->
         <!-- DECISION: HQ Procurement / Cost Control / Director / Finance
              review records as part of the monthly batch payment cycle, not

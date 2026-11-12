@@ -238,6 +238,10 @@
 - Verification: backup `odoo_backups/pre_fm_contractor_access_20261112/NADF.dump` → drill `-u` exit 0 → 8/8 PASS (sender-email error reproduced and resolved; contractor sees only own JO/complaint/contractor, can open form, start work, submit completion) → drill dropped → live `-u` exit 0 → server restarted.
 - Live data: James email set; user `demo.contractor` (id 110, internal + TFF Contractor) linked to contractor id 22; HTTP login verified.
 
+### 2026-11-12 — FM consumables as inventory + feedback/rework loop (DEC-FM-003)
+- Same branch. New `models/fm_stock.py` (product flag, contractor stock location, stock-move helper), `data/fm_stock_data.xml` (category, *Contractor Stock*, *Facilities Maintenance Consumption*), `views/fm_product_views.xml`; consumable request/job order workflow changes; end-user and contractor-line record rules. → 17.0.1.3.0.
+- Verification: backup `pre_fm_consumables_20261112` → drill `-u` → 22/22 workflow checks (as James, demo.contractor, drill end user) + module tests 4/4 → drill dropped → fresh backup → live `-u` exit 0 → 4 example consumables seeded → server restarted. Follow-up *Request Consumables* button: backup `pre_fm_request_button_20261112` → drill 3/3 (form simulation as contractor) → live `-u` exit 0.
+
 ## 3. RESTORE_EVENT log
 *(Migrated from `docs/BACKUP_STRATEGY.md` §9 per Backup & Recovery Standard `20`.)*
 

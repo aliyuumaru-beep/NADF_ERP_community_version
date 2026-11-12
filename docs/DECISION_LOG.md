@@ -959,5 +959,32 @@ The TFF Contractor group, menus and job-order/consumable/schedule/report rules e
 
 ---
 
+## DEC-FM-003 — Facilities Consumables as Inventory; Approval → Usage → Feedback → Rework Loop
+
+**Date:** 2026-11-12
+**Type:** DESIGN DECISION (sponsor-directed)
+**Status:** ACTIVE — built / unratified (pending PR review)
+**Made By:** Project sponsor (Aliyu Umaru) — directed in session; implemented by AI Developer (Claude Code)
+
+### Decision
+1. **Consumables are stocked products.** New `product.template.fm_consumable` flag ("Facilities Consumable"); category *Facilities Consumables*. Consumable request lines may only select flagged products; unit cost defaults from product cost; store quantity shown.
+2. **Desk Officer approval issues stock.** Submitting pre-fills approved = requested; officer may reduce. Approval checks availability and moves parts from the issue store (system parameter `nadf_fm.issue_location_id`, else *NADF/Consumables Store*, else warehouse stock) to a per-contractor internal location under *Contractor Stock*. Only the Desk Officer may set approved quantities/costs (server-enforced).
+3. **Contractor records usage; completion posts it.** Contractor enters *Quantity Used* (≤ approved) on approved requests; *Submit Completion Report* requires a report, is blocked while any request is draft/submitted, and moves used parts to virtual location *Facilities Maintenance Consumption* (once per line). Unused parts stay on the contractor's balance.
+4. **Feedback loop.** Desk Officer **Request End-User Feedback** (to-do + notification to the complainant). *Not satisfied* returns the job to **Assigned** with the **same contractor** (rework counter, contractor to-do + assignment email). *Satisfied* closes job order and complaint.
+5. **Access.** End users see only job orders raised from their own complaints (previously all). Contractors limited to lines of their own consumable requests. Stock moves run with sudo (FM users are not Inventory users).
+6. **Request Consumables** button on the job order (header + Consumables tab).
+7. **Only contractors request consumables** (sponsor follow-up): Desk Officer create rights on requests/lines removed; create, the button and *Submit* are contractor-only (server-enforced). Desk Officer reviews, adjusts approved quantities and approves/rejects. → 17.0.1.3.1.
+
+### Context
+Sponsor UAT: consumables were not inventory (dropdown offered any product), approval only incremented a counter, consumption was never recorded, no officer step to request end-user feedback, rework did not notify the contractor. Contractor could not find how to request parts (only a "0 Consumable Requests" smart button).
+
+### Consequences
+- `nadf_facilities_management` 17.0.1.2.0 → 17.0.1.3.0. Drill: 22/22 workflow checks + module tests 4/4 (3 existing — repaired after DEC-FM-001 made their non-vendor contractor invalid — plus new `test_04_consumables_stock_and_rework`); button drill 3/3.
+- Live data: 4 example consumables with opening stock in NADF/Consumables Store — Fuse 30A (₦500 ×100), Extension Cable 4-way 5m (₦8,500 ×20), LED Bulb 12W (₦2,500 ×150), AC Compressor 1.5HP (₦350,000 ×3).
+- Stock valuation follows the product category (manual/periodic by default — no journal entries).
+- Backups: `pre_fm_consumables_20261112`, `pre_fm_request_button_20261112`.
+
+---
+
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*

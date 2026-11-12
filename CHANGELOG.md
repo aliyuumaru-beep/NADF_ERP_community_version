@@ -5,6 +5,14 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### FM — Consumables as inventory + feedback/rework loop (2026-11-12)
+- **feat(fm):** Facilities consumables are stocked products (`fm_consumable` flag); request dropdown limited to them; Desk Officer approval issues stock store → contractor location; contractor records quantity used; completion posts usage to *Facilities Maintenance Consumption* (DEC-FM-003).
+- **feat(fm):** *Request End-User Feedback* (Desk Officer); *Not satisfied* → back to same contractor (Assigned, rework count, contractor notified); *Request Consumables* button on job order.
+- **fix(fm):** end users limited to job orders from their own complaints (previously all); contractors limited to own request lines; job-order consumable count readable by end users.
+- **test(fm):** existing E2E tests repaired for DEC-FM-001 (vendor contractor) + new `test_04_consumables_stock_and_rework` — 4/4 PASS.
+- **data:** 4 example consumables with opening stock (Fuse, Extension Cable, LED Bulb, AC Compressor). `nadf_facilities_management` → 17.0.1.3.0.
+- **fix(fm):** only contractors can create/submit consumable requests; Desk Officer reviews and approves (17.0.1.3.1; drill 6/6 + tests 4/4).
+
 ### FM — Contractor Odoo access (2026-11-12)
 - **feat(fm):** TFF Contractor role usable: read on `fm.contractor` + rules limiting contractors to their own contractor record and to complaints behind their job orders (DEC-FM-002). `nadf_facilities_management` → 17.0.1.2.0; drill 8/8 PASS.
 - **data:** James desk-officer email set (fixes "configure the sender's email address"); placeholder contractor login `demo.contractor` linked to *Demo Facilities Contractor Ltd*.
