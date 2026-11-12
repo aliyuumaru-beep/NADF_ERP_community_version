@@ -1,7 +1,7 @@
 # Phase 1 — Module Scaffold & Security Foundation
 {
     'name': 'NADF Facilities Management',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.3.1',
     'category': 'Operations/Maintenance',
     'summary': 'NADF Facilities Management: Reactive Maintenance, Preventive Maintenance, and Inventory Reporting',
     'description': """
@@ -24,11 +24,13 @@
         'security/fm_security.xml',
         'security/ir.model.access.csv',
         'data/fm_sequence_data.xml',
+        'data/fm_stock_data.xml',
         'data/fm_cron_data.xml',
         'data/fm_mail_template_data.xml',
         'report/report_fm_job_order.xml',
         'report/report_fm_monthly_batch.xml',
         'report/report_fm_inventory_report.xml',
+        'views/fm_product_views.xml',
         'views/fm_contractor_views.xml',
         'views/fm_job_complaint_views.xml',
         'views/fm_job_order_views.xml',

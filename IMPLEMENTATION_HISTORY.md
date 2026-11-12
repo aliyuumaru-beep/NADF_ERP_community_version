@@ -226,6 +226,22 @@
 - **No module code and no Odoo functional configuration changed.** Prepared on branch `docs/peg-6-product-authorization` → PR (branch protection: no direct `main` push).
 - Carried warnings into the package: concurrent session detected during M-C stabilization (R-11); live Odoo not yet restarted after `addons_path` correction (R-12, §4 pending operational note). Development remains **blocked** pending PEG-6 approval.
 
+### 2026-11-12 — FM defect fix: complaint link + Procurement-onboarded contractors (DEC-FM-001)
+- Branch `fix/fm-complaint-link-procurement-contractors`. Sponsor UAT (James, Desk Officer) found Source Complaint unselectable and an empty Contractor dropdown.
+- Changes in `nadf_facilities_management` (→ 17.0.1.1.0): editable `complaint_id` on Draft job orders + write-time linking; `action_create_job_order` on complaints; `fm.contractor.partner_id` required/vendor-only/unique; ACLs moved to Purchase groups; Procurement menu.
+- Verification: backup `odoo_backups/pre_fm_fix_20261112/NADF.dump` → restored to `NADF_fmdrill` → `-u` exit 0 (106 modules) → 7/7 scenario tests PASS as real users (James, Procurement Officer) → drill dropped → live `-u` exit 0 → Odoo (port 8069) restarted.
+- Live data: *Demo Facilities Contractor Ltd* (vendor + `fm.contractor` id 22) created as Procurement Officer at sponsor request.
+- Environment note: deployment now runs on the migrated Mac (paths `/Users/aliyuumaru/OdooFolder/...`).
+
+### 2026-11-12 — FM contractor Odoo access (DEC-FM-002)
+- Same branch. Added contractor read ACL on `fm.contractor` and two contractor record rules (own contractor record; complaints behind own job orders). → 17.0.1.2.0.
+- Verification: backup `odoo_backups/pre_fm_contractor_access_20261112/NADF.dump` → drill `-u` exit 0 → 8/8 PASS (sender-email error reproduced and resolved; contractor sees only own JO/complaint/contractor, can open form, start work, submit completion) → drill dropped → live `-u` exit 0 → server restarted.
+- Live data: James email set; user `demo.contractor` (id 110, internal + TFF Contractor) linked to contractor id 22; HTTP login verified.
+
+### 2026-11-12 — FM consumables as inventory + feedback/rework loop (DEC-FM-003)
+- Same branch. New `models/fm_stock.py` (product flag, contractor stock location, stock-move helper), `data/fm_stock_data.xml` (category, *Contractor Stock*, *Facilities Maintenance Consumption*), `views/fm_product_views.xml`; consumable request/job order workflow changes; end-user and contractor-line record rules. → 17.0.1.3.0.
+- Verification: backup `pre_fm_consumables_20261112` → drill `-u` → 22/22 workflow checks (as James, demo.contractor, drill end user) + module tests 4/4 → drill dropped → fresh backup → live `-u` exit 0 → 4 example consumables seeded → server restarted. Follow-up *Request Consumables* button: backup `pre_fm_request_button_20261112` → drill 3/3 (form simulation as contractor) → live `-u` exit 0.
+
 ## 3. RESTORE_EVENT log
 *(Migrated from `docs/BACKUP_STRATEGY.md` §9 per Backup & Recovery Standard `20`.)*
 

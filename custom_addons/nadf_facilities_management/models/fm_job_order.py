@@ -19,7 +19,7 @@ class FmJobOrder(models.Model):
     """
     _name = 'fm.job.order'
     _description = 'Facilities Management Job Order'
-    _inherit = ['mail.thread', 'mail.activity.mixin', 'fm.notification.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'fm.notification.mixin', 'fm.stock.mixin']
     _order = 'order_date desc, id desc'
 
     name = fields.Char(
@@ -33,9 +33,16 @@ class FmJobOrder(models.Model):
         default=lambda self: self.env.user,
     )
     complaint_id = fields.Many2one(
-        'fm.job.complaint', string='Source Complaint', copy=False,
+        'fm.job.complaint', string='Source Complaint', copy=False, tracking=True,
+        domain="[('state', '=', 'draft'), ('job_order_id', '=', False)]",
+        help='Unassigned complaint this job order resolves. Desk officers only see their own branch (record rule).',
     )
-    contractor_id = fields.Many2one('fm.contractor', string='Contractor', required=True, tracking=True)
+    # Only contractors onboarded by Procurement (linked to a vendor) and
+    # assigned to Facilities Management are selectable.
+    contractor_id = fields.Many2one(
+        'fm.contractor', string='Contractor', required=True, tracking=True,
+        domain="[('partner_id.supplier_rank', '>', 0)]",
+    )
     job_description = fields.Text(string='Job Description', required=True)
     assessment_notes = fields.Text(string='Contractor Assessment Notes')
     state = fields.Selection([
@@ -57,6 +64,16 @@ class FmJobOrder(models.Model):
         ('unsatisfied', 'Not Satisfied'),
     ], string='Satisfaction', default='pending', tracking=True, copy=False)
     satisfaction_notes = fields.Text(string='Satisfaction Notes')
+    # DEC-FM-003 workflow additions
+    end_user_id = fields.Many2one(
+        'res.users', string='End User', related='complaint_id.end_user_id', store=True, readonly=True,
+    )
+    feedback_requested_date = fields.Datetime(string='Feedback Requested On', readonly=True, copy=False)
+    rework_count = fields.Integer(string='Rework Count', readonly=True, copy=False, default=0)
+    consumable_line_ids = fields.One2many(
+        'fm.consumable.request.line', compute='_compute_consumable_line_ids',
+        string='Consumables',
+    )
     batch_id = fields.Many2one(
         'fm.monthly.batch', string='Monthly Submission Batch', copy=False,
     )
@@ -84,10 +101,15 @@ class FmJobOrder(models.Model):
                 for line in request.line_ids
             )
 
+    @api.depends('consumable_request_ids.line_ids')
+    def _compute_consumable_line_ids(self):
+        for rec in self:
+            rec.consumable_line_ids = rec.sudo().consumable_request_ids.line_ids
+
     @api.depends('consumable_request_ids')
     def _compute_consumable_request_count(self):
         for rec in self:
-            rec.consumable_request_count = len(rec.consumable_request_ids)
+            rec.consumable_request_count = len(rec.sudo().consumable_request_ids)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -95,11 +117,32 @@ class FmJobOrder(models.Model):
             if vals.get('name', _('New')) == _('New'):
                 vals['name'] = self.env['ir.sequence'].next_by_code('fm.job.order') or _('New')
         records = super().create(vals_list)
-        for rec in records:
+        records._link_source_complaint()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get('complaint_id'):
+            self._link_source_complaint()
+        return res
+
+    def _link_source_complaint(self):
+        """Mark each job order's source complaint as assigned to it."""
+        for rec in self:
             if rec.complaint_id and rec.complaint_id.state == 'draft':
                 rec.complaint_id.write({'job_order_id': rec.id})
                 rec.complaint_id.action_set_assigned()
-        return records
+
+    @api.onchange('complaint_id')
+    def _onchange_complaint_id(self):
+        complaint = self.complaint_id
+        if complaint:
+            self.branch_id = complaint.branch_id
+            if not self.job_description:
+                parts = [complaint.description or '']
+                if complaint.location_detail:
+                    parts.append(_('Location: %s') % complaint.location_detail)
+                self.job_description = '\n'.join(p for p in parts if p)
 
     # ── State transitions ──────────────────────────────────────────────
 
@@ -128,6 +171,14 @@ class FmJobOrder(models.Model):
         for rec in self:
             if rec.state != 'in_progress':
                 raise UserError(_('Only job orders in progress can have a completion report submitted.'))
+            if not rec.completion_report:
+                raise UserError(_('Write the job completion report before submitting it.'))
+            pending = rec.consumable_request_ids.filtered(lambda r: r.state in ('draft', 'submitted'))
+            if pending:
+                raise UserError(_('Consumable requests %s are still awaiting submission/approval. '
+                                  'Get them approved (or delete the drafts) before submitting the completion report.')
+                                % ', '.join(pending.mapped('name')))
+            rec._fm_post_consumption()
             rec.write({
                 'state': 'pending_feedback',
                 'completion_date': fields.Datetime.now(),
@@ -139,12 +190,68 @@ class FmJobOrder(models.Model):
                 rec.branch_id, 'nadf_facilities_management.group_fm_branch_desk_officer',
             )
             for user in desk_officers:
-                rec.activity_schedule(
+                rec.sudo().activity_schedule(
                     'mail.mail_activity_data_todo',
-                    summary=_('Job Order Completion Report Submitted'),
-                    note=_('Job order %s has a completion report awaiting review.') % rec.name,
+                    summary=_('Inform end user and request feedback'),
+                    note=_('Job order %s is complete. Inform the end user and request their feedback.') % rec.name,
                     user_id=user.id,
                 )
+        return True
+
+    def _fm_post_consumption(self):
+        """DEC-FM-003: take the parts the contractor used out of the
+        contractor's stock and update the contractor inventory ledger."""
+        self.ensure_one()
+        lines = self.consumable_request_ids.filtered(lambda r: r.state == 'approved').line_ids.filtered(
+            lambda l: not l.consumption_posted)
+        if not lines:
+            return
+        contractor = self.contractor_id
+        self._fm_move(
+            [(l.product_id, l.quantity_consumed) for l in lines],
+            contractor._fm_get_stock_location(),
+            self.env.ref('nadf_facilities_management.fm_location_consumption'),
+            _('%s usage') % self.name,
+        )
+        Inventory = self.env['fm.contractor.inventory.line'].sudo()
+        for line in lines.sudo():
+            if line.quantity_consumed:
+                inv = Inventory.search([('contractor_id', '=', contractor.id),
+                                        ('product_id', '=', line.product_id.id)], limit=1)
+                if inv:
+                    inv.write({'quantity_consumed': inv.quantity_consumed + line.quantity_consumed,
+                               'last_updated': fields.Date.context_today(self)})
+            line.consumption_posted = True
+        used = lines.filtered('quantity_consumed')
+        self.message_post(body=_('Parts used: %s') % (
+            ', '.join('%s × %s' % (l.quantity_consumed, l.product_id.display_name) for l in used)
+            or _('none')))
+
+    def action_request_feedback(self):
+        """Desk Officer informs the end user that the job is done and asks
+        for satisfaction feedback."""
+        for rec in self:
+            if rec.state != 'pending_feedback':
+                raise UserError(_('Feedback can only be requested once the completion report is submitted.'))
+            end_user = rec.complaint_id.end_user_id
+            if not end_user:
+                raise UserError(_('This job order has no source complaint, so there is no end user to ask. '
+                                  'Record the feedback yourself with "Record End-User Feedback".'))
+            rec.sudo().activity_schedule(
+                'mail.mail_activity_data_todo',
+                summary=_('Your maintenance job is complete — please give feedback'),
+                note=_('Job order %(jo)s for your complaint %(c)s is complete. Open the job order and click '
+                       '"Record End-User Feedback" to say whether you are satisfied.') % {
+                    'jo': rec.name, 'c': rec.complaint_id.name},
+                user_id=end_user.id,
+            )
+            rec.message_post(
+                body=_('Work completed. %s, please confirm whether you are satisfied using "Record End-User Feedback".')
+                % end_user.name,
+                partner_ids=end_user.partner_id.ids,
+                subtype_xmlid='mail.mt_comment',
+            )
+            rec.feedback_requested_date = fields.Datetime.now()
         return True
 
     def action_open_feedback_wizard(self):
@@ -155,6 +262,22 @@ class FmJobOrder(models.Model):
             'res_model': 'fm.satisfaction.feedback.wizard',
             'view_mode': 'form',
             'target': 'new',
+            'context': {'default_job_order_id': self.id},
+        }
+
+    def action_request_consumables(self):
+        """Open a new consumable request for this job order (contractor or
+        desk officer), so parts can be requested straight from the job."""
+        self.ensure_one()
+        self.env['fm.consumable.request']._fm_check_contractor()
+        if self.state not in ('assigned', 'in_progress'):
+            raise UserError(_('Consumables can only be requested while the job order is assigned or in progress.'))
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Request Consumables'),
+            'res_model': 'fm.consumable.request',
+            'view_mode': 'form',
+            'target': 'current',
             'context': {'default_job_order_id': self.id},
         }
 
@@ -200,9 +323,29 @@ class FmJobOrder(models.Model):
         return True
 
     def action_reopen(self):
+        """End user not satisfied: send the job back to the same contractor
+        to rectify (DEC-FM-003)."""
         for rec in self:
-            rec.write({'state': 'in_progress', 'satisfaction_state': 'pending'})
-            rec.message_post(body=_('Job order reopened — end user reported dissatisfaction.'))
+            rec.write({
+                'state': 'assigned',
+                'satisfaction_state': 'pending',
+                'rework_count': rec.rework_count + 1,
+                'feedback_requested_date': False,
+            })
+            rec.message_post(body=_('Job order returned to %(c)s for rework (rework #%(n)s) — end user not satisfied.') % {
+                'c': rec.contractor_id.name, 'n': rec.rework_count})
+            for user in rec.contractor_id.user_ids:
+                rec.sudo().activity_schedule(
+                    'mail.mail_activity_data_todo',
+                    summary=_('Rework required'),
+                    note=_('The end user is not satisfied with job order %(jo)s. Notes: %(n)s. '
+                           'Start the work again, rectify, and resubmit your completion report.') % {
+                        'jo': rec.name, 'n': rec.satisfaction_notes or '-'},
+                    user_id=user.id,
+                )
+            rec._fm_send_template(
+                'nadf_facilities_management.mail_template_fm_job_order_assigned', rec.id,
+            )
         return True
 
     # DECISION: 'escalated' is part of the state selection per spec but no
