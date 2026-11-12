@@ -33,9 +33,16 @@ class FmJobOrder(models.Model):
         default=lambda self: self.env.user,
     )
     complaint_id = fields.Many2one(
-        'fm.job.complaint', string='Source Complaint', copy=False,
+        'fm.job.complaint', string='Source Complaint', copy=False, tracking=True,
+        domain="[('state', '=', 'draft'), ('job_order_id', '=', False)]",
+        help='Unassigned complaint this job order resolves. Desk officers only see their own branch (record rule).',
     )
-    contractor_id = fields.Many2one('fm.contractor', string='Contractor', required=True, tracking=True)
+    # Only contractors onboarded by Procurement (linked to a vendor) and
+    # assigned to Facilities Management are selectable.
+    contractor_id = fields.Many2one(
+        'fm.contractor', string='Contractor', required=True, tracking=True,
+        domain="[('partner_id.supplier_rank', '>', 0)]",
+    )
     job_description = fields.Text(string='Job Description', required=True)
     assessment_notes = fields.Text(string='Contractor Assessment Notes')
     state = fields.Selection([
@@ -95,11 +102,32 @@ class FmJobOrder(models.Model):
             if vals.get('name', _('New')) == _('New'):
                 vals['name'] = self.env['ir.sequence'].next_by_code('fm.job.order') or _('New')
         records = super().create(vals_list)
-        for rec in records:
+        records._link_source_complaint()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get('complaint_id'):
+            self._link_source_complaint()
+        return res
+
+    def _link_source_complaint(self):
+        """Mark each job order's source complaint as assigned to it."""
+        for rec in self:
             if rec.complaint_id and rec.complaint_id.state == 'draft':
                 rec.complaint_id.write({'job_order_id': rec.id})
                 rec.complaint_id.action_set_assigned()
-        return records
+
+    @api.onchange('complaint_id')
+    def _onchange_complaint_id(self):
+        complaint = self.complaint_id
+        if complaint:
+            self.branch_id = complaint.branch_id
+            if not self.job_description:
+                parts = [complaint.description or '']
+                if complaint.location_detail:
+                    parts.append(_('Location: %s') % complaint.location_detail)
+                self.job_description = '\n'.join(p for p in parts if p)
 
     # ── State transitions ──────────────────────────────────────────────
 

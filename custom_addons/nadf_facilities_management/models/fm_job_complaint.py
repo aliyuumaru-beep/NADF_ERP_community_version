@@ -91,6 +91,25 @@ class FmJobComplaint(models.Model):
                 )
         return records
 
+    def action_create_job_order(self):
+        """Open a new Job Order pre-filled from this complaint."""
+        self.ensure_one()
+        description = self.description or ''
+        if self.location_detail:
+            description += '\n' + _('Location: %s') % self.location_detail
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('New Job Order'),
+            'res_model': 'fm.job.order',
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {
+                'default_complaint_id': self.id,
+                'default_branch_id': self.branch_id.id,
+                'default_job_description': description,
+            },
+        }
+
     def action_set_assigned(self):
         """Called by fm.job.order when a Job Order is created for this complaint."""
         self.write({'state': 'assigned'})

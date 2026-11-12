@@ -1,7 +1,7 @@
 # Phase 1 — Module Scaffold & Security Foundation
 {
     'name': 'NADF Facilities Management',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.2.0',
     'category': 'Operations/Maintenance',
     'summary': 'NADF Facilities Management: Reactive Maintenance, Preventive Maintenance, and Inventory Reporting',
     'description': """

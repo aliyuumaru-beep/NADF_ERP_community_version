@@ -29,6 +29,9 @@
         <field name="arch" type="xml">
             <form string="Job Complaint">
                 <header>
+                    <button name="action_create_job_order" type="object" string="Create Job Order"
+                            class="oe_highlight" invisible="state != 'draft' or job_order_id"
+                            groups="nadf_facilities_management.group_fm_branch_desk_officer"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,assigned,closed"/>
                 </header>
                 <sheet>
