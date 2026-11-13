@@ -11,6 +11,7 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 - **governance:** RISK_REGISTER gains MR-13 (governance bypass, 2026-11-12) and MR-14 (direct live-DB access outside Git). GAR v1.5 adds DEC-GOV-ENF-001.
 - **docs:** G1–G3 round-2 conditions: MR-15 (bootstrap allowlist limits, accepted), PROJECT_STATE §11 re-verified (main @ `2b43ced`, 12 PRs merged, open PR #14), CLAUDE.md module path clarified.
 - **docs:** G1–G3 round-3 conditions: GAR footer version 1.5, DECISION_LOG header (v1.1, 2026-11-13), and the project Claude allow-list no longer pre-approves `git stash pop` or bare `git stash` (the stash is shared across worktrees).
+- **docs:** G1–G3 round 4: GAR audit-log spacing; PROJECT_STATE §12 continuity note now names M1 Foundation.
 
 ### Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation (2026-06-29)
 - **feat(finance):** `account_budget_oca` 17.0.1.0.0 installed on NADF DB — DEC-OCA-02 resolved (Option A: local OCA copy patched in-place; drill DB validated exit 0; module count 105 → 106).

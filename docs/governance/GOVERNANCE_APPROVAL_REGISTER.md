@@ -301,6 +301,7 @@
 | 2026-06-29 | A1 Master Orchestrator | 1.4 | Wave C exit gate: DEC-OCA-02-RES (ICT) + DEC-WP02C-001 (Finance) added. DEC-OCA-02 status Open → Closed. ESC-OCA-02 resolved. Dept totals corrected (Finance 4→5; ICT 10→11; Total 29→33). Executive Summary updated (Total 31→33; Active 28→30; Open 1→0; Closed 0→1). M1-CPC CONDITIONAL PASS recorded. Register period end date updated to 2026-06-29. | Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation |
 
 | 2026-11-13 | Claude Opus 5.5 (sponsor directive) | 1.5 | DEC-GOV-ENF-001 added to Executive Governance. Totals 33→34, Active 30→31. NOTE: DEC-FM-001..003 (Facilities Management, PR #14) are still to be added when PR #14 passes the governance gate. | DEC-GOV-ENF-001 — governance gateway onboarding |
+
 ---
 
 *Governance Approval Register — NADF ERP Programme*
