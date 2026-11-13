@@ -38,7 +38,7 @@
 | Revoked | 0 |
 | Superseded | 0 |
 
-**Register period:** 2026-06-02 — 2026-06-29 (present)
+**Register period:** 2026-06-02 — 2026-11-13 (present)
 **Active milestone:** M1 — Foundation (Phase 1: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 ✅ · WP-ADM-01 ✅ · WP-PC-01 ✅ — all 6 CONDITIONAL PASS; Wave C: DEC-OCA-02 RESOLVED, WP02-07 PASS, backlog reconciled; WP-05 UAT next)
 **Last updated:** 2026-11-13
 **Updated by:** Claude Opus 5.5 (sponsor directive): DEC-GOV-ENF-001 added (enforced governance gateway)
@@ -213,6 +213,8 @@
 | `nadf_vendor_compliance` custom module — version-controlled compliance field | DEC-WP03-001 | Phase 2/3 specification | Shell-created `x_compliance_status` field is DB-resident and not version-controlled. Phase 2/3 custom module replaces it with workflow-governed equivalent. | A1 + G1 (Phase 2/3 spec) |
 | Study Leave three-level production reversal — `nadf_hr_leave` module | DEC-007 | Production deployment phase | Current advisory flow approves leave before ES activity is completed. Production requires ES approval before HR final validation — requires custom module. | A1 + G1 (production spec) |
 | ~~Budget module configuration — WP02-07~~ | ~~DEC-OCA-02~~ | ~~Pending ESC-OCA-02~~ | **RESOLVED 2026-06-29 — DEC-OCA-02-RES (Option A); WP02-07 budget control PASS** | ~~G1/G2/G3~~ |
+| Branch ruleset + reviewer secret — WP-GOV-01 | DEC-GOV-ENF-001 | Immediately after the onboarding PR merges | Ruleset `software-factory-main` (required `governance / gate`, no bypass actors) and the `CLAUDE_CODE_OAUTH_TOKEN` secret need sponsor GitHub admin action | Business Sponsor |
+| FM retrospective (PR #14) — WP-FM-RETRO-01 | DEC-GOV-ENF-001 · MR-13 | Next engineering work item | DEC-FM-001..003 were built from chat instructions without a spec or G-review. Needs a retrospective spec, role × state × action matrix, GAR entries, then the `governance / gate` | A1 + G1/G2/G3 |
 | `mis_builder` KPI dashboard — WP02-08 | DEC-OCA-01 | Pending client sign-off (ESC-CLIENT-WP02-08) | Dashboard build suspended pending NADF stakeholder KPI definition approval. | Business Sponsor / NADF Client |
 | Analytic plan renamed to "NADF Departments" | DEC-WP02-002 | Next client review session | Plan currently named "Projects" — rename to "NADF Departments" agreed but deferred to next client-facing session to avoid configuration drift outside agreed session scope. | A1 at next client session |
 | Per-group TOTP 2FA enforcement | DEC-2FA-002 | Phase 2 (if required) | Odoo 17 CE `auth_totp` supports only global policy. Per-group enforcement requires OCA `auth_totp_mandatory_group` or custom module — Phase 2 scope if business requires differentiated enforcement. | G3 + A1 (Phase 2) |

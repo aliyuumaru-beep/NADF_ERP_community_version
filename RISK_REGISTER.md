@@ -27,7 +27,7 @@
 | MR-10 | `nadf_investment` large custom scope, no reference impl | Medium | High | 🟡 Open (E-03) | Client requirements session before any code |
 | MR-11 | Quarantined scaffold accidentally extracted as authority | Low | High | 🟡 Open | Quarantine notice stands; author fresh artifacts only |
 | MR-12 | OCA modules unverified for Odoo 17 CE compatibility | Medium | Medium | 🟡 Open | Compatibility check + version-pin + Decision Log entry per module before install (Phase 1) |
-| MR-13 | Governance bypassed: FM feature (DEC-FM-001..003, PR #14) built and applied to live `NADF` without spec, G1–G3 review or full doc updates (2026-11-12) | Occurred | High | 🟡 Mitigating | DEC-GOV-ENF-001 gateway; PR #14 to pass `governance / gate`; retrospective spec + GAR entries |
+| MR-13 | Governance bypassed: FM feature (DEC-FM-001..003, PR #14) built and applied to live `NADF` without spec, G1–G3 review or full doc updates (2026-11-12) | Occurred | High | 🟡 Mitigating | DEC-GOV-ENF-001 gateway; work item **WP-FM-RETRO-01** (retrospective spec, role matrix, GAR entries, then PR #14 through `governance / gate`) |
 | MR-14 | Direct live-DB changes outside Git (shell/psql by any actor) are not caught by the PR gate | Medium | High | 🟡 Open | Gateway R5 asks for confirmation and requires a fresh backup for Claude sessions; humans: separate read-only DB role for routine work (to decide) |
 
 ## 2. Programme risks carried from PROJECT_STATE §7 (R-series)

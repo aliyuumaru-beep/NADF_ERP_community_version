@@ -1,5 +1,10 @@
 # Software Factory governance gate (SPEC-GOV-ENF-001). Do not edit or remove:
 # `governance / gate` is a required check on main; without it nothing can merge.
+#
+# Pinned to the immutable release tag gate-v1 (tag ruleset `software-factory-gate-tags`
+# blocks moving or deleting gate-v* tags, with no bypass actors). Upgrading the gate is a
+# deliberate PR here that changes the tag. Only the two reviewer secrets are passed: never
+# `secrets: inherit`.
 name: governance
 on:
   pull_request:
@@ -9,5 +14,7 @@ permissions:
   pull-requests: write
 jobs:
   governance:
-    uses: aliyuumaru-beep/software-factory-governance/.github/workflows/governance-gate.yml@main
-    secrets: inherit
+    uses: aliyuumaru-beep/software-factory-governance/.github/workflows/governance-gate.yml@gate-v1
+    secrets:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}

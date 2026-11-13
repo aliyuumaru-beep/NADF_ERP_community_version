@@ -938,4 +938,8 @@ A 2026-11-13 audit found that no governance layer was running. The G1/G2/G3 revi
 ### Consequences
 - `.governance.json` defines the briefing docs, code paths (`custom_addons/`, `scripts/`), the required doc updates (CHANGELOG, IMPLEMENTATION_HISTORY, PROJECT_STATE) and the live database (`NADF`).
 - The `CLAUDE_CODE_OAUTH_TOKEN` repository secret is required. Without it the gate stays closed.
-- PR #14 (FM) must be brought up to the gate: spec, governance docs, G1–G3 reviews.
+- PR #14 (FM) must be brought up to the gate: spec, governance docs, G1–G3 reviews. Tracked as **WP-FM-RETRO-01**.
+- Post-merge activation is tracked as **WP-GOV-01**: apply the `software-factory-main` ruleset (required `governance / gate`, no bypass actors) and provision the `CLAUDE_CODE_OAUTH_TOKEN` secret. Until both are done the gate is advisory.
+- Supply chain: `.github/workflows/governance.yml` pins the gate to the immutable tag `gate-v1` and passes only the two reviewer secrets (no `secrets: inherit`), per the G3 finding on review round 1.
+- `.claude/` (including the bootstrap hook), `.github/` and `.governance.json` are not `code_paths`. Changes to them instead require the sponsor's `governance-change` label at the gate.
+- The bootstrap hook rejects compound commands. It is a governance fence for machines without the gateway, not a security boundary.
