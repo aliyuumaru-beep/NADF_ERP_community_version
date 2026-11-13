@@ -304,7 +304,7 @@
 ---
 
 *Governance Approval Register — NADF ERP Programme*
-*Document ID: GAR-NADF-001 · Version 1.4*
+*Document ID: GAR-NADF-001 · Version 1.5*
 *Maintained by A1 Master Orchestrator — POD-NADF*
 *Software Factory Governance Standard AOP-015 — Mandatory Artifact*
 *Authority: `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`*

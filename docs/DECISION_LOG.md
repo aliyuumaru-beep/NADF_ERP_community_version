@@ -1,7 +1,7 @@
 # NADF ERP MVP — Decision Log
 **Document:** DECISION_LOG.md
-**Version:** 1.0
-**Last Updated:** 2026-06-04
+**Version:** 1.1 (adds DEC-GOV-ENF-001)
+**Last Updated:** 2026-11-13
 **Format:** Follows Software Factory Decision Log Standard
 
 > Every major architectural, configuration, and governance decision is recorded here.
