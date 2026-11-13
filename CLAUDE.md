@@ -9,7 +9,7 @@ Project-specific instructions for any Claude Code / Software Factory agent worki
 ## Platform (hard constraints)
 - **Odoo 17 Community Edition only.** Enterprise modules are **prohibited**: `web_studio`, `sign`, `documents`, `documents_spreadsheet`, `knowledge`, `hr_payroll` (EE), `helpdesk` (EE), `industry_fsm`, `account_accountant`.
 - Approach order: **Native CE → Configuration → OCA (vetted, version-pinned) → existing SF modules → Custom module.** Core modification is prohibited unless escalated and logged.
-- DB `NADF`, port `8071`. Interpreter with Odoo deps: `~/OdooFolder/odoo17/odoo/venv/bin/python` (paths migrated from `/Users/mac` on 2026-11-11). Module source of truth: `nadf_erp/custom_addons/` (on `addons_path` in `nadf.conf`).
+- DB `NADF`, port `8071`. Interpreter with Odoo deps: `~/OdooFolder/odoo17/odoo/venv/bin/python` (paths migrated from `/Users/mac` on 2026-11-11). Module source of truth: `custom_addons/` at the repo root (on `addons_path` in `nadf.conf`).
 
 ## Authority
 1. `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md` (bound — load at session start)

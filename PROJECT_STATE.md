@@ -241,11 +241,11 @@ verified against the actual repository tree.
 |-------|-------|
 | Repo path | `/Users/aliyuumaru/OdooFolder/nadf_erp` (migrated from `/Users/mac/nadf_erp` 2026-11-11) |
 | Git status | Initialised; M-B deliverables committed on branch `phase/0-governance` |
-| Default branch | `main` @ `e58e15c` (PR #6 merged 2026-06-25) |
-| GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 6 PRs merged |
+| Default branch | `main` @ `2b43ced` (PR #13 Wave C merged; re-verified 2026-11-13) |
+| GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 12 PRs merged (re-verified 2026-11-13) |
 | Branch protection | ⚠️ Found weakened on 2026-11-13: PR required, but 0 approvals and no required checks. To be replaced by the `software-factory-main` ruleset (required `governance / gate`, no bypass actors) per DEC-GOV-ENF-001 |
 | CI workflows | ✅ `.github/workflows/ci.yml` — manifest parse + py_compile + XML well-formedness |
-| Active branches | `feat/wp-04-hr-core` (CONDITIONAL PASS, PR pending), `docs/wp-02-governance-outputs-v2` (PR #9 open) |
+| Active branches | Open PRs (2026-11-13): #14 `fix/fm-complaint-link-procurement-contractors` (FM, ungoverned; held for WP-FM-RETRO-01). In progress: `chore/governance-onboarding` (DEC-GOV-ENF-001). Other local branches are merged history |
 | Claude hooks | Governance gateway (DEC-GOV-ENF-001): user-level hooks via `software-factory-governance/enforcement/install.sh`. The project bootstrap `.claude/hooks/gov_bootstrap.sh` blocks writes on machines without the gateway |
 | Tags | None |
 | Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/`. Must NOT be used as an authority source. |

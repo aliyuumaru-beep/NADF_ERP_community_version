@@ -9,6 +9,7 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 - **governance:** POD-NADF onboarded to the enforced Software Factory governance gateway (SPEC-GOV-ENF-001): `.governance.json`, `.github/workflows/governance.yml` (required check `governance / gate` runs the docs gate plus G1/G2/G3 as independent Claude reviewers), `.claude/hooks/gov_bootstrap.sh` and `AGENTS.md`.
 - **governance:** `CLAUDE.md` gains a "Governance gateway" section. Stale `/Users/mac` paths are corrected to the current machine.
 - **governance:** RISK_REGISTER gains MR-13 (governance bypass, 2026-11-12) and MR-14 (direct live-DB access outside Git). GAR v1.5 adds DEC-GOV-ENF-001.
+- **docs:** G1–G3 round-2 conditions: MR-15 (bootstrap allowlist limits, accepted), PROJECT_STATE §11 re-verified (main @ `2b43ced`, 12 PRs merged, open PR #14), CLAUDE.md module path clarified.
 
 ### Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation (2026-06-29)
 - **feat(finance):** `account_budget_oca` 17.0.1.0.0 installed on NADF DB — DEC-OCA-02 resolved (Option A: local OCA copy patched in-place; drill DB validated exit 0; module count 105 → 106).

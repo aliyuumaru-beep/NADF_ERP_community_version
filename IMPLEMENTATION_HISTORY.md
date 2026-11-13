@@ -246,3 +246,4 @@
 - Recorded the 2026-11-12 governance bypass (MR-13) and direct live-DB access (MR-14) in RISK_REGISTER.
 - Corrected stale `/Users/mac` paths in CLAUDE.md after the 2026-11-11 laptop migration.
 - Known deviation, not fixed here: since the migration the live NADF server has been started on port 8069 (FamOil's port per DEC-008) instead of 8071. To be corrected operationally.
+- G1–G3 review round 1 and round 2 (2026-11-13): all APPROVED WITH CONDITIONS. Round-2 conditions addressed: PROJECT_STATE §11 default branch / PR count / active branches re-verified (G2 C2), MR-15 added for the bootstrap allowlist limits (G3 C2), module path in CLAUDE.md clarified (G1 F1), DEC-GOV-ENF-001 points to the L2 bootstrap tests (G2 C1). Post-merge sponsor conditions: WP-GOV-01 (reviewer secret + `gov protect`) before the next merge, then WP-FM-RETRO-01 before new feature work.

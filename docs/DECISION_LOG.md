@@ -943,3 +943,4 @@ A 2026-11-13 audit found that no governance layer was running. The G1/G2/G3 revi
 - Supply chain: `.github/workflows/governance.yml` pins the gate to the immutable tag `gate-v1` and passes only the two reviewer secrets (no `secrets: inherit`), per the G3 finding on review round 1.
 - `.claude/` (including the bootstrap hook), `.github/` and `.governance.json` are not `code_paths`. Changes to them instead require the sponsor's `governance-change` label at the gate.
 - The bootstrap hook rejects compound commands. It is a governance fence for machines without the gateway, not a security boundary.
+- The bootstrap hook is a verbatim copy of the governance template. Its paths (gateway installed, gateway absent with a read-only command, gateway absent with a write, compound commands) are tested in `software-factory-governance/enforcement/tests/test_gov.py` (L2 section). Its residual allowlist limits are risk MR-15.
