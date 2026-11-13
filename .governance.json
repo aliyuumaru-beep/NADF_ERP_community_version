@@ -1,0 +1,14 @@
+{
+  "pod": "POD-NADF",
+  "governance_repo": "aliyuumaru-beep/software-factory-governance",
+  "default_branch": "main",
+  "protected_branches": ["main"],
+  "briefing_docs": ["CLAUDE.md", "PROJECT_STATE.md", "docs/NEXT_ACTION.md", "docs/governance/GOVERNANCE_APPROVAL_REGISTER.md"],
+  "code_paths": ["custom_addons/", "scripts/"],
+  "required_doc_updates": ["CHANGELOG.md", "IMPLEMENTATION_HISTORY.md", "PROJECT_STATE.md"],
+  "spec_sources": ["docs", "ROADMAP.md", "AUTHORITY_DECISION_LOG.md", "EXECUTION_AUTHORITY_REGISTER.md", "MILESTONE_TRACKER.md"],
+  "work_item_pattern": "\\b((?:WP|DEC|SPEC|GOV|REQ|AOP)-[A-Z0-9][A-Z0-9_.-]*[A-Z0-9]|WP[0-9]+-[0-9]+)\\b",
+  "live_databases": ["NADF"],
+  "backup_dirs": ["~/OdooFolder/odoo_backups", "~/OdooFolder/nadf_backups"],
+  "backup_max_age_hours": 6
+}

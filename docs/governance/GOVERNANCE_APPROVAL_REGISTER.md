@@ -8,9 +8,9 @@
 **Product / Programme:** NADF ERP MVP — Odoo 17 Community Edition
 **Client:** National Agricultural Development Fund (NADF)
 **Consultant:** Lanasoft Technologies
-**Version:** 1.4
+**Version:** 1.5
 **Date Initialised:** 2026-06-26
-**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-06-29 (Present)
+**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-11-13 (Present)
 **Maintained by:** A1 Master Orchestrator — NADF
 **Classification:** Executive — Governance
 
@@ -30,8 +30,8 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total Decisions** | **33** |
-| Active | 30 |
+| **Total Decisions** | **34** |
+| Active | 31 |
 | Open (Escalation) | 0 |
 | Deferred | 2 |
 | Closed | 1 |
@@ -40,8 +40,8 @@
 
 **Register period:** 2026-06-02 — 2026-06-29 (present)
 **Active milestone:** M1 — Foundation (Phase 1: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 ✅ · WP-ADM-01 ✅ · WP-PC-01 ✅ — all 6 CONDITIONAL PASS; Wave C: DEC-OCA-02 RESOLVED, WP02-07 PASS, backlog reconciled; WP-05 UAT next)
-**Last updated:** 2026-06-29
-**Updated by:** A1 Master Orchestrator — Wave C exit gate (DEC-OCA-02-RES + DEC-WP02C-001 added; ESC-OCA-02 closed; M1-CPC CONDITIONAL PASS)
+**Last updated:** 2026-11-13
+**Updated by:** Claude Opus 5.5 (sponsor directive): DEC-GOV-ENF-001 added (enforced governance gateway)
 
 ---
 
@@ -49,7 +49,7 @@
 
 | Department | Decision Count |
 |------------|---------------|
-| Executive Governance | 4 |
+| Executive Governance | 5 |
 | Finance | 5 |
 | Procurement | 5 |
 | HR | 2 |
@@ -60,7 +60,7 @@
 | Legal | 0 |
 | Operations | 1 |
 | Other | 0 |
-| **Total** | **33** |
+| **Total** | **34** |
 
 ---
 
@@ -78,6 +78,7 @@
 | Executive Governance | DEC-RECOVERY-001 | M-C Governance Recovery | Governance Decision | `nadf_vendor_onboarding` custom module recovered from the FamOil working tree (where it was untracked with no backup) and committed to `nadf_erp/custom_addons/`. Integrity verified byte-identical (12/12 files). | Closed MR-01 critical data-loss exposure. A production module for vendor AI screening existed in no repository and had no backup. Recovery restored correct layer ownership and eliminated the highest-priority data loss risk in the programme. | A1 Master Orchestrator (M-C) | EA-2 | Active | 2026-06-22 | `docs/DECISION_LOG.md#DEC-RECOVERY-001` · `docs/MC_RECOVERY_INTEGRITY.md` |
 | Executive Governance | DEC-RECOVERY-002 | M-C Governance Recovery | Governance Decision | `nadf_facilities_management` custom module relocated from the FamOil repository (committed at `odoo17@55c1787`, unpushed) to `nadf_erp/custom_addons/`. Removed from FamOil via forward `git rm` removal commit. Integrity verified (33/33 files). | Closed MR-02 cross-layer contamination breach. A NADF (Layer 4) module was committed inside the FamOil (Layer 4) deployment repository — a violation of the Project Layering Model. Forward removal (not history rewrite) preserves FamOil audit trail while restoring correct ownership. | A1 Master Orchestrator (M-C) | EA-2 | Active | 2026-06-22 | `docs/DECISION_LOG.md#DEC-RECOVERY-002` · `docs/MC_RECOVERY_INTEGRITY.md` |
 | Executive Governance | DEC-PEG6-001 | PEG-6 Product Authorization | Sponsor Decision | PEG-6 Product Authorization granted for NADF ERP Phase 1 — Foundation. Phase 1 Product Engineering activated. M0 formally closed. Scope frozen at Transfer Package v2.1. | All governance preconditions satisfied (Gate 21/21 PASS, protected branch, backup drilled, CI active). Phase 1 is the lowest-risk tier (CE-native config and vetted OCA only). A formal sponsor decision was required to commence Phase 1 delivery under the Software Factory governance framework. | Business Sponsor (Aliyu / Lanasoft Technologies) | EA-6 | Active | 2026-06-24 | `docs/DECISION_LOG.md#DEC-PEG6-001` · `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` |
+| Executive Governance | DEC-GOV-ENF-001 | Cross-cutting — governance | Governance Decision | Adopt the enforced Software Factory governance gateway: hooks for every Claude session, git hooks for humans, and a required `governance / gate` check (docs gate plus independent G1/G2/G3 reviewers) on `main`, with no bypass actors. | A 2026-11-13 audit found that no governance layer was running and that the FM feature reached live without spec or review (MR-13). Instructions alone were bypassed, so enforcement must be technical and server-side. | Business Sponsor (Aliyu Umaru) | EA-6 | Active (on merge) | 2026-11-13 | `docs/DECISION_LOG.md#DEC-GOV-ENF-001` · `software-factory-governance/enforcement/SPEC.md` |
 
 ---
 
@@ -283,6 +284,7 @@
 | DEC-PC01-002 | `docs/DECISION_LOG.md#DEC-PC01-002` | `docs/work_packages/WP_PC_01.md` | — |
 | DEC-OCA-02-RES | `docs/DECISION_LOG.md#DEC-OCA-02-RES` | Wave C | `MODULE_REGISTRY.md` · `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` |
 | DEC-WP02C-001 | `docs/DECISION_LOG.md#DEC-WP02C-001` | Wave C — WP02-07 | `IMPLEMENTATION_HISTORY.md` |
+| DEC-GOV-ENF-001 | `docs/DECISION_LOG.md#DEC-GOV-ENF-001` | Cross-cutting | `software-factory-governance/enforcement/SPEC.md` |
 
 ---
 
@@ -296,6 +298,7 @@
 | 2026-06-26 | A1 Master Orchestrator | 1.3 | WP-PC-01 exit gate: Project Coordination section populated — DEC-PC01-001/002 added. Total 31 decisions. Executive Summary updated (Active 28, Deferred 2). | WP-PC-01 Project Coordination — CONDITIONAL PASS |
 | 2026-06-29 | A1 Master Orchestrator | 1.4 | Wave C exit gate: DEC-OCA-02-RES (ICT) + DEC-WP02C-001 (Finance) added. DEC-OCA-02 status Open → Closed. ESC-OCA-02 resolved. Dept totals corrected (Finance 4→5; ICT 10→11; Total 29→33). Executive Summary updated (Total 31→33; Active 28→30; Open 1→0; Closed 0→1). M1-CPC CONDITIONAL PASS recorded. Register period end date updated to 2026-06-29. | Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation |
 
+| 2026-11-13 | Claude Opus 5.5 (sponsor directive) | 1.5 | DEC-GOV-ENF-001 added to Executive Governance. Totals 33→34, Active 30→31. NOTE: DEC-FM-001..003 (Facilities Management, PR #14) are still to be added when PR #14 passes the governance gate. | DEC-GOV-ENF-001 — governance gateway onboarding |
 ---
 
 *Governance Approval Register — NADF ERP Programme*

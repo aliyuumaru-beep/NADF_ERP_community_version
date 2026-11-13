@@ -915,3 +915,27 @@ WP02-07 was blocked since 2026-06-25 pending DEC-OCA-02 resolution. The budget C
 
 *Decision Log maintained by: AI Developer (Claude Code)*
 *Follows: Software Factory Decision Log Standard (software-factory-governance/governance/DECISION_LOG_STANDARD.md)*
+
+---
+
+## DEC-GOV-ENF-001 — Adopt the enforced governance gateway
+
+**Date:** 2026-11-13
+**Type:** GOVERNANCE
+**Status:** ACTIVE (on merge)
+**Made By:** Business Sponsor (Aliyu Umaru) directive; implemented by Claude Opus 5.5
+
+### Decision
+POD-NADF adopts the Software Factory enforced governance gateway (`software-factory-governance` SPEC-GOV-ENF-001 / DEC-013). Every Claude Code session and every human developer is held to the briefing, branch, no-spec-no-code, live-database and ship gates. Every PR into `main` must pass the `governance / gate` check, which runs the docs gate and then G1/G2/G3 as independent Claude reviewers. The `main` ruleset has no bypass actors.
+
+### Context
+A 2026-11-13 audit found that no governance layer was running. The G1/G2/G3 reviews recorded in earlier gate reports were performed by the same agent that did the build. `main` protection had been reduced to 0 required approvals and no required checks, against the "1 approval, enforce_admins" recorded in PROJECT_STATE §11. The NADF Facilities Management changes (DEC-FM-001..003, PR #14) were built from chat instructions and applied to the live `NADF` database without an approved spec, without G-reviews and without PROJECT_STATE, GAR or RISK_REGISTER updates.
+
+### Rationale
+- Instructions alone were bypassed silently. Hooks and a server-side required check cannot be skipped by forgetting.
+- Independent reviewer processes remove the builder-reviews-itself conflict.
+
+### Consequences
+- `.governance.json` defines the briefing docs, code paths (`custom_addons/`, `scripts/`), the required doc updates (CHANGELOG, IMPLEMENTATION_HISTORY, PROJECT_STATE) and the live database (`NADF`).
+- The `CLAUDE_CODE_OAUTH_TOKEN` repository secret is required. Without it the gate stays closed.
+- PR #14 (FM) must be brought up to the gate: spec, governance docs, G1–G3 reviews.

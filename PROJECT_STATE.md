@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-29 (Wave C complete: DEC-OCA-02 resolved, WP02-07 PASS, backlog reconciled, M1-CPC CONDITIONAL PASS; WP-05 UAT prep authored; PR #13 pending)  
+**Last updated:** 2026-11-13 (governance gateway onboarding, DEC-GOV-ENF-001; see §11 and RISK_REGISTER MR-13/MR-14. Sections 4–9 are not re-verified in this update.)  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  
@@ -239,14 +239,14 @@ verified against the actual repository tree.
 
 | Field | Value |
 |-------|-------|
-| Repo path | `/Users/mac/nadf_erp` ✅ confirmed |
+| Repo path | `/Users/aliyuumaru/OdooFolder/nadf_erp` (migrated from `/Users/mac/nadf_erp` 2026-11-11) |
 | Git status | Initialised; M-B deliverables committed on branch `phase/0-governance` |
 | Default branch | `main` @ `e58e15c` (PR #6 merged 2026-06-25) |
 | GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 6 PRs merged |
-| Branch protection | ✅ Active — 1 PR approval required, enforce_admins, require_last_push_approval |
+| Branch protection | ⚠️ Found weakened on 2026-11-13: PR required, but 0 approvals and no required checks. To be replaced by the `software-factory-main` ruleset (required `governance / gate`, no bypass actors) per DEC-GOV-ENF-001 |
 | CI workflows | ✅ `.github/workflows/ci.yml` — manifest parse + py_compile + XML well-formedness |
 | Active branches | `feat/wp-04-hr-core` (CONDITIONAL PASS, PR pending), `docs/wp-02-governance-outputs-v2` (PR #9 open) |
-| Claude hooks | `.claude/hooks/` present but empty |
+| Claude hooks | Governance gateway (DEC-GOV-ENF-001): user-level hooks via `software-factory-governance/enforcement/install.sh`. The project bootstrap `.claude/hooks/gov_bootstrap.sh` blocks writes on machines without the gateway |
 | Tags | None |
 | Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/`. Must NOT be used as an authority source. |
 

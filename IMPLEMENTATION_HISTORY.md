@@ -237,3 +237,12 @@
 
 ## 4. Pending operational note
 - Live Odoo instance (PID observed 7732) was running on the pre-fix in-memory `addons_path`; a graceful restart is advised so it adopts the corrected `nadf.conf`. The next restart is verified clean (§2 M-C incident).
+
+---
+
+## Governance gateway onboarding (2026-11-13) — author `Claude Opus 5.5` (sponsor directive)
+
+- Onboarded POD-NADF to the enforced governance gateway (DEC-GOV-ENF-001): `.governance.json`, the governance caller workflow, Claude bootstrap hooks and `AGENTS.md`.
+- Recorded the 2026-11-12 governance bypass (MR-13) and direct live-DB access (MR-14) in RISK_REGISTER.
+- Corrected stale `/Users/mac` paths in CLAUDE.md after the 2026-11-11 laptop migration.
+- Known deviation, not fixed here: since the migration the live NADF server has been started on port 8069 (FamOil's port per DEC-008) instead of 8071. To be corrected operationally.
