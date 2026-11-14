@@ -9,6 +9,6 @@
   "spec_sources": ["docs", "ROADMAP.md", "AUTHORITY_DECISION_LOG.md", "EXECUTION_AUTHORITY_REGISTER.md", "MILESTONE_TRACKER.md"],
   "work_item_pattern": "\\b((?:WP|DEC|SPEC|GOV|REQ|AOP)-[A-Z0-9][A-Z0-9_.-]*[A-Z0-9]|WP[0-9]+-[0-9]+)\\b",
   "live_databases": ["NADF"],
-  "backup_dirs": ["~/OdooFolder/odoo_backups", "~/OdooFolder/nadf_backups"],
+  "backup_dirs": ["~/OdooFolder/odoo_backups", "~/OdooFolder/nadf_backups", "~/odoo_backups"],
   "backup_max_age_hours": 6
 }
