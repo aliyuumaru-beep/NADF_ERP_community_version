@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- DEC-FM-003: inventory locations for Facilities consumables -->
+    <data noupdate="1">
+        <record id="product_category_fm_consumables" model="product.category">
+            <field name="name">Facilities Consumables</field>
+            <field name="parent_id" ref="product.product_category_all"/>
+        </record>
+
+        <!-- Parent of one internal location per contractor: parts issued but not yet used -->
+        <record id="fm_location_contractor_stock" model="stock.location">
+            <field name="name">Contractor Stock</field>
+            <field name="usage">view</field>
+            <field name="location_id" model="stock.warehouse"
+                   eval="obj().env.ref('stock.warehouse0').view_location_id.id"/>
+        </record>
+
+        <!-- Parts used on maintenance jobs leave stock here -->
+        <record id="fm_location_consumption" model="stock.location">
+            <field name="name">Facilities Maintenance Consumption</field>
+            <field name="usage">inventory</field>
+            <field name="location_id" ref="stock.stock_location_locations_virtual"/>
+        </record>
+    </data>
+</odoo>

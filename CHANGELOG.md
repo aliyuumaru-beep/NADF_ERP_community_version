@@ -5,6 +5,25 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### FM — Consumables as inventory + feedback/rework loop (2026-11-12)
+- **feat(fm):** Facilities consumables are stocked products (`fm_consumable` flag); request dropdown limited to them; Desk Officer approval issues stock store → contractor location; contractor records quantity used; completion posts usage to *Facilities Maintenance Consumption* (DEC-FM-003).
+- **feat(fm):** *Request End-User Feedback* (Desk Officer); *Not satisfied* → back to same contractor (Assigned, rework count, contractor notified); *Request Consumables* button on job order.
+- **fix(fm):** end users limited to job orders from their own complaints (previously all); contractors limited to own request lines; job-order consumable count readable by end users.
+- **test(fm):** existing E2E tests repaired for DEC-FM-001 (vendor contractor) + new `test_04_consumables_stock_and_rework` — 4/4 PASS.
+- **data:** 4 example consumables with opening stock (Fuse, Extension Cable, LED Bulb, AC Compressor). `nadf_facilities_management` → 17.0.1.3.0.
+- **fix(fm):** only contractors can create/submit consumable requests; Desk Officer reviews and approves (17.0.1.3.1; drill 6/6 + tests 4/4).
+
+### FM — Contractor Odoo access (2026-11-12)
+- **feat(fm):** TFF Contractor role usable: read on `fm.contractor` + rules limiting contractors to their own contractor record and to complaints behind their job orders (DEC-FM-002). `nadf_facilities_management` → 17.0.1.2.0; drill 8/8 PASS.
+- **data:** James desk-officer email set (fixes "configure the sender's email address"); placeholder contractor login `demo.contractor` linked to *Demo Facilities Contractor Ltd*.
+- **ops(open):** no outgoing mail server configured in NADF — emails queue undelivered.
+
+### FM — Procurement-onboarded contractors + complaint→job-order link (2026-11-12)
+- **fix(fm):** Job Order *Source Complaint* now selectable on Draft orders (was `readonly="1"`, workflow unreachable); linking on create or write marks the complaint *Assigned*. New **Create Job Order** button on Job Complaint (Desk Officer).
+- **feat(fm):** `fm.contractor` onboarded by Procurement only (Purchase User create/write, Purchase Manager delete; FM groups read-only); `partner_id` required, must be an onboarded vendor, unique; Job Order contractor dropdown limited to vendor-linked contractors; *Purchase → Orders → Facilities Contractors* menu (DEC-FM-001).
+- **chore(fm):** `nadf_facilities_management` 17.0.1.0.0 → 17.0.1.1.0. Drill DB `NADF_fmdrill` 7/7 PASS then dropped; live `-u` exit 0, 106 modules. Backup `pre_fm_fix_20261112`.
+- **data:** Test contractor *Demo Facilities Contractor Ltd* created in live NADF by Procurement Officer (sponsor request).
+
 ### Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation (2026-06-29)
 - **feat(finance):** `account_budget_oca` 17.0.1.0.0 installed on NADF DB — DEC-OCA-02 resolved (Option A: local OCA copy patched in-place; drill DB validated exit 0; module count 105 → 106).
 - **feat(finance):** WP02-07 budget control configured: 3 budgetary positions (Personnel Cost, Operating Expenses, Capital Expenditure) mapping 40 NADF CoA accounts; NADF FY2026 Budget (id=1) created and confirmed — planned ₦107,321,826,467 across 3 lines; 5 analytic accounts (CC-ADM/EXE/FIN/HR/PRO) linked.

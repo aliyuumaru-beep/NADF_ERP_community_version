@@ -24,7 +24,14 @@ class TestFmEndToEnd(TransactionCase):
         cls.branch_a = Department.create({'name': 'E2E Branch A'})
         cls.branch_b = Department.create({'name': 'E2E Branch B'})
 
-        cls.product = Product.search([('type', 'in', ('consu', 'product'))], limit=1)
+        # DEC-FM-003: contractors may only request Facilities consumables,
+        # and approval issues real stock from the consumables store.
+        cls.product = Product.create({
+            'name': 'E2E Socket', 'detailed_type': 'product', 'fm_consumable': True,
+            'standard_price': 500.0,
+        })
+        cls.store = cls.env['fm.consumable.request']._fm_issue_location()
+        cls.env['stock.quant']._update_available_quantity(cls.product, cls.store, 50)
 
         cls.group_end_user = cls.env.ref('nadf_facilities_management.group_fm_end_user')
         cls.group_desk_officer = cls.env.ref('nadf_facilities_management.group_fm_branch_desk_officer')
@@ -70,7 +77,10 @@ class TestFmEndToEnd(TransactionCase):
             'name': 'E2E Desk Officer B', 'department_id': cls.branch_b.id, 'user_id': cls.desk_officer_b.id,
         })
 
-        partner = cls.env['res.partner'].create({'name': 'E2E Contractor Partner'})
+        # DEC-FM-001: a contractor must be an onboarded Procurement vendor.
+        partner = cls.env['res.partner'].create({
+            'name': 'E2E Contractor Partner', 'is_company': True, 'supplier_rank': 1,
+        })
         cls.contractor = Contractor.create({
             'name': 'E2E Contractor',
             'contractor_type': 'tff',
@@ -352,3 +362,52 @@ class TestFmEndToEnd(TransactionCase):
         # HQ tier has no inventory-report-specific rule -> unrestricted access.
         visible_to_hq = InvReport.with_user(self.hq_officer).search([('id', '=', inv_report.id)])
         self.assertEqual(visible_to_hq.ids, [inv_report.id])
+
+    def test_04_consumables_stock_and_rework(self):
+        """DEC-FM-003: approval issues stock to the contractor, usage is
+        posted on completion, and dissatisfaction returns the job to the
+        same contractor."""
+        complaint = self.env['fm.job.complaint'].with_user(self.end_user).create({
+            'branch_id': self.branch_a.id, 'complaint_type': 'electrical', 'description': 'E2E: no power',
+        })
+        job_order = self.env['fm.job.order'].with_user(self.desk_officer_a).create({
+            'complaint_id': complaint.id, 'branch_id': self.branch_a.id,
+            'contractor_id': self.contractor.id, 'job_description': 'E2E: restore power',
+        })
+        self.assertEqual(complaint.state, 'assigned')
+        job_order.with_user(self.desk_officer_a).action_assign()
+        job_order.with_user(self.contractor_user).action_start()
+
+        with self.assertRaises(Exception):
+            with self.env.cr.savepoint():
+                self.env['fm.consumable.request'].with_user(self.desk_officer_a).create({
+                    'job_order_id': job_order.id,
+                    'line_ids': [(0, 0, {'product_id': self.product.id, 'quantity_requested': 1})],
+                })
+        request = self.env['fm.consumable.request'].with_user(self.contractor_user).create({
+            'job_order_id': job_order.id,
+            'line_ids': [(0, 0, {'product_id': self.product.id, 'quantity_requested': 3})],
+        })
+        line = request.line_ids
+        with self.assertRaises(Exception):
+            line.with_user(self.contractor_user).write({'quantity_approved': 10})
+        request.with_user(self.contractor_user).action_submit()
+        store_before = self.product.with_context(location=self.store.id).qty_available
+        request.with_user(self.desk_officer_a).action_approve()
+        cloc = self.contractor.stock_location_id
+        self.assertEqual(self.product.with_context(location=self.store.id).qty_available, store_before - 3)
+        self.assertEqual(self.product.with_context(location=cloc.id).qty_available, 3)
+
+        line.with_user(self.contractor_user).write({'quantity_consumed': 2})
+        job_order.with_user(self.contractor_user).write({'completion_report': 'E2E: fixed'})
+        job_order.with_user(self.contractor_user).action_submit_completion()
+        self.assertEqual(self.product.with_context(location=cloc.id).qty_available, 1)
+        self.assertTrue(line.consumption_posted)
+
+        job_order.with_user(self.desk_officer_a).action_request_feedback()
+        self.env['fm.satisfaction.feedback.wizard'].with_user(self.end_user).create({
+            'job_order_id': job_order.id, 'satisfaction': 'unsatisfied', 'feedback_notes': 'Still off',
+        }).action_submit_feedback()
+        self.assertEqual(job_order.state, 'assigned')
+        self.assertEqual(job_order.rework_count, 1)
+        self.assertEqual(job_order.contractor_id, self.contractor)

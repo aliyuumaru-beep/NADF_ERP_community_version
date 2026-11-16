@@ -30,7 +30,7 @@
                 <header>
                     <button name="action_submit" type="object" string="Submit"
                             class="oe_highlight" invisible="state != 'draft'"
-                            groups="nadf_facilities_management.group_fm_tff_contractor,nadf_facilities_management.group_fm_branch_desk_officer"/>
+                            groups="nadf_facilities_management.group_fm_tff_contractor"/>
                     <button name="action_approve" type="object" string="Approve"
                             class="oe_highlight" invisible="state != 'submitted'"
                             groups="nadf_facilities_management.group_fm_branch_desk_officer"/>
@@ -55,14 +55,23 @@
                             <field name="request_date"/>
                             <field name="approved_by" readonly="1"/>
                             <field name="approval_date" readonly="1"/>
+                            <field name="issue_move_ids" widget="many2many_tags" readonly="1" invisible="not issue_move_ids"
+                                   groups="stock.group_stock_user"/>
                         </group>
                     </group>
-                    <field name="line_ids">
+                    <field name="line_ids" readonly="state in ('rejected',)">
                         <tree editable="bottom">
-                            <field name="product_id"/>
-                            <field name="description"/>
-                            <field name="quantity_requested"/>
-                            <field name="quantity_approved"/>
+                            <field name="request_state" column_invisible="1"/>
+                            <field name="consumption_posted" column_invisible="1"/>
+                            <field name="product_id" options="{'no_create': True, 'no_open': True}"
+                                   readonly="request_state != 'draft'"/>
+                            <field name="description" readonly="request_state != 'draft'"/>
+                            <field name="qty_in_store"/>
+                            <field name="quantity_requested" readonly="request_state != 'draft'"/>
+                            <field name="quantity_approved" readonly="request_state != 'submitted'"
+                                   column_invisible="parent.state == 'draft'"/>
+                            <field name="quantity_consumed" readonly="request_state != 'approved' or consumption_posted"
+                                   column_invisible="parent.state != 'approved'"/>
                             <field name="uom_id"/>
                             <field name="unit_cost"/>
                             <field name="total_cost" sum="Total"/>

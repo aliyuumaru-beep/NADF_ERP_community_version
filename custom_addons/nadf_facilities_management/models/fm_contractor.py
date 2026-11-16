@@ -1,5 +1,6 @@
 # Phase 2 — Process 1: Reactive Maintenance (Contractor master data)
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class FmContractor(models.Model):
@@ -27,7 +28,15 @@ class FmContractor(models.Model):
         ('electrical', 'Electrical Contractor'),
         ('general', 'General'),
     ], string='Contractor Type', required=True, default='tff', tracking=True)
-    partner_id = fields.Many2one('res.partner', string='Partner')
+    # Procurement-controlled onboarding: a Facilities contractor must be an
+    # onboarded Procurement vendor (supplier_rank > 0). Only Purchase users
+    # may create/edit contractor records (see ir.model.access.csv); the
+    # record's existence is the vendor's assignment to Facilities Management.
+    partner_id = fields.Many2one(
+        'res.partner', string='Vendor (Procurement)', required=True, tracking=True,
+        domain="[('supplier_rank', '>', 0), ('is_company', '=', True)]",
+        help='The Procurement-onboarded vendor this contractor represents.',
+    )
     branch_id = fields.Many2one('hr.department', string='Assigned Branch', tracking=True)
     active = fields.Boolean(default=True)
     inventory_line_ids = fields.One2many(
@@ -42,6 +51,25 @@ class FmContractor(models.Model):
         help='Users (Facilities Management / TFF Contractor group) representing '
              'this contractor for record-rule access.',
     )
+
+    _sql_constraints = [
+        ('partner_unique', 'unique(partner_id)',
+         'This vendor is already assigned to Facilities Management.'),
+    ]
+
+    @api.constrains('partner_id')
+    def _check_partner_is_vendor(self):
+        for rec in self:
+            if rec.partner_id and rec.partner_id.supplier_rank <= 0:
+                raise ValidationError(_(
+                    '%s is not an onboarded Procurement vendor. Procurement must '
+                    'onboard the vendor before assigning it to Facilities Management.'
+                ) % rec.partner_id.display_name)
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        if self.partner_id and not self.name:
+            self.name = self.partner_id.name
 
 
 class FmContractorInventoryLine(models.Model):

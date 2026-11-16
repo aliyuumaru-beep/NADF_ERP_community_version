@@ -78,4 +78,9 @@
               parent="menu_fm_configuration" action="action_fm_contractor"
               groups="nadf_facilities_management.group_fm_branch_facilities_manager" sequence="10"/>
 
+    <!-- Procurement onboards Facilities contractors (only Purchase users may create them) -->
+    <menuitem id="menu_fm_contractor_procurement" name="Facilities Contractors"
+              parent="purchase.menu_procurement_management" action="action_fm_contractor"
+              groups="purchase.group_purchase_user" sequence="16"/>
+
 </odoo>

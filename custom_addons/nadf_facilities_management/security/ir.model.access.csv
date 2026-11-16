@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_fm_contractor_desk_officer,fm.contractor.desk.officer,model_fm_contractor,group_fm_branch_desk_officer,1,0,0,0
-access_fm_contractor_facilities_manager,fm.contractor.facilities.manager,model_fm_contractor,group_fm_branch_facilities_manager,1,1,0,0
+access_fm_contractor_facilities_manager,fm.contractor.facilities.manager,model_fm_contractor,group_fm_branch_facilities_manager,1,0,0,0
 access_fm_contractor_hq,fm.contractor.hq,model_fm_contractor,group_fm_hq_procurement_officer,1,0,0,0
 access_fm_contractor_cost_control,fm.contractor.cost.control,model_fm_contractor,group_fm_cost_control,1,0,0,0
 access_fm_contractor_director,fm.contractor.director,model_fm_contractor,group_fm_director,1,0,0,0
@@ -21,14 +21,14 @@ access_fm_job_order_hq,fm.job.order.hq,model_fm_job_order,group_fm_hq_procuremen
 access_fm_job_order_cost_control,fm.job.order.cost.control,model_fm_job_order,group_fm_cost_control,1,0,0,0
 access_fm_job_order_director,fm.job.order.director,model_fm_job_order,group_fm_director,1,0,0,0
 access_fm_job_order_finance,fm.job.order.finance,model_fm_job_order,group_fm_finance,1,0,0,0
-access_fm_consumable_request_desk_officer,fm.consumable.request.desk.officer,model_fm_consumable_request,group_fm_branch_desk_officer,1,1,1,0
+access_fm_consumable_request_desk_officer,fm.consumable.request.desk.officer,model_fm_consumable_request,group_fm_branch_desk_officer,1,1,0,0
 access_fm_consumable_request_facilities_manager,fm.consumable.request.facilities.manager,model_fm_consumable_request,group_fm_branch_facilities_manager,1,0,0,0
 access_fm_consumable_request_contractor,fm.consumable.request.contractor,model_fm_consumable_request,group_fm_tff_contractor,1,1,1,0
 access_fm_consumable_request_hq,fm.consumable.request.hq,model_fm_consumable_request,group_fm_hq_procurement_officer,1,0,0,0
 access_fm_consumable_request_cost_control,fm.consumable.request.cost.control,model_fm_consumable_request,group_fm_cost_control,1,0,0,0
 access_fm_consumable_request_director,fm.consumable.request.director,model_fm_consumable_request,group_fm_director,1,0,0,0
 access_fm_consumable_request_finance,fm.consumable.request.finance,model_fm_consumable_request,group_fm_finance,1,0,0,0
-access_fm_consumable_request_line_desk_officer,fm.consumable.request.line.desk.officer,model_fm_consumable_request_line,group_fm_branch_desk_officer,1,1,1,0
+access_fm_consumable_request_line_desk_officer,fm.consumable.request.line.desk.officer,model_fm_consumable_request_line,group_fm_branch_desk_officer,1,1,0,0
 access_fm_consumable_request_line_facilities_manager,fm.consumable.request.line.facilities.manager,model_fm_consumable_request_line,group_fm_branch_facilities_manager,1,0,0,0
 access_fm_consumable_request_line_contractor,fm.consumable.request.line.contractor,model_fm_consumable_request_line,group_fm_tff_contractor,1,1,1,0
 access_fm_monthly_batch_desk_officer,fm.monthly.batch.desk.officer,model_fm_monthly_batch,group_fm_branch_desk_officer,1,1,1,0
@@ -63,3 +63,7 @@ access_fm_inventory_report_line_contractor,fm.inventory.report.line.contractor,m
 access_fm_inventory_report_line_hq,fm.inventory.report.line.hq,model_fm_inventory_report_line,group_fm_hq_procurement_officer,1,1,0,0
 access_fm_inventory_report_line_cost_control,fm.inventory.report.line.cost.control,model_fm_inventory_report_line,group_fm_cost_control,1,1,0,0
 access_fm_inventory_report_line_director,fm.inventory.report.line.director,model_fm_inventory_report_line,group_fm_director,1,0,0,0
+access_fm_contractor_procurement_user,fm.contractor.procurement.user,model_fm_contractor,purchase.group_purchase_user,1,1,1,0
+access_fm_contractor_procurement_manager,fm.contractor.procurement.manager,model_fm_contractor,purchase.group_purchase_manager,1,1,1,1
+access_fm_contractor_inventory_line_procurement,fm.contractor.inventory.line.procurement,model_fm_contractor_inventory_line,purchase.group_purchase_user,1,0,0,0
+access_fm_contractor_contractor,fm.contractor.contractor,model_fm_contractor,group_fm_tff_contractor,1,0,0,0

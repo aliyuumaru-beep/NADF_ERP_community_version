@@ -3,6 +3,7 @@ from . import fm_notification_mixin
 
 # Phase 2 — Process 1 models
 from . import fm_contractor
+from . import fm_stock  # DEC-FM-003: consumables as inventory
 from . import fm_job_complaint
 from . import fm_job_order
 from . import fm_consumable_request
