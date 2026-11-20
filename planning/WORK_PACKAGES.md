@@ -52,11 +52,11 @@
 
 ---
 
-### WP-GOV-02 — Platform Audit and Correction
+### WP-GOV-02 (SCAFFOLD) — Platform Audit and Correction
 **Backlog items:** BL-GOV-02, BL-GOV-08  
 **Phase:** 0  
 **Complexity:** Medium  
-**Status:** Not Started
+**Status:** Done (completed M0 — DEC-PLATFORM-001 logged; Enterprise modules: none found; BL-GOV-02 and BL-GOV-08 marked Done in BACKLOG)
 
 **Objective:** Formally confirm Odoo 17 Community Edition as the platform; remove or document any Enterprise modules; log the platform decision.
 
@@ -79,6 +79,32 @@
 - Remediation plan produced if any Enterprise modules were found
 
 **Governance Reviews Required:** User sign-off on remediation plan (if Enterprise modules found)
+
+---
+
+### WP-GOV-02 — Governance Portal Template & Odoo 17 Compatibility Hardening
+**Backlog items:** BL-COMPAT-01 (created by this WP)
+**Phase:** 0
+**Complexity:** Medium
+**Status:** Complete (pending merge — branch `fix/governance-portal-compat-nadf`; G1 APPROVED, G2/G3 APPROVED_WITH_CONDITIONS round 6)
+**Decision:** DEC-GOV-02 (see `docs/DECISION_LOG.md`)
+
+> **Note:** This WP reuses the WP-GOV-02 identifier. The scaffold-era WP-GOV-02 (Platform Audit and Correction) above is complete and renamed WP-GOV-02 (SCAFFOLD) to disambiguate.
+
+**Objective:** Add portal template runtime testing rule and Odoo 16→17 compat scanner to prevent regressions on future WPs.
+
+**Scope:** Cross-cutting governance infrastructure — no business logic, model, view, or existing test changes.
+
+**Deliverables:**
+- `CLAUDE.md` — portal template rule (G2 must REJECT any WP adding portal files without an HttpCase test)
+- `Makefile` — `pre-review` and `test-portal` targets
+- `.governance.json` — `acceptance_rules.portal_template_rule` + `g1_checklist.odoo17_compat`
+- `scripts/pre_review_check.py` — static Odoo 16→17 compat scanner (git diff-scoped)
+- `docs/ODOO17_BREAKING_CHANGES.md` — 6-pattern reference table
+
+**Dependencies:** DEC-GOV-ENF-001 artefacts on branch (supersedes `chore/governance-onboarding` / PR #15)
+
+**Governance Reviews Required:** G1, G2, G3 — all must APPROVE before merge.
 
 ---
 

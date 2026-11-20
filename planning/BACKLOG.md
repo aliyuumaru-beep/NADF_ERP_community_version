@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Prioritised Implementation Inventory
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-06-29 (Wave C backlog reconciliation — Phase 0 and Phase 1 statuses updated to reflect M0 CLOSED and Wave A/B CONDITIONAL PASS)  
+**Last updated:** 2026-11-20 (Wave C backlog reconciliation — Phase 0 and Phase 1 statuses updated to reflect M0 CLOSED and Wave A/B CONDITIONAL PASS; BL-COMPAT-01 added (WP-GOV-02))  
 **Authority:** NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md  
 **Update rule:** Status must be updated after every session. No item is marked Done until its acceptance criteria are verified.
 
