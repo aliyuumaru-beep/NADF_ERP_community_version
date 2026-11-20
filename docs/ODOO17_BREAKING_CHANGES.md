@@ -35,9 +35,29 @@ the `<tree>`→`<list>` rename), it must be documented here with:
 
 ---
 
+## Known pre-existing violations
+
+The following patterns exist in NADF custom modules before WP-GOV-02. They are
+acknowledged, documented here, and tracked for remediation under future work
+packages. `make pre-review` will NOT flag them on the WP-GOV-02 diff (the
+diff-scoped check only inspects *changed* files); if the checker is ever run with
+no diff (e.g., from main after merge), these may surface.
+
+| Module | Files | Pattern | Violation count | Remediation |
+|--------|-------|---------|-----------------|-------------|
+| `nadf_vendor_onboarding` | `views/vendor_application_views.xml` | `<tree` | 2 | Track for `<list>` rename — future portal/vendor WP |
+| `nadf_facilities_management` | `views/fm_maintenance_plan_views.xml`, `fm_maintenance_schedule_views.xml`, `fm_contractor_views.xml`, `fm_job_complaint_views.xml`, `fm_consumable_request_views.xml`, `fm_inventory_report_views.xml`, `fm_job_order_views.xml` | `<tree` | 11+ | Track for `<list>` rename — future FM WP |
+
+These are pre-WP-GOV-02 technical debt items, not new regressions introduced by
+this work package. Odoo 17 currently accepts both `<tree>` and `<list>` (the
+rename is complete but `<tree>` is not yet hard-removed). These will become errors
+in a future Odoo minor release.
+
+---
+
 ## Discovery log
 
 | Date | Discovery | Source |
 |------|-----------|--------|
 | 2026-11-20 | Patterns 1–6 documented from FERMA OQ-24 post-mortem and Odoo 17 upgrade notes | WP-GOV-02 |
-| 2026-11-20 | NADF codebase scanned — no existing violations found | `make pre-review` on HEAD |
+| 2026-11-20 | NADF codebase scanned with `make pre-review` — no violations in *changed files* (diff-scoped check). Pre-existing `<tree>` usages in `nadf_vendor_onboarding` and `nadf_facilities_management` documented above as known technical debt. | WP-GOV-02 |

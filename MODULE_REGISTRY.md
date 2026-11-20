@@ -61,6 +61,7 @@
 | `backup_nadf.sh` | DB + filestore backup (read-safe) — M-C |
 | `restore_nadf.sh` | Restore **drill** to a temp DB (refuses live `NADF`) — M-C |
 | `install_vendor_onboarding.py` | Install helper for `nadf_vendor_onboarding` |
+| `pre_review_check.py` | Static pre-review checker: manifest validation, XML well-formedness, secret detection, Odoo 16→17 compat (git-diff-scoped) — WP-GOV-02. Run via `make pre-review` before every `gov review`. |
 | `phase11_org_chart_restructure.py` | Legacy HR org-chart script (tracked; not part of M-D execution) |
 | `phase1_`–`phase8_*` | Legacy reproducible configuration scripts (Phases 1–8) |
 

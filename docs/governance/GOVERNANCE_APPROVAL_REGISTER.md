@@ -8,7 +8,7 @@
 **Product / Programme:** NADF ERP MVP — Odoo 17 Community Edition
 **Client:** National Agricultural Development Fund (NADF)
 **Consultant:** Lanasoft Technologies
-**Version:** 1.5
+**Version:** 1.6
 **Date Initialised:** 2026-06-26
 **Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-11-13 (Present)
 **Maintained by:** A1 Master Orchestrator — NADF
@@ -38,10 +38,10 @@
 | Revoked | 0 |
 | Superseded | 0 |
 
-**Register period:** 2026-06-02 — 2026-11-13 (present)
+**Register period:** 2026-06-02 — 2026-11-20 (present)
 **Active milestone:** M1 — Foundation (Phase 1: WP-01 ✅ · WP-02 ✅ · WP-03 ✅ · WP-04 ✅ · WP-ADM-01 ✅ · WP-PC-01 ✅ — all 6 CONDITIONAL PASS; Wave C: DEC-OCA-02 RESOLVED, WP02-07 PASS, backlog reconciled; WP-05 UAT next)
-**Last updated:** 2026-11-13
-**Updated by:** Claude Opus 5.5 (sponsor directive): DEC-GOV-ENF-001 added (enforced governance gateway)
+**Last updated:** 2026-11-20
+**Updated by:** Claude Sonnet 4.6 (WP-GOV-02): DEC-GOV-02 added (portal template rule + Odoo 17 compat hardening)
 
 ---
 
@@ -49,7 +49,7 @@
 
 | Department | Decision Count |
 |------------|---------------|
-| Executive Governance | 5 |
+| Executive Governance | 6 |
 | Finance | 5 |
 | Procurement | 5 |
 | HR | 2 |
@@ -60,7 +60,7 @@
 | Legal | 0 |
 | Operations | 1 |
 | Other | 0 |
-| **Total** | **34** |
+| **Total** | **35** |
 
 ---
 
@@ -79,6 +79,7 @@
 | Executive Governance | DEC-RECOVERY-002 | M-C Governance Recovery | Governance Decision | `nadf_facilities_management` custom module relocated from the FamOil repository (committed at `odoo17@55c1787`, unpushed) to `nadf_erp/custom_addons/`. Removed from FamOil via forward `git rm` removal commit. Integrity verified (33/33 files). | Closed MR-02 cross-layer contamination breach. A NADF (Layer 4) module was committed inside the FamOil (Layer 4) deployment repository — a violation of the Project Layering Model. Forward removal (not history rewrite) preserves FamOil audit trail while restoring correct ownership. | A1 Master Orchestrator (M-C) | EA-2 | Active | 2026-06-22 | `docs/DECISION_LOG.md#DEC-RECOVERY-002` · `docs/MC_RECOVERY_INTEGRITY.md` |
 | Executive Governance | DEC-PEG6-001 | PEG-6 Product Authorization | Sponsor Decision | PEG-6 Product Authorization granted for NADF ERP Phase 1 — Foundation. Phase 1 Product Engineering activated. M0 formally closed. Scope frozen at Transfer Package v2.1. | All governance preconditions satisfied (Gate 21/21 PASS, protected branch, backup drilled, CI active). Phase 1 is the lowest-risk tier (CE-native config and vetted OCA only). A formal sponsor decision was required to commence Phase 1 delivery under the Software Factory governance framework. | Business Sponsor (Aliyu / Lanasoft Technologies) | EA-6 | Active | 2026-06-24 | `docs/DECISION_LOG.md#DEC-PEG6-001` · `docs/governance/PEG_6_PRODUCT_AUTHORIZATION_PACKAGE.md` |
 | Executive Governance | DEC-GOV-ENF-001 | Cross-cutting — governance | Governance Decision | Adopt the enforced Software Factory governance gateway: hooks for every Claude session, git hooks for humans, and a required `governance / gate` check (docs gate plus independent G1/G2/G3 reviewers) on `main`, with no bypass actors. | A 2026-11-13 audit found that no governance layer was running and that the FM feature reached live without spec or review (MR-13). Instructions alone were bypassed, so enforcement must be technical and server-side. | Business Sponsor (Aliyu Umaru) | EA-6 | Active (on merge) | 2026-11-13 | `docs/DECISION_LOG.md#DEC-GOV-ENF-001` · `software-factory-governance/enforcement/SPEC.md` |
+| Executive Governance | DEC-GOV-02 | WP-GOV-02 — Governance hardening | Governance Decision | Portal template rule: G2 must REJECT any WP that adds/modifies portal files without an HttpCase test. Odoo 17 compat: `scripts/pre_review_check.py` added with git-diff-scoped scanner for 6 known Odoo 16→17 breaking patterns; G1 checklist updated to flag and REJECT undocumented patterns. `Makefile` with `pre-review` and `test-portal` targets added. | FERMA OQ-24 (portal regression from non-existent Odoo 17 view ID) demonstrated that portal code without runtime tests escapes all static checks. NADF already has portal code (`nadf_vendor_onboarding`). Pre-emptive governance rule prevents the same failure class from reaching production. | A1 Master Orchestrator (WP-GOV-02) | EA-1 | Active (on merge) | 2026-11-20 | `docs/DECISION_LOG.md#DEC-GOV-02` |
 
 ---
 

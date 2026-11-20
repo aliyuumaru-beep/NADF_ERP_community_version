@@ -1,7 +1,7 @@
 # NADF ERP MVP — Decision Log
 **Document:** DECISION_LOG.md
-**Version:** 1.1 (adds DEC-GOV-ENF-001)
-**Last Updated:** 2026-11-13
+**Version:** 1.2 (adds DEC-GOV-02 — portal template rule + Odoo 17 compat hardening)
+**Last Updated:** 2026-11-20
 **Format:** Follows Software Factory Decision Log Standard
 
 > Every major architectural, configuration, and governance decision is recorded here.
