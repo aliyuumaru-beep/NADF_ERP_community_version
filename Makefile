@@ -8,6 +8,7 @@
 PYTHON   = $(HOME)/OdooFolder/odoo17/odoo/venv/bin/python
 ODOO_BIN = $(HOME)/OdooFolder/odoo17/odoo/odoo-bin
 ADDONS   = $(HOME)/OdooFolder/odoo17/odoo/odoo/addons,$(HOME)/OdooFolder/nadf_erp/custom_addons
+# NB: in a git worktree, override: make test-portal ADDONS=$(HOME)/OdooFolder/odoo17/odoo/odoo/addons,$(PWD)/custom_addons
 # NEVER use the live DB for tests. Default to a drill copy; override with DB=nadf_drill.
 # To create a drill copy: pg_dump -F c NADF | pg_restore -d nadf_drill (or use restore_nadf.sh)
 DB       ?= nadf_drill
@@ -30,7 +31,7 @@ test-portal:
 	@echo "NOTE: No portal HttpCase tests registered yet — target is ready for future portal WPs."
 	@echo "      When the first portal HttpCase test is added, verify this target exits 0 on pass"
 	@echo "      and non-zero on failure. If Odoo exits non-zero when no tests match --test-tags,"
-	@echo "      replace the guard below with an explicit empty-test sentinel, not '|| true'."
+	@echo "      add an explicit empty-test sentinel rather than using '|| true'"
 	$(PYTHON) $(ODOO_BIN) \
 		-d $(DB) \
 		--addons-path=$(ADDONS) \

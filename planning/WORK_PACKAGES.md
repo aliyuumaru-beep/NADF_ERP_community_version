@@ -48,11 +48,11 @@
 - Enterprise module presence confirmed or denied with evidence (database query result)
 - Report committed to `docs/` or presented to user before proceeding
 
-**Governance Reviews Required:** User review of Discovery Report before WP-GOV-02 begins
+**Governance Reviews Required:** User review of Discovery Report before WP-GOV-02A begins
 
 ---
 
-### WP-GOV-02 (SCAFFOLD) — Platform Audit and Correction
+### WP-GOV-02A (SCAFFOLD) — Platform Audit and Correction
 **Backlog items:** BL-GOV-02, BL-GOV-08  
 **Phase:** 0  
 **Complexity:** Medium  
@@ -89,7 +89,7 @@
 **Status:** Complete (pending merge — branch `fix/governance-portal-compat-nadf`; G1 APPROVED, G2/G3 APPROVED_WITH_CONDITIONS round 6)
 **Decision:** DEC-GOV-02 (see `docs/DECISION_LOG.md`)
 
-> **Note:** This WP reuses the WP-GOV-02 identifier. The scaffold-era WP-GOV-02 (Platform Audit and Correction) above is complete and renamed WP-GOV-02 (SCAFFOLD) to disambiguate.
+> **Note:** This WP uses the WP-GOV-02 identifier. The scaffold-era Platform Audit and Correction work is renamed WP-GOV-02A (SCAFFOLD) above to avoid collision.
 
 **Objective:** Add portal template runtime testing rule and Odoo 16→17 compat scanner to prevent regressions on future WPs.
 
@@ -126,7 +126,7 @@
 - Re-run gates after fixes
 - Produce `docs/GOVERNANCE_GATE_REPORT.md`
 
-**Dependencies:** WP-GOV-01, WP-GOV-02
+**Dependencies:** WP-GOV-01, WP-GOV-02A
 
 **Deliverables:**
 - `docs/GOVERNANCE_GATE_REPORT.md` — all five gates PASS
