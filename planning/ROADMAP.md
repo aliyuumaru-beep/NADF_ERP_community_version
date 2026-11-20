@@ -39,6 +39,34 @@
 - Repository scaffold committed and pushed
 - Backup strategy documented and last backup confirmed within 24 hours
 
+### Work Packages
+| ID | Title | Status |
+|----|-------|--------|
+| WP-GOV-01 | Provision `CLAUDE_CODE_OAUTH_TOKEN` CI secret + apply `software-factory-main` branch ruleset | ⏳ Pending (sponsor action — see docs/NEXT_ACTION.md §2) |
+| WP-GOV-02 | Governance Portal Template & Odoo 17 Compatibility Hardening | ✅ COMPLETE (pending merge) |
+
+---
+
+### WP-GOV-02 — Governance Portal Template & Odoo 17 Compatibility Hardening
+
+**Status:** COMPLETE (pending merge — `fix/governance-portal-compat-nadf`)
+**Work item:** WP-GOV-02
+**Decision:** DEC-GOV-02 (see `docs/DECISION_LOG.md`)
+
+**Scope:** Cross-cutting governance infrastructure — no business logic, model, view, or existing test changes.
+
+**Changes:**
+- `CLAUDE.md` — portal template rule: G2 must REJECT any WP that adds/modifies portal files without an HttpCase test
+- `Makefile` — new `pre-review` and `test-portal` targets
+- `.governance.json` — `acceptance_rules.portal_template_rule` + `g1_checklist.odoo17_compat`
+- `scripts/pre_review_check.py` — new: static Odoo 16→17 compat scanner (git diff-scoped) + manifest/XML checks
+- `docs/ODOO17_BREAKING_CHANGES.md` — new: 6-pattern reference table
+
+**Exit criteria:**
+- G1, G2, G3 APPROVE
+- `make pre-review` exits 0
+- `make test-portal` available (no portal HttpCase tests in repo yet — zero is acceptable; rule applies to future WPs)
+
 ---
 
 ## PHASE 1 — FOUNDATION

@@ -250,3 +250,15 @@
 - G1–G3 review round 3 (2026-11-13): all APPROVED WITH CONDITIONS. Fixed: GAR footer version, DECISION_LOG header, removed `git stash pop` / bare `git stash` from the project allow-list (worktree safety).
 - G1–G3 review round 4 (2026-11-13): all APPROVED WITH CONDITIONS. Fixed: GAR audit-log spacing, stale M0 continuity note in PROJECT_STATE §12.
 - G1–G3 review round 5 (2026-11-14): G1 APPROVED; G2, G3 APPROVED WITH CONDITIONS. Fixed: `backup_dirs` now includes the backup script's default folder; §12 wording; MR-16. The governance engine was also fixed so a fresh backup of another database in the shared folder no longer satisfies NADF's live-DB gate.
+
+---
+
+## WP-GOV-02 — Portal Template & Odoo 17 Compat Hardening (2026-11-20) — author `Claude Sonnet 4.6`
+
+- Added `Makefile` with `pre-review` and `test-portal` targets (WP-GOV-02).
+- Added `scripts/pre_review_check.py` — static pre-review checker: manifest validation, XML well-formedness, hardcoded secret detection, Odoo 16→17 compat patterns (git-diff-scoped).
+- Extended `.governance.json` with `acceptance_rules.portal_template_rule` and `g1_checklist.odoo17_compat`.
+- Updated `CLAUDE.md` working rules: portal template rule (G2 must REJECT if HttpCase absent on portal WPs) and pre-review gate.
+- Added `docs/ODOO17_BREAKING_CHANGES.md` — 6-pattern compat reference table, no NADF exceptions.
+- Updated governance docs: `CHANGELOG.md`, `IMPLEMENTATION_HISTORY.md`, `PROJECT_STATE.md`, `docs/DECISION_LOG.md` (DEC-GOV-02), `ROADMAP.md`, `planning/ROADMAP.md`.
+- G1/G2/G3 reviews pending — branch `fix/governance-portal-compat-nadf`.

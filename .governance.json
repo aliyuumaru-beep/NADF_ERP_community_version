@@ -10,5 +10,11 @@
   "work_item_pattern": "\\b((?:WP|DEC|SPEC|GOV|REQ|AOP)-[A-Z0-9][A-Z0-9_.-]*[A-Z0-9]|WP[0-9]+-[0-9]+)\\b",
   "live_databases": ["NADF"],
   "backup_dirs": ["~/OdooFolder/odoo_backups", "~/OdooFolder/nadf_backups", "~/odoo_backups"],
-  "backup_max_age_hours": 6
+  "backup_max_age_hours": 6,
+  "acceptance_rules": {
+    "portal_template_rule": "Any WP that adds or modifies */portal_templates.xml, */templates/vendor_portal.xml, or */controllers/portal.py must include at least one HttpCase test that authenticates a portal user and GETs the affected route. G2 must REJECT (not APPROVED_WITH_CONDITIONS) if this test is absent."
+  },
+  "g1_checklist": {
+    "odoo17_compat": "Odoo 17 API compatibility: Check all modified XML and Python files against docs/ODOO17_BREAKING_CHANGES.md. Flag any pattern listed in that document. REJECT if a known incompatible pattern is found, unless the pattern is documented as a project-specific exception in docs/ODOO17_BREAKING_CHANGES.md."
+  }
 }

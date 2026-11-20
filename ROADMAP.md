@@ -22,3 +22,10 @@ This root roadmap is a **summary** that delegates to the authoritative operation
 Agent OS milestones (M0–M6) overlay these phases via `MILESTONE_TRACKER.md`. The Agent OS migration sequence (M-B → M-C → M-D) operates **within Phase 0 / M0**.
 
 For objectives, deliverables (D-x.y), dependencies, and exit criteria of each phase, read `planning/ROADMAP.md`.
+
+## Governance infrastructure work packages
+
+| ID | Title | Status |
+|----|-------|--------|
+| WP-GOV-01 | Provision `CLAUDE_CODE_OAUTH_TOKEN` CI secret + apply branch ruleset | ⏳ Pending (sponsor) |
+| WP-GOV-02 | Governance Portal Template & Odoo 17 Compatibility Hardening | ✅ COMPLETE (pending merge) |

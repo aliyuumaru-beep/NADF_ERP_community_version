@@ -2,7 +2,7 @@
 ## NADF ERP Programme — Current Project Cockpit
 
 **Document type:** Operational — derived from NADF Full Product Transfer Package v2.1  
-**Last updated:** 2026-11-13 (governance gateway onboarding, DEC-GOV-ENF-001; see §11 and RISK_REGISTER MR-13/MR-14. Sections 4–9 are not re-verified in this update.)  
+**Last updated:** 2026-11-20 (WP-GOV-02 governance hardening: Makefile, pre_review_check.py, ODOO17_BREAKING_CHANGES.md, .governance.json acceptance_rules/g1_checklist, CLAUDE.md portal rule; branch `fix/governance-portal-compat-nadf`. Sections 4–9 not re-verified in this update.)  
 **Authority:** `requirements/PRODUCT_SCOPE/NADF_FULL_PRODUCT_TRANSFER_PACKAGE_v2.1.md`  
 **Platform Profile:** `PLATFORM_PROFILE_ODOO17_COMMUNITY.md` (Agent OS `platform-profiles/23`)  
 **Project Pod:** POD-NADF  
@@ -245,7 +245,7 @@ verified against the actual repository tree.
 | GitHub remote | `origin → github.com/aliyuumaru-beep/NADF_ERP_community_version` — active; 12 PRs merged (re-verified 2026-11-13) |
 | Branch protection | ⚠️ Found weakened on 2026-11-13: PR required, but 0 approvals and no required checks. To be replaced by the `software-factory-main` ruleset (required `governance / gate`, no bypass actors) per DEC-GOV-ENF-001 |
 | CI workflows | ✅ `.github/workflows/ci.yml` — manifest parse + py_compile + XML well-formedness |
-| Active branches | Open PRs (2026-11-13): #14 `fix/fm-complaint-link-procurement-contractors` (FM, ungoverned; held for WP-FM-RETRO-01). In progress: `chore/governance-onboarding` (DEC-GOV-ENF-001). Other local branches are merged history |
+| Active branches | Open PRs: #14 `fix/fm-complaint-link-procurement-contractors` (FM, ungoverned; held for WP-FM-RETRO-01), #15 `chore/governance-onboarding` (DEC-GOV-ENF-001, G1/G2/G3 reviewed, READY). In progress: `fix/governance-portal-compat-nadf` (WP-GOV-02, review pending). |
 | Claude hooks | Governance gateway (DEC-GOV-ENF-001): user-level hooks via `software-factory-governance/enforcement/install.sh`. The project bootstrap `.claude/hooks/gov_bootstrap.sh` blocks writes on machines without the gateway |
 | Tags | None |
 | Scaffold zip | ⚠️ **Quarantined**, not extracted — `docs/imports/`. Must NOT be used as an authority source. |

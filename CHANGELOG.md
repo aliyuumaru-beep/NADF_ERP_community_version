@@ -5,6 +5,15 @@ Format follows the Software Factory Release & Git Governance Standard (`14`); co
 
 ## [Unreleased]
 
+### WP-GOV-02 — Governance Portal Template & Odoo 17 Compatibility Hardening (2026-11-20)
+- **governance:** `Makefile` added with `pre-review` (runs `scripts/pre_review_check.py`) and `test-portal` (`--test-tags portal`) targets.
+- **governance:** `scripts/pre_review_check.py` added — git-diff-scoped static checker: manifest validation, XML well-formedness, hardcoded secret scan, 6 Odoo 16→17 compat patterns.
+- **governance:** `.governance.json` extended with `acceptance_rules.portal_template_rule` and `g1_checklist.odoo17_compat` (project-local extensions; read by G1/G2/G3 reviewers).
+- **docs:** `CLAUDE.md` gains portal template rule and pre-review gate in Working rules section.
+- **docs:** `docs/ODOO17_BREAKING_CHANGES.md` added — 6-pattern reference table with discovery log.
+- **docs:** `docs/DECISION_LOG.md` gains DEC-GOV-02.
+- **docs:** `planning/ROADMAP.md` and `ROADMAP.md` gain WP-GOV-01 / WP-GOV-02 work package table.
+
 ### Governance gateway onboarding — DEC-GOV-ENF-001 (2026-11-13)
 - **governance:** POD-NADF onboarded to the enforced Software Factory governance gateway (SPEC-GOV-ENF-001): `.governance.json`, `.github/workflows/governance.yml` (required check `governance / gate` runs the docs gate plus G1/G2/G3 as independent Claude reviewers), `.claude/hooks/gov_bootstrap.sh` and `AGENTS.md`.
 - **governance:** `CLAUDE.md` gains a "Governance gateway" section. Stale `/Users/mac` paths are corrected to the current machine.

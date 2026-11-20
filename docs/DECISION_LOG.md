@@ -944,3 +944,35 @@ A 2026-11-13 audit found that no governance layer was running. The G1/G2/G3 revi
 - `.claude/` (including the bootstrap hook), `.github/` and `.governance.json` are not `code_paths`. Changes to them instead require the sponsor's `governance-change` label at the gate.
 - The bootstrap hook rejects compound commands. It is a governance fence for machines without the gateway, not a security boundary.
 - The bootstrap hook is a verbatim copy of the governance template. Its paths (gateway installed, gateway absent with a read-only command, gateway absent with a write, compound commands) are tested in `software-factory-governance/enforcement/tests/test_gov.py` (L2 section). Its residual allowlist limits are risk MR-15.
+
+
+---
+
+## DEC-GOV-02 — Portal Template Runtime Testing & Odoo 17 Compatibility Checks
+
+**Date:** 2026-11-20
+**Type:** GOVERNANCE
+**Status:** ACTIVE (on merge)
+**Made By:** A1 Master Orchestrator (WP-GOV-02 implementation); sponsor-approved governance infrastructure
+
+### Decision
+Extend POD-NADF governance with two hardened acceptance rules:
+
+1. **Portal template rule:** Any WP adding or modifying `*/portal_templates.xml`, `*/templates/vendor_portal.xml`, or `*/controllers/portal.py` must include at least one `HttpCase` test (`@tagged('portal', '-at_install')`) authenticating a portal user and GETting the affected route. G2 must REJECT — not APPROVED_WITH_CONDITIONS — if the test is absent.
+
+2. **Odoo 17 compat check:** `scripts/pre_review_check.py` added with a git-diff-scoped scanner for 6 known Odoo 16→17 breaking patterns (documented in `docs/ODOO17_BREAKING_CHANGES.md`). `make pre-review` runs this check. The G1 reviewer prompt in `.governance.json` (`g1_checklist.odoo17_compat`) requires G1 to REJECT if any undocumented pattern is found.
+
+### Context
+Motivated by FERMA OQ-24 (`portal.portal_my_home_entry` non-existent in Odoo 17 causing portal regression) and cross-pod governance hardening (SPEC-GOV-ENF-001). NADF already has `nadf_vendor_onboarding` with `controllers/portal.py` and `templates/vendor_portal.xml` — the portal template rule applies retroactively as a go-forward gate.
+
+### Rationale
+- Portal routes are integration-tested only via HttpCase (not TransactionCase); the rule ensures future portal WPs cannot pass G2 without a live-request test.
+- Git-diff-scoped static analysis avoids false positives from unchanged code while catching regressions in the diff.
+
+### Consequences
+- `CLAUDE.md` updated with portal template rule and pre-review gate.
+- `Makefile` added with `pre-review` and `test-portal` targets.
+- `.governance.json` extended with `acceptance_rules.portal_template_rule` and `g1_checklist.odoo17_compat` (project-local extensions, not parsed by govcore.py; read by reviewers).
+- `scripts/pre_review_check.py` added (new).
+- `docs/ODOO17_BREAKING_CHANGES.md` added (new).
+- Existing portal code in `nadf_vendor_onboarding` has no HttpCase test — the rule applies to future WPs that touch portal files. A dedicated portal test for the vendor registration route is tracked as a future item.
