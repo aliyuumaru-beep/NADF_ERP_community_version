@@ -261,4 +261,6 @@
 - Updated `CLAUDE.md` working rules: portal template rule (G2 must REJECT if HttpCase absent on portal WPs) and pre-review gate.
 - Added `docs/ODOO17_BREAKING_CHANGES.md` — 6-pattern compat reference table, no NADF exceptions.
 - Updated governance docs: `CHANGELOG.md`, `IMPLEMENTATION_HISTORY.md`, `PROJECT_STATE.md`, `docs/DECISION_LOG.md` (DEC-GOV-02), `ROADMAP.md`, `planning/ROADMAP.md`.
-- G1/G2/G3 reviews pending — branch `fix/governance-portal-compat-nadf`.
+- G1/G2/G3 review round 1 (2026-11-20): G1 APPROVED_WITH_CONDITIONS (pre-existing `<tree>` exceptions, GAR, MODULE_REGISTRY), G2 APPROVED_WITH_CONDITIONS (GAR, NEXT_ACTION, DECISION_LOG header, test imports), G3 ESCALATE (scope includes DEC-GOV-ENF-001 artefacts — resolved by documenting PR #15 superseded).
+- G1/G2/G3 review round 2 (2026-11-20): G1 APPROVED_WITH_CONDITIONS (Makefile `|| true` comment), G2 APPROVED_WITH_CONDITIONS (GAR register period, IMPLEMENTATION_HISTORY verdicts, Makefile comment), G3 APPROVED_WITH_CONDITIONS (`|| true` must be removed).
+- G1/G2/G3 review round 3 (2026-11-20): G1 APPROVED_WITH_CONDITIONS (Makefile `|| true` annotation), G2 APPROVED_WITH_CONDITIONS (GAR register period, IMPLEMENTATION_HISTORY verdicts), G3 APPROVED_WITH_CONDITIONS (`|| true` removal + guard).

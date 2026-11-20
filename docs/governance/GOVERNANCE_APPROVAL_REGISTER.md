@@ -10,7 +10,7 @@
 **Consultant:** Lanasoft Technologies
 **Version:** 1.6
 **Date Initialised:** 2026-06-26
-**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-11-13 (Present)
+**Register Period:** 2026-06-02 (Legacy Phase 0) — 2026-11-20 (Present)
 **Maintained by:** A1 Master Orchestrator — NADF
 **Classification:** Executive — Governance
 
