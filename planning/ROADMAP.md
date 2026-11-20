@@ -61,6 +61,7 @@
 - `.governance.json` — `acceptance_rules.portal_template_rule` + `g1_checklist.odoo17_compat`
 - `scripts/pre_review_check.py` — new: static Odoo 16→17 compat scanner (git diff-scoped) + manifest/XML checks
 - `docs/ODOO17_BREAKING_CHANGES.md` — new: 6-pattern reference table
+- *(Also carries DEC-GOV-ENF-001 governance gateway onboarding artefacts — supersedes `chore/governance-onboarding` / PR #15; see `docs/DECISION_LOG.md#DEC-GOV-ENF-001`.)*
 
 **Exit criteria:**
 - G1, G2, G3 APPROVE

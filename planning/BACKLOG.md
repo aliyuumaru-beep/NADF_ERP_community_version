@@ -31,6 +31,7 @@
 | BL-GOV-07 | CI workflow created and active | CA-14 | SH | 0 | Done | BL-GOV-06 | D-0.2 |
 | BL-GOV-08 | DEC-PLATFORM-001 logged in Decision Log | CA-14 | MH | 0 | Done | BL-GOV-02 | D-0.5 |
 | BL-GOV-09 | Document session start and end rules in `docs/PRODUCT_STATE_INDEX.md` | CA-14 | MH | 0 | Done | BL-GOV-04 | Session rules committed to repo |
+| BL-COMPAT-01 | Rename `<tree>` → `<list>` in `nadf_vendor_onboarding` (2 occurrences) and `nadf_facilities_management` (11+ occurrences) views — Odoo 17 compat technical debt; tracked per `docs/ODOO17_BREAKING_CHANGES.md` | CA-14 | ML | 0 | Not Started | WP-GOV-02 merged | docs/ODOO17_BREAKING_CHANGES.md |
 
 ---
 
