@@ -153,17 +153,18 @@ def check_odoo17_compat():
                     issue(path, i, f'Odoo 17 compat: {msg}')
 
 
-# ── Run all checks ───────────────────────────────────────────────────────────
-check_manifests()
-check_xml()
-check_no_secrets()
-check_odoo17_compat()
+if __name__ == '__main__':
+    # ── Run all checks ───────────────────────────────────────────────────────
+    check_manifests()
+    check_xml()
+    check_no_secrets()
+    check_odoo17_compat()
 
-if ISSUES:
-    print(f'Pre-review: {len(ISSUES)} issue(s) found — fix before gov review:\n')
-    for msg in ISSUES:
-        print(msg)
-    sys.exit(1)
-else:
-    print('Pre-review: clean. Safe to run gov review.')
-    sys.exit(0)
+    if ISSUES:
+        print(f'Pre-review: {len(ISSUES)} issue(s) found — fix before gov review:\n')
+        for msg in ISSUES:
+            print(msg)
+        sys.exit(1)
+    else:
+        print('Pre-review: clean. Safe to run gov review.')
+        sys.exit(0)

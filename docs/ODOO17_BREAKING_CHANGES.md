@@ -45,8 +45,8 @@ no diff (e.g., from main after merge), these may surface.
 
 | Module | Files | Pattern | Violation count | Remediation |
 |--------|-------|---------|-----------------|-------------|
-| `nadf_vendor_onboarding` | `views/vendor_application_views.xml` | `<tree` | 2 | Track for `<list>` rename — future portal/vendor WP |
-| `nadf_facilities_management` | `views/fm_maintenance_plan_views.xml`, `fm_maintenance_schedule_views.xml`, `fm_contractor_views.xml`, `fm_job_complaint_views.xml`, `fm_consumable_request_views.xml`, `fm_inventory_report_views.xml`, `fm_job_order_views.xml` | `<tree` | 11+ | Track for `<list>` rename — future FM WP |
+| `nadf_vendor_onboarding` | `views/vendor_application_views.xml` | `<tree` | 2 | Track for `<list>` rename — future portal/vendor WP (see BACKLOG: `BL-COMPAT-01`) |
+| `nadf_facilities_management` | `views/fm_maintenance_plan_views.xml`, `fm_maintenance_schedule_views.xml`, `fm_contractor_views.xml`, `fm_job_complaint_views.xml`, `fm_consumable_request_views.xml`, `fm_inventory_report_views.xml`, `fm_job_order_views.xml` | `<tree` | 11+ | Track for `<list>` rename — future FM WP (see BACKLOG: `BL-COMPAT-01`) |
 
 These are pre-WP-GOV-02 technical debt items, not new regressions introduced by
 this work package. Odoo 17 currently accepts both `<tree>` and `<list>` (the
