@@ -30,8 +30,8 @@
 
 | Metric | Count |
 |--------|-------|
-| **Total Decisions** | **34** |
-| Active | 31 |
+| **Total Decisions** | **35** |
+| Active | 32 |
 | Open (Escalation) | 0 |
 | Deferred | 2 |
 | Closed | 1 |
@@ -288,6 +288,7 @@
 | DEC-OCA-02-RES | `docs/DECISION_LOG.md#DEC-OCA-02-RES` | Wave C | `MODULE_REGISTRY.md` · `docs/governance/DEC_OCA_02_GOVERNANCE_REVIEW.md` |
 | DEC-WP02C-001 | `docs/DECISION_LOG.md#DEC-WP02C-001` | Wave C — WP02-07 | `IMPLEMENTATION_HISTORY.md` |
 | DEC-GOV-ENF-001 | `docs/DECISION_LOG.md#DEC-GOV-ENF-001` | Cross-cutting | `software-factory-governance/enforcement/SPEC.md` |
+| DEC-GOV-02 | `docs/DECISION_LOG.md#DEC-GOV-02` | Cross-cutting | `docs/ODOO17_BREAKING_CHANGES.md` · `scripts/pre_review_check.py` |
 
 ---
 
@@ -302,11 +303,12 @@
 | 2026-06-29 | A1 Master Orchestrator | 1.4 | Wave C exit gate: DEC-OCA-02-RES (ICT) + DEC-WP02C-001 (Finance) added. DEC-OCA-02 status Open → Closed. ESC-OCA-02 resolved. Dept totals corrected (Finance 4→5; ICT 10→11; Total 29→33). Executive Summary updated (Total 31→33; Active 28→30; Open 1→0; Closed 0→1). M1-CPC CONDITIONAL PASS recorded. Register period end date updated to 2026-06-29. | Wave C — DEC-OCA-02 Resolution + WP02-07 Budget Control + Backlog Reconciliation |
 
 | 2026-11-13 | Claude Opus 5.5 (sponsor directive) | 1.5 | DEC-GOV-ENF-001 added to Executive Governance. Totals 33→34, Active 30→31. NOTE: DEC-FM-001..003 (Facilities Management, PR #14) are still to be added when PR #14 passes the governance gate. | DEC-GOV-ENF-001 — governance gateway onboarding |
+| 2026-11-20 | Claude Sonnet 4.6 (WP-GOV-02) | 1.6 | DEC-GOV-02 added to Executive Governance section; Cross-Reference Index extended. Executive Governance 5→6; Total 34→35; Active 31→32. | WP-GOV-02 — portal template rule + Odoo 17 compat hardening |
 
 ---
 
 *Governance Approval Register — NADF ERP Programme*
-*Document ID: GAR-NADF-001 · Version 1.5*
+*Document ID: GAR-NADF-001 · Version 1.6*
 *Maintained by A1 Master Orchestrator — POD-NADF*
 *Software Factory Governance Standard AOP-015 — Mandatory Artifact*
 *Authority: `software-factory-governance/templates/GOVERNANCE_APPROVAL_REGISTER_TEMPLATE.md`*

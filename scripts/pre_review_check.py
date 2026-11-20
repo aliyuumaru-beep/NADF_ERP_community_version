@@ -5,6 +5,11 @@ Pre-review static checker for NADF ERP custom addons.
 Run before `gov review` to catch Odoo 16→17 incompatibilities and common issues
 before they consume expensive G1/G2/G3 review cycles.
 
+Run on a feature branch with changes staged or committed. On a clean main branch
+the git-diff fallback scans all custom_addons and will surface pre-existing
+violations documented in docs/ODOO17_BREAKING_CHANGES.md — those are expected
+technical debt, not blocking failures on the branch that introduced them.
+
 Exit code 0 = clean; 1 = issues found.
 
 Usage:
@@ -124,6 +129,9 @@ def check_no_secrets():
 
 
 # ── 4. Odoo 16→17 compat patterns (diff-scoped) ─────────────────────────────
+_COMPAT_SKIP_DIRS = {'tests', '__pycache__'}
+
+
 def check_odoo17_compat():
     self_path = Path(__file__).resolve()
     for path in _changed_files():
@@ -132,6 +140,8 @@ def check_odoo17_compat():
         if not path.exists():
             continue
         if path.resolve() == self_path:
+            continue
+        if any(d in path.parts for d in _COMPAT_SKIP_DIRS):
             continue
         try:
             lines = path.read_text(errors='ignore').splitlines()

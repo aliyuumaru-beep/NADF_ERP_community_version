@@ -1,9 +1,10 @@
 # NADF ERP — Next Action
 
-**Last updated:** 2026-11-13 (governance gateway onboarding, DEC-GOV-ENF-001. The Wave C sections below are unchanged from 2026-06-29)
+**Last updated:** 2026-11-20 (WP-GOV-02 governance hardening — portal template rule + Odoo 17 compat checks)
 
-## ⚠️ FIRST: Governance gateway (DEC-GOV-ENF-001), in order
-1. **Current:** merge `chore/governance-onboarding` (G1/G2/G3 reviewed) after the software-factory-governance gateway PR and its `gate-v1` tag.
+## ⚠️ FIRST: Governance gateway (DEC-GOV-ENF-001 + WP-GOV-02), in order
+1. **Current:** merge `fix/governance-portal-compat-nadf` (WP-GOV-02 + DEC-GOV-ENF-001; G1/G2/G3 reviewed).
+   - **NOTE:** `chore/governance-onboarding` (PR #15) is superseded by this branch — close PR #15 when merging this one. This branch was created from `chore/governance-onboarding` and includes all its artefacts plus WP-GOV-02.
 2. **WP-GOV-01 (sponsor):** provision the `CLAUDE_CODE_OAUTH_TOKEN` repo secret (`claude setup-token`, then `gh secret set`). Without it every PR's `governance / gate` fails. Then run `gov protect` to apply the `software-factory-main` ruleset (required `governance / gate`, no bypass actors). This replaces the weakened 0-approval protection.
 3. **WP-FM-RETRO-01 (next engineering item):** bring PR #14 (Facilities Management, DEC-FM-001..003) up to standard: retrospective spec, role × state × action matrix, PROJECT_STATE/GAR/RISK_REGISTER entries, `gov review`, then the gate. Its live-DB changes (consumables seed, contractor login, James's email) are already applied and must be documented.
 4. **Ops deviation:** since the 2026-11-11 migration, live NADF has been started on port 8069 (FamOil's port per DEC-008). Restart it on 8071.
