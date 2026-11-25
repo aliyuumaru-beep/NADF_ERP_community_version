@@ -86,7 +86,7 @@
 **Backlog items:** BL-COMPAT-01 (created by this WP)
 **Phase:** 0
 **Complexity:** Medium
-**Status:** Complete (pending merge — branch `fix/governance-portal-compat-nadf`; G1 APPROVED, G2/G3 APPROVED_WITH_CONDITIONS round 6)
+**Status:** Complete (pending merge — branch `fix/governance-portal-compat-nadf`; G1 APPROVED round 6, G2 APPROVED_WITH_CONDITIONS round 6, G3 APPROVED round 6; portal sentinel test added)
 **Decision:** DEC-GOV-02 (see `docs/DECISION_LOG.md`)
 
 > **Note:** This WP uses the WP-GOV-02 identifier. The scaffold-era Platform Audit and Correction work is renamed WP-GOV-02A (SCAFFOLD) above to avoid collision.
