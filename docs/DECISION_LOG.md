@@ -975,4 +975,4 @@ Motivated by FERMA OQ-24 (`portal.portal_my_home_entry` non-existent in Odoo 17 
 - `.governance.json` extended with `acceptance_rules.portal_template_rule` and `g1_checklist.odoo17_compat` (project-local extensions, not parsed by govcore.py; read by reviewers).
 - `scripts/pre_review_check.py` added (new).
 - `docs/ODOO17_BREAKING_CHANGES.md` added (new).
-- Existing portal code in `nadf_vendor_onboarding` has no HttpCase test — the rule applies to future WPs that touch portal files. A dedicated portal test for the vendor registration route is tracked as a future item.
+- `TestVendorPortalSentinel` was added in this WP (commit `5e6217b`, `nadf_vendor_onboarding/tests/test_portal_sentinel.py`) as a governance sentinel to give `make test-portal` a guaranteed tag match. It tests the public (unauthenticated) `GET /vendor/register` route. Per the CLAUDE.md portal template rule exception, this sentinel does **not** satisfy the authenticated-HttpCase requirement for future portal WPs — those must add their own HttpCase that authenticates a portal user. The sentinel is explicitly excluded from serving as a template for future portal tests.
