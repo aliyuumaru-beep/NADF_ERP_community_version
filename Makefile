@@ -28,10 +28,10 @@ pre-review:
 test-portal:
 	@if [ "$(DB)" = "NADF" ]; then echo "ERROR: Do not run test-portal against the live NADF database. Use DB=nadf_drill or another drill copy." >&2; exit 1; fi
 	@echo "Running portal HttpCase smoke tests on DB=$(DB) …"
-	@echo "NOTE: No portal HttpCase tests registered yet — target is ready for future portal WPs."
-	@echo "      When the first portal HttpCase test is added, verify this target exits 0 on pass"
-	@echo "      and non-zero on failure. If Odoo exits non-zero when no tests match --test-tags,"
-	@echo "      add an explicit empty-test sentinel rather than using '|| true'"
+	@echo "NOTE: Governance sentinel (TestVendorPortalSentinel) registered."
+	@echo "      Future portal WPs must add HttpCase tests that authenticate a portal user"
+	@echo "      per CLAUDE.md portal template rule — do NOT copy the public-route pattern"
+	@echo "      from the sentinel."
 	$(PYTHON) $(ODOO_BIN) \
 		-d $(DB) \
 		--addons-path=$(ADDONS) \
